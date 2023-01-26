@@ -1,0 +1,1349 @@
+******************************************************************************
+*Tree    :events    : events data tree                                       *
+*Entries :   100000 : Total =      8231575853 bytes  File  Size = 1545507619 *
+*        :          : Tree compression factor =   5.33                       *
+******************************************************************************
+*Br    0 :Muon#0    : Int_t Muon#0_                                          *
+*Entries :   100000 : Total  Size=     809963 bytes  File Size  =     202264 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   3.98     *
+*............................................................................*
+*Br    1 :Muon#0.index : Int_t index[Muon#0_]                                *
+*Entries :   100000 : Total  Size=     598279 bytes  File Size  =     163537 *
+*Baskets :       52 : Basket Size=      28160 bytes  Compression=   3.65     *
+*............................................................................*
+*Br    2 :Muon#0.collectionID : Int_t collectionID[Muon#0_]                  *
+*Entries :   100000 : Total  Size=     598671 bytes  File Size  =      90790 *
+*Baskets :       52 : Basket Size=      28160 bytes  Compression=   6.58     *
+*............................................................................*
+*Br    3 :ReconstructedParticles : Int_t ReconstructedParticles_             *
+*Entries :   100000 : Total  Size=     854613 bytes  File Size  =     295753 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.72     *
+*............................................................................*
+*Br    4 :ReconstructedParticles.type : Int_t type[ReconstructedParticles_]  *
+*Entries :   100000 : Total  Size=   40703559 bytes  File Size  =    1383004 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=  29.43     *
+*............................................................................*
+*Br    5 :ReconstructedParticles.energy :                                    *
+*         | Float_t energy[ReconstructedParticles_]                          *
+*Entries :   100000 : Total  Size=   40703719 bytes  File Size  =   37303194 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=   1.09     *
+*............................................................................*
+*Br    6 :ReconstructedParticles.momentum.x :                                *
+*         | Float_t x[ReconstructedParticles_]                               *
+*Entries :   100000 : Total  Size=   40704021 bytes  File Size  =   38475670 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=   1.06     *
+*............................................................................*
+*Br    7 :ReconstructedParticles.momentum.y :                                *
+*         | Float_t y[ReconstructedParticles_]                               *
+*Entries :   100000 : Total  Size=   40704021 bytes  File Size  =   38474133 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=   1.06     *
+*............................................................................*
+*Br    8 :ReconstructedParticles.momentum.z :                                *
+*         | Float_t z[ReconstructedParticles_]                               *
+*Entries :   100000 : Total  Size=   40704021 bytes  File Size  =   38491401 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=   1.06     *
+*............................................................................*
+*Br    9 :ReconstructedParticles.referencePoint.x :                          *
+*         | Float_t x[ReconstructedParticles_]                               *
+*Entries :   100000 : Total  Size=   40704489 bytes  File Size  =     518350 *
+*Baskets :       76 : Basket Size=     861696 bytes  Compression=  78.52     *
+*............................................................................*
+*Br   10 :ReconstructedParticles.referencePoint.y :                          *
+*         | Float_t y[ReconstructedParticles_]                               *
+*Entries :   100000 : Total  Size=   40704489 bytes  File Size  =     518350 *
+*Baskets :       76 : Basket Size=     861696 bytes  Compression=  78.52     *
+*............................................................................*
+*Br   11 :ReconstructedParticles.referencePoint.z :                          *
+*         | Float_t z[ReconstructedParticles_]                               *
+*Entries :   100000 : Total  Size=   40704489 bytes  File Size  =     518350 *
+*Baskets :       76 : Basket Size=     861696 bytes  Compression=  78.52     *
+*............................................................................*
+*Br   12 :ReconstructedParticles.charge :                                    *
+*         | Float_t charge[ReconstructedParticles_]                          *
+*Entries :   100000 : Total  Size=   40703719 bytes  File Size  =    3070157 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=  13.26     *
+*............................................................................*
+*Br   13 :ReconstructedParticles.mass : Float_t mass[ReconstructedParticles_]*
+*Entries :   100000 : Total  Size=   40703559 bytes  File Size  =   21360145 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=   1.91     *
+*............................................................................*
+*Br   14 :ReconstructedParticles.goodnessOfPID :                             *
+*         | Float_t goodnessOfPID[ReconstructedParticles_]                   *
+*Entries :   100000 : Total  Size=   40704279 bytes  File Size  =     518484 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=  78.50     *
+*............................................................................*
+*Br   15 :ReconstructedParticles.covMatrix[10] :                             *
+*         | Float_t covMatrix[ReconstructedParticles_]                       *
+*Entries :   100000 : Total  Size=  403384957 bytes  File Size  =    2148710 *
+*Baskets :      362 : Basket Size=    4280320 bytes  Compression= 187.73     *
+*............................................................................*
+*Br   16 :ReconstructedParticles.clusters_begin :                            *
+*         | UInt_t clusters_begin[ReconstructedParticles_]                   *
+*Entries :   100000 : Total  Size=   40704359 bytes  File Size  =    1367010 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=  29.77     *
+*............................................................................*
+*Br   17 :ReconstructedParticles.clusters_end :                              *
+*         | UInt_t clusters_end[ReconstructedParticles_]                     *
+*Entries :   100000 : Total  Size=   40704199 bytes  File Size  =    1367564 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=  29.76     *
+*............................................................................*
+*Br   18 :ReconstructedParticles.tracks_begin :                              *
+*         | UInt_t tracks_begin[ReconstructedParticles_]                     *
+*Entries :   100000 : Total  Size=   40704199 bytes  File Size  =    1418673 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=  28.69     *
+*............................................................................*
+*Br   19 :ReconstructedParticles.tracks_end :                                *
+*         | UInt_t tracks_end[ReconstructedParticles_]                       *
+*Entries :   100000 : Total  Size=   40704039 bytes  File Size  =    1402819 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=  29.01     *
+*............................................................................*
+*Br   20 :ReconstructedParticles.particles_begin :                           *
+*         | UInt_t particles_begin[ReconstructedParticles_]                  *
+*Entries :   100000 : Total  Size=   40704439 bytes  File Size  =     518616 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=  78.48     *
+*............................................................................*
+*Br   21 :ReconstructedParticles.particles_end :                             *
+*         | UInt_t particles_end[ReconstructedParticles_]                    *
+*Entries :   100000 : Total  Size=   40704279 bytes  File Size  =     518484 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=  78.50     *
+*............................................................................*
+*Br   22 :ReconstructedParticles.particleIDs_begin :                         *
+*         | UInt_t particleIDs_begin[ReconstructedParticles_]                *
+*Entries :   100000 : Total  Size=   40704599 bytes  File Size  =    1419638 *
+*Baskets :       76 : Basket Size=     861696 bytes  Compression=  28.67     *
+*............................................................................*
+*Br   23 :ReconstructedParticles.particleIDs_end :                           *
+*         | UInt_t particleIDs_end[ReconstructedParticles_]                  *
+*Entries :   100000 : Total  Size=   40704439 bytes  File Size  =    1403285 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=  29.01     *
+*............................................................................*
+*Br   24 :ReconstructedParticles#0 : Int_t ReconstructedParticles#0_         *
+*Entries :   100000 : Total  Size=     811671 bytes  File Size  =     288116 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.79     *
+*............................................................................*
+*Br   25 :ReconstructedParticles#0.index :                                   *
+*         | Int_t index[ReconstructedParticles#0_]                           *
+*Entries :   100000 : Total  Size=   21948230 bytes  File Size  =    1327010 *
+*Baskets :       65 : Basket Size=     470016 bytes  Compression=  16.54     *
+*............................................................................*
+*Br   26 :ReconstructedParticles#0.collectionID :                            *
+*         | Int_t collectionID[ReconstructedParticles#0_]                    *
+*Entries :   100000 : Total  Size=   21948713 bytes  File Size  =     938432 *
+*Baskets :       65 : Basket Size=     470528 bytes  Compression=  23.39     *
+*............................................................................*
+*Br   27 :ReconstructedParticles#1 : Int_t ReconstructedParticles#1_         *
+*Entries :   100000 : Total  Size=     811591 bytes  File Size  =     282112 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.85     *
+*............................................................................*
+*Br   28 :ReconstructedParticles#1.index :                                   *
+*         | Int_t index[ReconstructedParticles#1_]                           *
+*Entries :   100000 : Total  Size=   19162700 bytes  File Size  =     827002 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  23.17     *
+*............................................................................*
+*Br   29 :ReconstructedParticles#1.collectionID :                            *
+*         | Int_t collectionID[ReconstructedParticles#1_]                    *
+*Entries :   100000 : Total  Size=   19163169 bytes  File Size  =     391182 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  48.98     *
+*............................................................................*
+*Br   30 :ReconstructedParticles#2 : Int_t ReconstructedParticles#2_         *
+*Entries :   100000 : Total  Size=     811151 bytes  File Size  =     131498 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.12     *
+*............................................................................*
+*Br   31 :ReconstructedParticles#2.index :                                   *
+*         | Int_t index[ReconstructedParticles#2_]                           *
+*Entries :   100000 : Total  Size=     407127 bytes  File Size  =       9149 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  44.33     *
+*............................................................................*
+*Br   32 :ReconstructedParticles#2.collectionID :                            *
+*         | Int_t collectionID[ReconstructedParticles#2_]                    *
+*Entries :   100000 : Total  Size=     407519 bytes  File Size  =       9513 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  42.67     *
+*............................................................................*
+*Br   33 :ReconstructedParticles#3 : Int_t ReconstructedParticles#3_         *
+*Entries :   100000 : Total  Size=     811591 bytes  File Size  =     282112 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.85     *
+*............................................................................*
+*Br   34 :ReconstructedParticles#3.index :                                   *
+*         | Int_t index[ReconstructedParticles#3_]                           *
+*Entries :   100000 : Total  Size=   19162700 bytes  File Size  =     827002 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  23.17     *
+*............................................................................*
+*Br   35 :ReconstructedParticles#3.collectionID :                            *
+*         | Int_t collectionID[ReconstructedParticles#3_]                    *
+*Entries :   100000 : Total  Size=   19163169 bytes  File Size  =     391139 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  48.99     *
+*............................................................................*
+*Br   36 :ReconstructedParticles#4 : Int_t ReconstructedParticles#4_         *
+*Entries :   100000 : Total  Size=     812111 bytes  File Size  =     296087 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.72     *
+*............................................................................*
+*Br   37 :ReconstructedParticles#4.index :                                   *
+*         | Int_t index[ReconstructedParticles#4_]                           *
+*Entries :   100000 : Total  Size=   40703803 bytes  File Size  =     537446 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=  75.73     *
+*............................................................................*
+*Br   38 :ReconstructedParticles#4.collectionID :                            *
+*         | Int_t collectionID[ReconstructedParticles#4_]                    *
+*Entries :   100000 : Total  Size=   40704363 bytes  File Size  =     538013 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=  75.65     *
+*............................................................................*
+*Br   39 :ReconstructedParticles#5 : Int_t ReconstructedParticles#5_         *
+*Entries :   100000 : Total  Size=     812111 bytes  File Size  =     296087 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.72     *
+*............................................................................*
+*Br   40 :ReconstructedParticles#5.index :                                   *
+*         | Int_t index[ReconstructedParticles#5_]                           *
+*Entries :   100000 : Total  Size=   40703803 bytes  File Size  =     537446 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=  75.73     *
+*............................................................................*
+*Br   41 :ReconstructedParticles#5.collectionID :                            *
+*         | Int_t collectionID[ReconstructedParticles#5_]                    *
+*Entries :   100000 : Total  Size=   40704363 bytes  File Size  =     538013 *
+*Baskets :       76 : Basket Size=     861184 bytes  Compression=  75.65     *
+*............................................................................*
+*Br   42 :Jet       : Int_t Jet_                                             *
+*Entries :   100000 : Total  Size=     837171 bytes  File Size  =     195190 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   4.12     *
+*............................................................................*
+*Br   43 :Jet.type  : Int_t type[Jet_]                                       *
+*Entries :   100000 : Total  Size=    1467422 bytes  File Size  =     175806 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   8.34     *
+*............................................................................*
+*Br   44 :Jet.energy : Float_t energy[Jet_]                                  *
+*Entries :   100000 : Total  Size=    1467536 bytes  File Size  =    1115865 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   1.31     *
+*............................................................................*
+*Br   45 :Jet.momentum.x : Float_t x[Jet_]                                   *
+*Entries :   100000 : Total  Size=    1467746 bytes  File Size  =    1177458 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   1.25     *
+*............................................................................*
+*Br   46 :Jet.momentum.y : Float_t y[Jet_]                                   *
+*Entries :   100000 : Total  Size=    1467746 bytes  File Size  =    1177472 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   1.25     *
+*............................................................................*
+*Br   47 :Jet.momentum.z : Float_t z[Jet_]                                   *
+*Entries :   100000 : Total  Size=    1467746 bytes  File Size  =    1175917 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   1.25     *
+*............................................................................*
+*Br   48 :Jet.referencePoint.x : Float_t x[Jet_]                             *
+*Entries :   100000 : Total  Size=    1468076 bytes  File Size  =     176471 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   8.31     *
+*............................................................................*
+*Br   49 :Jet.referencePoint.y : Float_t y[Jet_]                             *
+*Entries :   100000 : Total  Size=    1468076 bytes  File Size  =     176471 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   8.31     *
+*............................................................................*
+*Br   50 :Jet.referencePoint.z : Float_t z[Jet_]                             *
+*Entries :   100000 : Total  Size=    1468076 bytes  File Size  =     176471 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   8.31     *
+*............................................................................*
+*Br   51 :Jet.charge : Float_t charge[Jet_]                                  *
+*Entries :   100000 : Total  Size=    1467536 bytes  File Size  =     339033 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   4.32     *
+*............................................................................*
+*Br   52 :Jet.mass  : Float_t mass[Jet_]                                     *
+*Entries :   100000 : Total  Size=    1467422 bytes  File Size  =    1140175 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   1.29     *
+*............................................................................*
+*Br   53 :Jet.goodnessOfPID : Float_t goodnessOfPID[Jet_]                    *
+*Entries :   100000 : Total  Size=    1467935 bytes  File Size  =     176183 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   8.32     *
+*............................................................................*
+*Br   54 :Jet.covMatrix[10] : Float_t covMatrix[Jet_]                        *
+*Entries :   100000 : Total  Size=   11021669 bytes  File Size  =     286018 *
+*Baskets :       58 : Basket Size=     245760 bytes  Compression=  38.53     *
+*............................................................................*
+*Br   55 :Jet.clusters_begin : UInt_t clusters_begin[Jet_]                   *
+*Entries :   100000 : Total  Size=    1467992 bytes  File Size  =     176307 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   8.32     *
+*............................................................................*
+*Br   56 :Jet.clusters_end : UInt_t clusters_end[Jet_]                       *
+*Entries :   100000 : Total  Size=    1467878 bytes  File Size  =     176206 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   8.32     *
+*............................................................................*
+*Br   57 :Jet.tracks_begin : UInt_t tracks_begin[Jet_]                       *
+*Entries :   100000 : Total  Size=    1467878 bytes  File Size  =     176206 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   8.32     *
+*............................................................................*
+*Br   58 :Jet.tracks_end : UInt_t tracks_end[Jet_]                           *
+*Entries :   100000 : Total  Size=    1467764 bytes  File Size  =     176074 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   8.33     *
+*............................................................................*
+*Br   59 :Jet.particles_begin : UInt_t particles_begin[Jet_]                 *
+*Entries :   100000 : Total  Size=    1468049 bytes  File Size  =     529948 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   2.77     *
+*............................................................................*
+*Br   60 :Jet.particles_end : UInt_t particles_end[Jet_]                     *
+*Entries :   100000 : Total  Size=    1467935 bytes  File Size  =     594376 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   2.47     *
+*............................................................................*
+*Br   61 :Jet.particleIDs_begin : UInt_t particleIDs_begin[Jet_]             *
+*Entries :   100000 : Total  Size=    1468163 bytes  File Size  =     278495 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   5.27     *
+*............................................................................*
+*Br   62 :Jet.particleIDs_end : UInt_t particleIDs_end[Jet_]                 *
+*Entries :   100000 : Total  Size=    1468049 bytes  File Size  =     276092 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   5.31     *
+*............................................................................*
+*Br   63 :Jet#0     : Int_t Jet#0_                                           *
+*Entries :   100000 : Total  Size=     809897 bytes  File Size  =     130512 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.16     *
+*............................................................................*
+*Br   64 :Jet#0.index : Int_t index[Jet#0_]                                  *
+*Entries :   100000 : Total  Size=     406025 bytes  File Size  =       8160 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  49.58     *
+*............................................................................*
+*Br   65 :Jet#0.collectionID : Int_t collectionID[Jet#0_]                    *
+*Entries :   100000 : Total  Size=     406417 bytes  File Size  =       8524 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  47.51     *
+*............................................................................*
+*Br   66 :Jet#1     : Int_t Jet#1_                                           *
+*Entries :   100000 : Total  Size=     809897 bytes  File Size  =     130512 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.16     *
+*............................................................................*
+*Br   67 :Jet#1.index : Int_t index[Jet#1_]                                  *
+*Entries :   100000 : Total  Size=     406025 bytes  File Size  =       8160 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  49.58     *
+*............................................................................*
+*Br   68 :Jet#1.collectionID : Int_t collectionID[Jet#1_]                    *
+*Entries :   100000 : Total  Size=     406417 bytes  File Size  =       8524 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  47.51     *
+*............................................................................*
+*Br   69 :Jet#2     : Int_t Jet#2_                                           *
+*Entries :   100000 : Total  Size=     810857 bytes  File Size  =     294939 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.73     *
+*............................................................................*
+*Br   70 :Jet#2.index : Int_t index[Jet#2_]                                  *
+*Entries :   100000 : Total  Size=   40513909 bytes  File Size  =   14685847 *
+*Baskets :       76 : Basket Size=     857088 bytes  Compression=   2.76     *
+*............................................................................*
+*Br   71 :Jet#2.collectionID : Int_t collectionID[Jet#2_]                    *
+*Entries :   100000 : Total  Size=   40514469 bytes  File Size  =     535504 *
+*Baskets :       76 : Basket Size=     857088 bytes  Compression=  75.65     *
+*............................................................................*
+*Br   72 :Jet#3     : Int_t Jet#3_                                           *
+*Entries :   100000 : Total  Size=     809937 bytes  File Size  =     195406 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   4.12     *
+*............................................................................*
+*Br   73 :Jet#3.index : Int_t index[Jet#3_]                                  *
+*Entries :   100000 : Total  Size=    1467597 bytes  File Size  =     425635 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   3.44     *
+*............................................................................*
+*Br   74 :Jet#3.collectionID : Int_t collectionID[Jet#3_]                    *
+*Entries :   100000 : Total  Size=    1467996 bytes  File Size  =     177161 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   8.28     *
+*............................................................................*
+*Br   75 :Jet#4     : Int_t Jet#4_                                           *
+*Entries :   100000 : Total  Size=     809937 bytes  File Size  =     195406 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   4.12     *
+*............................................................................*
+*Br   76 :Jet#4.index : Int_t index[Jet#4_]                                  *
+*Entries :   100000 : Total  Size=    1467597 bytes  File Size  =     175355 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   8.36     *
+*............................................................................*
+*Br   77 :Jet#4.collectionID : Int_t collectionID[Jet#4_]                    *
+*Entries :   100000 : Total  Size=    1467996 bytes  File Size  =     177277 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   8.27     *
+*............................................................................*
+*Br   78 :Jet#5     : Int_t Jet#5_                                           *
+*Entries :   100000 : Total  Size=     809937 bytes  File Size  =     195406 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   4.12     *
+*............................................................................*
+*Br   79 :Jet#5.index : Int_t index[Jet#5_]                                  *
+*Entries :   100000 : Total  Size=    1467597 bytes  File Size  =     175355 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   8.36     *
+*............................................................................*
+*Br   80 :Jet#5.collectionID : Int_t collectionID[Jet#5_]                    *
+*Entries :   100000 : Total  Size=    1467996 bytes  File Size  =     177277 *
+*Baskets :       53 : Basket Size=      46080 bytes  Compression=   8.27     *
+*............................................................................*
+*Br   81 :MissingET : Int_t MissingET_                                       *
+*Entries :   100000 : Total  Size=     837539 bytes  File Size  =     130876 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.15     *
+*............................................................................*
+*Br   82 :MissingET.type : Int_t type[MissingET_]                            *
+*Entries :   100000 : Total  Size=     806201 bytes  File Size  =     130877 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.15     *
+*............................................................................*
+*Br   83 :MissingET.energy : Float_t energy[MissingET_]                      *
+*Entries :   100000 : Total  Size=     806313 bytes  File Size  =     532072 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   1.51     *
+*............................................................................*
+*Br   84 :MissingET.momentum.x : Float_t x[MissingET_]                       *
+*Entries :   100000 : Total  Size=     806519 bytes  File Size  =     546456 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   1.47     *
+*............................................................................*
+*Br   85 :MissingET.momentum.y : Float_t y[MissingET_]                       *
+*Entries :   100000 : Total  Size=     806519 bytes  File Size  =     546354 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   1.47     *
+*............................................................................*
+*Br   86 :MissingET.momentum.z : Float_t z[MissingET_]                       *
+*Entries :   100000 : Total  Size=     806519 bytes  File Size  =     545950 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   1.47     *
+*............................................................................*
+*Br   87 :MissingET.referencePoint.x : Float_t x[MissingET_]                 *
+*Entries :   100000 : Total  Size=     806843 bytes  File Size  =     131501 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.12     *
+*............................................................................*
+*Br   88 :MissingET.referencePoint.y : Float_t y[MissingET_]                 *
+*Entries :   100000 : Total  Size=     806843 bytes  File Size  =     131501 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.12     *
+*............................................................................*
+*Br   89 :MissingET.referencePoint.z : Float_t z[MissingET_]                 *
+*Entries :   100000 : Total  Size=     806843 bytes  File Size  =     131501 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.12     *
+*............................................................................*
+*Br   90 :MissingET.charge : Float_t charge[MissingET_]                      *
+*Entries :   100000 : Total  Size=     806313 bytes  File Size  =     131082 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.14     *
+*............................................................................*
+*Br   91 :MissingET.mass : Float_t mass[MissingET_]                          *
+*Entries :   100000 : Total  Size=     806201 bytes  File Size  =     130877 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.15     *
+*............................................................................*
+*Br   92 :MissingET.goodnessOfPID : Float_t goodnessOfPID[MissingET_]        *
+*Entries :   100000 : Total  Size=     806705 bytes  File Size  =     131237 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.14     *
+*............................................................................*
+*Br   93 :MissingET.covMatrix[10] : Float_t covMatrix[MissingET_]            *
+*Entries :   100000 : Total  Size=    4406933 bytes  File Size  =     176363 *
+*Baskets :       54 : Basket Size=     107008 bytes  Compression=  24.98     *
+*............................................................................*
+*Br   94 :MissingET.clusters_begin : UInt_t clusters_begin[MissingET_]       *
+*Entries :   100000 : Total  Size=     806761 bytes  File Size  =     131498 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.12     *
+*............................................................................*
+*Br   95 :MissingET.clusters_end : UInt_t clusters_end[MissingET_]           *
+*Entries :   100000 : Total  Size=     806649 bytes  File Size  =     131293 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.13     *
+*............................................................................*
+*Br   96 :MissingET.tracks_begin : UInt_t tracks_begin[MissingET_]           *
+*Entries :   100000 : Total  Size=     806649 bytes  File Size  =     131293 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.13     *
+*............................................................................*
+*Br   97 :MissingET.tracks_end : UInt_t tracks_end[MissingET_]               *
+*Entries :   100000 : Total  Size=     806537 bytes  File Size  =     131290 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.13     *
+*............................................................................*
+*Br   98 :MissingET.particles_begin : UInt_t particles_begin[MissingET_]     *
+*Entries :   100000 : Total  Size=     806817 bytes  File Size  =     131497 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.12     *
+*............................................................................*
+*Br   99 :MissingET.particles_end : UInt_t particles_end[MissingET_]         *
+*Entries :   100000 : Total  Size=     806705 bytes  File Size  =     131237 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.14     *
+*............................................................................*
+*Br  100 :MissingET.particleIDs_begin : UInt_t particleIDs_begin[MissingET_] *
+*Entries :   100000 : Total  Size=     806929 bytes  File Size  =     131292 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.13     *
+*............................................................................*
+*Br  101 :MissingET.particleIDs_end : UInt_t particleIDs_end[MissingET_]     *
+*Entries :   100000 : Total  Size=     806817 bytes  File Size  =     131497 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.12     *
+*............................................................................*
+*Br  102 :MissingET#0 : Int_t MissingET#0_                                   *
+*Entries :   100000 : Total  Size=     810293 bytes  File Size  =     130613 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.16     *
+*............................................................................*
+*Br  103 :MissingET#0.index : Int_t index[MissingET#0_]                      *
+*Entries :   100000 : Total  Size=     406373 bytes  File Size  =       8470 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  47.80     *
+*............................................................................*
+*Br  104 :MissingET#0.collectionID : Int_t collectionID[MissingET#0_]        *
+*Entries :   100000 : Total  Size=     406765 bytes  File Size  =       8836 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  45.86     *
+*............................................................................*
+*Br  105 :MissingET#1 : Int_t MissingET#1_                                   *
+*Entries :   100000 : Total  Size=     810293 bytes  File Size  =     130613 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.16     *
+*............................................................................*
+*Br  106 :MissingET#1.index : Int_t index[MissingET#1_]                      *
+*Entries :   100000 : Total  Size=     406373 bytes  File Size  =       8470 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  47.80     *
+*............................................................................*
+*Br  107 :MissingET#1.collectionID : Int_t collectionID[MissingET#1_]        *
+*Entries :   100000 : Total  Size=     406765 bytes  File Size  =       8836 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  45.86     *
+*............................................................................*
+*Br  108 :MissingET#2 : Int_t MissingET#2_                                   *
+*Entries :   100000 : Total  Size=     810293 bytes  File Size  =     130613 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.16     *
+*............................................................................*
+*Br  109 :MissingET#2.index : Int_t index[MissingET#2_]                      *
+*Entries :   100000 : Total  Size=     406373 bytes  File Size  =       8470 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  47.80     *
+*............................................................................*
+*Br  110 :MissingET#2.collectionID : Int_t collectionID[MissingET#2_]        *
+*Entries :   100000 : Total  Size=     406765 bytes  File Size  =       8836 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  45.86     *
+*............................................................................*
+*Br  111 :MissingET#3 : Int_t MissingET#3_                                   *
+*Entries :   100000 : Total  Size=     810293 bytes  File Size  =     130613 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.16     *
+*............................................................................*
+*Br  112 :MissingET#3.index : Int_t index[MissingET#3_]                      *
+*Entries :   100000 : Total  Size=     406373 bytes  File Size  =       8470 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  47.80     *
+*............................................................................*
+*Br  113 :MissingET#3.collectionID : Int_t collectionID[MissingET#3_]        *
+*Entries :   100000 : Total  Size=     406765 bytes  File Size  =       8836 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  45.86     *
+*............................................................................*
+*Br  114 :MissingET#4 : Int_t MissingET#4_                                   *
+*Entries :   100000 : Total  Size=     810293 bytes  File Size  =     131083 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.14     *
+*............................................................................*
+*Br  115 :MissingET#4.index : Int_t index[MissingET#4_]                      *
+*Entries :   100000 : Total  Size=     806373 bytes  File Size  =     131602 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.12     *
+*............................................................................*
+*Br  116 :MissingET#4.collectionID : Int_t collectionID[MissingET#4_]        *
+*Entries :   100000 : Total  Size=     806765 bytes  File Size  =     132071 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.10     *
+*............................................................................*
+*Br  117 :MissingET#5 : Int_t MissingET#5_                                   *
+*Entries :   100000 : Total  Size=     810293 bytes  File Size  =     131083 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.14     *
+*............................................................................*
+*Br  118 :MissingET#5.index : Int_t index[MissingET#5_]                      *
+*Entries :   100000 : Total  Size=     806373 bytes  File Size  =     131602 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.12     *
+*............................................................................*
+*Br  119 :MissingET#5.collectionID : Int_t collectionID[MissingET#5_]        *
+*Entries :   100000 : Total  Size=     806765 bytes  File Size  =     132071 *
+*Baskets :       52 : Basket Size=      32256 bytes  Compression=   6.10     *
+*............................................................................*
+*Br  120 :MCRecoAssociations : Int_t MCRecoAssociations_                     *
+*Entries :   100000 : Total  Size=     809826 bytes  File Size  =     295424 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.72     *
+*............................................................................*
+*Br  121 :MCRecoAssociations.weight : Float_t weight[MCRecoAssociations_]    *
+*Entries :   100000 : Total  Size=   40884813 bytes  File Size  =     518636 *
+*Baskets :       77 : Basket Size=     864768 bytes  Compression=  78.83     *
+*............................................................................*
+*Br  122 :MCRecoAssociations#0 : Int_t MCRecoAssociations#0_                 *
+*Entries :   100000 : Total  Size=     811887 bytes  File Size  =     295779 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.72     *
+*............................................................................*
+*Br  123 :MCRecoAssociations#0.index : Int_t index[MCRecoAssociations#0_]    *
+*Entries :   100000 : Total  Size=   40884898 bytes  File Size  =    1541479 *
+*Baskets :       77 : Basket Size=     865280 bytes  Compression=  26.52     *
+*............................................................................*
+*Br  124 :MCRecoAssociations#0.collectionID :                                *
+*         | Int_t collectionID[MCRecoAssociations#0_]                        *
+*Entries :   100000 : Total  Size=   40885465 bytes  File Size  =     538528 *
+*Baskets :       77 : Basket Size=     865280 bytes  Compression=  75.92     *
+*............................................................................*
+*Br  125 :MCRecoAssociations#1 : Int_t MCRecoAssociations#1_                 *
+*Entries :   100000 : Total  Size=     811887 bytes  File Size  =     295779 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.72     *
+*............................................................................*
+*Br  126 :MCRecoAssociations#1.index : Int_t index[MCRecoAssociations#1_]    *
+*Entries :   100000 : Total  Size=   40884898 bytes  File Size  =   15984986 *
+*Baskets :       77 : Basket Size=     865280 bytes  Compression=   2.56     *
+*............................................................................*
+*Br  127 :MCRecoAssociations#1.collectionID :                                *
+*         | Int_t collectionID[MCRecoAssociations#1_]                        *
+*Entries :   100000 : Total  Size=   40885465 bytes  File Size  =     538510 *
+*Baskets :       77 : Basket Size=     865280 bytes  Compression=  75.92     *
+*............................................................................*
+*Br  128 :ParticleIDs : Int_t ParticleIDs_                                   *
+*Entries :   100000 : Total  Size=     817813 bytes  File Size  =     281663 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.86     *
+*............................................................................*
+*Br  129 :ParticleIDs.type : Int_t type[ParticleIDs_]                        *
+*Entries :   100000 : Total  Size=   20223313 bytes  File Size  =     388759 *
+*Baskets :       64 : Basket Size=     437248 bytes  Compression=  52.02     *
+*............................................................................*
+*Br  130 :ParticleIDs.PDG : Int_t PDG[ParticleIDs_]                          *
+*Entries :   100000 : Total  Size=   20223245 bytes  File Size  =     388425 *
+*Baskets :       64 : Basket Size=     437248 bytes  Compression=  52.06     *
+*............................................................................*
+*Br  131 :ParticleIDs.algorithmType : Int_t algorithmType[ParticleIDs_]      *
+*Entries :   100000 : Total  Size=   20223925 bytes  File Size  =     389738 *
+*Baskets :       64 : Basket Size=     437248 bytes  Compression=  51.89     *
+*............................................................................*
+*Br  132 :ParticleIDs.likelihood : Float_t likelihood[ParticleIDs_]          *
+*Entries :   100000 : Total  Size=   20223721 bytes  File Size  =     389541 *
+*Baskets :       64 : Basket Size=     437248 bytes  Compression=  51.91     *
+*............................................................................*
+*Br  133 :ParticleIDs.parameters_begin :                                     *
+*         | UInt_t parameters_begin[ParticleIDs_]                            *
+*Entries :   100000 : Total  Size=   20224129 bytes  File Size  =     720011 *
+*Baskets :       64 : Basket Size=     437248 bytes  Compression=  28.09     *
+*............................................................................*
+*Br  134 :ParticleIDs.parameters_end : UInt_t parameters_end[ParticleIDs_]   *
+*Entries :   100000 : Total  Size=   20223993 bytes  File Size  =     788605 *
+*Baskets :       64 : Basket Size=     437248 bytes  Compression=  25.64     *
+*............................................................................*
+*Br  135 :ParticleIDs_0 : vector<float>                                      *
+*Entries :   100000 : Total  Size=    3529209 bytes  File Size  =     719249 *
+*Baskets :       54 : Basket Size=      89088 bytes  Compression=   4.90     *
+*............................................................................*
+*Br  136 :magFieldBz : vector<float>                                         *
+*Entries :   100000 : Total  Size=    1806000 bytes  File Size  =     162944 *
+*Baskets :       53 : Basket Size=      53248 bytes  Compression=  11.08     *
+*............................................................................*
+*Br  137 :TrackerHits : Int_t TrackerHits_                                   *
+*Entries :   100000 : Total  Size=     840922 bytes  File Size  =     281246 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.86     *
+*............................................................................*
+*Br  138 :TrackerHits.cellID : ULong_t cellID[TrackerHits_]                  *
+*Entries :   100000 : Total  Size=  112939535 bytes  File Size  =     845382 *
+*Baskets :      122 : Basket Size=    2370048 bytes  Compression= 133.59     *
+*............................................................................*
+*Br  139 :TrackerHits.type : Int_t type[TrackerHits_]                        *
+*Entries :   100000 : Total  Size=   56672687 bytes  File Size  =     597380 *
+*Baskets :       86 : Basket Size=    1196544 bytes  Compression=  94.87     *
+*............................................................................*
+*Br  140 :TrackerHits.quality : Int_t quality[TrackerHits_]                  *
+*Entries :   100000 : Total  Size=   56672957 bytes  File Size  =     596898 *
+*Baskets :       86 : Basket Size=    1197056 bytes  Compression=  94.94     *
+*............................................................................*
+*Br  141 :TrackerHits.time : Float_t time[TrackerHits_]                      *
+*Entries :   100000 : Total  Size=   56672687 bytes  File Size  =   24984683 *
+*Baskets :       86 : Basket Size=    1196544 bytes  Compression=   2.27     *
+*............................................................................*
+*Br  142 :TrackerHits.eDep : Float_t eDep[TrackerHits_]                      *
+*Entries :   100000 : Total  Size=   56672687 bytes  File Size  =     597380 *
+*Baskets :       86 : Basket Size=    1196544 bytes  Compression=  94.87     *
+*............................................................................*
+*Br  143 :TrackerHits.eDepError : Float_t eDepError[TrackerHits_]            *
+*Entries :   100000 : Total  Size=   56673137 bytes  File Size  =     597794 *
+*Baskets :       86 : Basket Size=    1197056 bytes  Compression=  94.80     *
+*............................................................................*
+*Br  144 :TrackerHits.position.x : Double_t x[TrackerHits_]                  *
+*Entries :   100000 : Total  Size=  112940021 bytes  File Size  =   70330380 *
+*Baskets :      122 : Basket Size=    2370048 bytes  Compression=   1.61     *
+*............................................................................*
+*Br  145 :TrackerHits.position.y : Double_t y[TrackerHits_]                  *
+*Entries :   100000 : Total  Size=  112940021 bytes  File Size  =   70331981 *
+*Baskets :      122 : Basket Size=    2370048 bytes  Compression=   1.61     *
+*............................................................................*
+*Br  146 :TrackerHits.position.z : Double_t z[TrackerHits_]                  *
+*Entries :   100000 : Total  Size=  112940021 bytes  File Size  =   62074474 *
+*Baskets :      122 : Basket Size=    2370048 bytes  Compression=   1.82     *
+*............................................................................*
+*Br  147 :TrackerHits.covMatrix[6] : Float_t covMatrix[TrackerHits_]         *
+*Entries :   100000 : Total  Size=  338014110 bytes  File Size  =    1847249 *
+*Baskets :      318 : Basket Size=    4280320 bytes  Compression= 182.98     *
+*............................................................................*
+*Br  148 :TrackerHits.rawHits_begin : UInt_t rawHits_begin[TrackerHits_]     *
+*Entries :   100000 : Total  Size=   56673497 bytes  File Size  =     598124 *
+*Baskets :       86 : Basket Size=    1197056 bytes  Compression=  94.75     *
+*............................................................................*
+*Br  149 :TrackerHits.rawHits_end : UInt_t rawHits_end[TrackerHits_]         *
+*Entries :   100000 : Total  Size=   56673317 bytes  File Size  =     597275 *
+*Baskets :       86 : Basket Size=    1197056 bytes  Compression=  94.88     *
+*............................................................................*
+*Br  150 :TrackerHits_0 : Int_t TrackerHits_0_                               *
+*Entries :   100000 : Total  Size=     810437 bytes  File Size  =     130876 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.15     *
+*............................................................................*
+*Br  151 :TrackerHits_0.index : Int_t index[TrackerHits_0_]                  *
+*Entries :   100000 : Total  Size=     406489 bytes  File Size  =       8576 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  47.22     *
+*............................................................................*
+*Br  152 :TrackerHits_0.collectionID : Int_t collectionID[TrackerHits_0_]    *
+*Entries :   100000 : Total  Size=     406881 bytes  File Size  =       8940 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  45.34     *
+*............................................................................*
+*Br  153 :EFlowTrack : Int_t EFlowTrack_                                     *
+*Entries :   100000 : Total  Size=     834875 bytes  File Size  =     281512 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.86     *
+*............................................................................*
+*Br  154 :EFlowTrack.type : Int_t type[EFlowTrack_]                          *
+*Entries :   100000 : Total  Size=   19161667 bytes  File Size  =     379662 *
+*Baskets :       63 : Basket Size=     414720 bytes  Compression=  50.47     *
+*............................................................................*
+*Br  155 :EFlowTrack.chi2 : Float_t chi2[EFlowTrack_]                        *
+*Entries :   100000 : Total  Size=   19161667 bytes  File Size  =     379662 *
+*Baskets :       63 : Basket Size=     414720 bytes  Compression=  50.47     *
+*............................................................................*
+*Br  156 :EFlowTrack.ndf : Int_t ndf[EFlowTrack_]                            *
+*Entries :   100000 : Total  Size=   19161600 bytes  File Size  =     380216 *
+*Baskets :       63 : Basket Size=     414720 bytes  Compression=  50.39     *
+*............................................................................*
+*Br  157 :EFlowTrack.dEdx : Float_t dEdx[EFlowTrack_]                        *
+*Entries :   100000 : Total  Size=   19161667 bytes  File Size  =     379662 *
+*Baskets :       63 : Basket Size=     414720 bytes  Compression=  50.47     *
+*............................................................................*
+*Br  158 :EFlowTrack.dEdxError : Float_t dEdxError[EFlowTrack_]              *
+*Entries :   100000 : Total  Size=   19162002 bytes  File Size  =     380283 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  50.38     *
+*............................................................................*
+*Br  159 :EFlowTrack.radiusOfInnermostHit :                                  *
+*         | Float_t radiusOfInnermostHit[EFlowTrack_]                        *
+*Entries :   100000 : Total  Size=   19162739 bytes  File Size  =    3588922 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=   5.34     *
+*............................................................................*
+*Br  160 :EFlowTrack.subDetectorHitNumbers_begin :                           *
+*         | UInt_t subDetectorHitNumbers_begin[EFlowTrack_]                  *
+*Entries :   100000 : Total  Size=   19163208 bytes  File Size  =     381719 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  50.20     *
+*............................................................................*
+*Br  161 :EFlowTrack.subDetectorHitNumbers_end :                             *
+*         | UInt_t subDetectorHitNumbers_end[EFlowTrack_]                    *
+*Entries :   100000 : Total  Size=   19163074 bytes  File Size  =     381255 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  50.26     *
+*............................................................................*
+*Br  162 :EFlowTrack.trackStates_begin :                                     *
+*         | UInt_t trackStates_begin[EFlowTrack_]                            *
+*Entries :   100000 : Total  Size=   19162538 bytes  File Size  =     826487 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  23.18     *
+*............................................................................*
+*Br  163 :EFlowTrack.trackStates_end : UInt_t trackStates_end[EFlowTrack_]   *
+*Entries :   100000 : Total  Size=   19162404 bytes  File Size  =     815830 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  23.49     *
+*............................................................................*
+*Br  164 :EFlowTrack.dxQuantities_begin :                                    *
+*         | UInt_t dxQuantities_begin[EFlowTrack_]                           *
+*Entries :   100000 : Total  Size=   19162605 bytes  File Size  =     826910 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  23.17     *
+*............................................................................*
+*Br  165 :EFlowTrack.dxQuantities_end : UInt_t dxQuantities_end[EFlowTrack_] *
+*Entries :   100000 : Total  Size=   19162471 bytes  File Size  =     815149 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  23.51     *
+*............................................................................*
+*Br  166 :EFlowTrack.trackerHits_begin :                                     *
+*         | UInt_t trackerHits_begin[EFlowTrack_]                            *
+*Entries :   100000 : Total  Size=   19162538 bytes  File Size  =     826980 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  23.17     *
+*............................................................................*
+*Br  167 :EFlowTrack.trackerHits_end : UInt_t trackerHits_end[EFlowTrack_]   *
+*Entries :   100000 : Total  Size=   19162404 bytes  File Size  =     815617 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  23.49     *
+*............................................................................*
+*Br  168 :EFlowTrack.tracks_begin : UInt_t tracks_begin[EFlowTrack_]         *
+*Entries :   100000 : Total  Size=   19162203 bytes  File Size  =     380157 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  50.40     *
+*............................................................................*
+*Br  169 :EFlowTrack.tracks_end : UInt_t tracks_end[EFlowTrack_]             *
+*Entries :   100000 : Total  Size=   19162069 bytes  File Size  =     380694 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  50.33     *
+*............................................................................*
+*Br  170 :EFlowTrack#0 : Int_t EFlowTrack#0_                                 *
+*Entries :   100000 : Total  Size=     811719 bytes  File Size  =     282119 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.85     *
+*............................................................................*
+*Br  171 :EFlowTrack#0.index : Int_t index[EFlowTrack#0_]                    *
+*Entries :   100000 : Total  Size=   56672869 bytes  File Size  =    1573968 *
+*Baskets :       86 : Basket Size=    1197056 bytes  Compression=  36.00     *
+*............................................................................*
+*Br  172 :EFlowTrack#0.collectionID : Int_t collectionID[EFlowTrack#0_]      *
+*Entries :   100000 : Total  Size=   56673499 bytes  File Size  =     625788 *
+*Baskets :       86 : Basket Size=    1197056 bytes  Compression=  90.56     *
+*............................................................................*
+*Br  173 :EFlowTrack#1 : Int_t EFlowTrack#1_                                 *
+*Entries :   100000 : Total  Size=     810359 bytes  File Size  =     130874 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.15     *
+*............................................................................*
+*Br  174 :EFlowTrack#1.index : Int_t index[EFlowTrack#1_]                    *
+*Entries :   100000 : Total  Size=     406431 bytes  File Size  =       8524 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  47.51     *
+*............................................................................*
+*Br  175 :EFlowTrack#1.collectionID : Int_t collectionID[EFlowTrack#1_]      *
+*Entries :   100000 : Total  Size=     406823 bytes  File Size  =       8888 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  45.60     *
+*............................................................................*
+*Br  176 :EFlowTrack_0 : vector<int>                                         *
+*Entries :   100000 : Total  Size=    1406114 bytes  File Size  =     155789 *
+*Baskets :       53 : Basket Size=      45056 bytes  Compression=   9.02     *
+*............................................................................*
+*Br  177 :EFlowTrack_1 : Int_t EFlowTrack_1_                                 *
+*Entries :   100000 : Total  Size=     832072 bytes  File Size  =     281493 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.86     *
+*............................................................................*
+*Br  178 :EFlowTrack_1.location : Int_t location[EFlowTrack_1_]              *
+*Entries :   100000 : Total  Size=   19162073 bytes  File Size  =     380694 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  50.33     *
+*............................................................................*
+*Br  179 :EFlowTrack_1.D0 : Float_t D0[EFlowTrack_1_]                        *
+*Entries :   100000 : Total  Size=   19161671 bytes  File Size  =   18191118 *
+*Baskets :       63 : Basket Size=     414720 bytes  Compression=   1.05     *
+*............................................................................*
+*Br  180 :EFlowTrack_1.phi : Float_t phi[EFlowTrack_1_]                      *
+*Entries :   100000 : Total  Size=   19161738 bytes  File Size  =   17656985 *
+*Baskets :       63 : Basket Size=     414720 bytes  Compression=   1.09     *
+*............................................................................*
+*Br  181 :EFlowTrack_1.omega : Float_t omega[EFlowTrack_1_]                  *
+*Entries :   100000 : Total  Size=   19161872 bytes  File Size  =   17862434 *
+*Baskets :       63 : Basket Size=     414720 bytes  Compression=   1.07     *
+*............................................................................*
+*Br  182 :EFlowTrack_1.Z0 : Float_t Z0[EFlowTrack_1_]                        *
+*Entries :   100000 : Total  Size=   19161671 bytes  File Size  =   17837455 *
+*Baskets :       63 : Basket Size=     414720 bytes  Compression=   1.07     *
+*............................................................................*
+*Br  183 :EFlowTrack_1.tanLambda : Float_t tanLambda[EFlowTrack_1_]          *
+*Entries :   100000 : Total  Size=   19162140 bytes  File Size  =   17830988 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=   1.07     *
+*............................................................................*
+*Br  184 :EFlowTrack_1.time : Float_t time[EFlowTrack_1_]                    *
+*Entries :   100000 : Total  Size=   19161805 bytes  File Size  =     380419 *
+*Baskets :       63 : Basket Size=     414720 bytes  Compression=  50.37     *
+*............................................................................*
+*Br  185 :EFlowTrack_1.referencePoint.x : Float_t x[EFlowTrack_1_]           *
+*Entries :   100000 : Total  Size=   19162579 bytes  File Size  =     381199 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  50.26     *
+*............................................................................*
+*Br  186 :EFlowTrack_1.referencePoint.y : Float_t y[EFlowTrack_1_]           *
+*Entries :   100000 : Total  Size=   19162579 bytes  File Size  =     381199 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  50.26     *
+*............................................................................*
+*Br  187 :EFlowTrack_1.referencePoint.z : Float_t z[EFlowTrack_1_]           *
+*Entries :   100000 : Total  Size=   19162579 bytes  File Size  =     381199 *
+*Baskets :       63 : Basket Size=     415232 bytes  Compression=  50.26     *
+*............................................................................*
+*Br  188 :EFlowTrack_1.covMatrix[21] : Float_t covMatrix[EFlowTrack_1_]      *
+*Entries :   100000 : Total  Size=  394282324 bytes  File Size  =  285003861 *
+*Baskets :      359 : Basket Size=    4280320 bytes  Compression=   1.38     *
+*............................................................................*
+*Br  189 :EFlowTrack_2 : Int_t EFlowTrack_2_                                 *
+*Entries :   100000 : Total  Size=     812376 bytes  File Size  =     281493 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.86     *
+*............................................................................*
+*Br  190 :EFlowTrack_2.type : Short_t type[EFlowTrack_2_]                    *
+*Entries :   100000 : Total  Size=    9784147 bytes  File Size  =     297098 *
+*Baskets :       58 : Basket Size=     219648 bytes  Compression=  32.93     *
+*............................................................................*
+*Br  191 :EFlowTrack_2.value : Float_t value[EFlowTrack_2_]                  *
+*Entries :   100000 : Total  Size=   19161872 bytes  File Size  =   16037015 *
+*Baskets :       63 : Basket Size=     414720 bytes  Compression=   1.19     *
+*............................................................................*
+*Br  192 :EFlowTrack_2.error : Float_t error[EFlowTrack_2_]                  *
+*Entries :   100000 : Total  Size=   19161872 bytes  File Size  =     380454 *
+*Baskets :       63 : Basket Size=     414720 bytes  Compression=  50.36     *
+*............................................................................*
+*Br  193 :CalorimeterHits : Int_t CalorimeterHits_                           *
+*Entries :   100000 : Total  Size=     821995 bytes  File Size  =     287982 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.79     *
+*............................................................................*
+*Br  194 :CalorimeterHits.cellID : ULong_t cellID[CalorimeterHits_]          *
+*Entries :   100000 : Total  Size=   43488659 bytes  File Size  =     520725 *
+*Baskets :       78 : Basket Size=     915968 bytes  Compression=  83.51     *
+*............................................................................*
+*Br  195 :CalorimeterHits.energy : Float_t energy[CalorimeterHits_]          *
+*Entries :   100000 : Total  Size=   21947660 bytes  File Size  =     402332 *
+*Baskets :       65 : Basket Size=     470016 bytes  Compression=  54.55     *
+*............................................................................*
+*Br  196 :CalorimeterHits.energyError : Float_t energyError[CalorimeterHits_]*
+*Entries :   100000 : Total  Size=   21948005 bytes  File Size  =     401954 *
+*Baskets :       65 : Basket Size=     470016 bytes  Compression=  54.60     *
+*............................................................................*
+*Br  197 :CalorimeterHits.time : Float_t time[CalorimeterHits_]              *
+*Entries :   100000 : Total  Size=   21947522 bytes  File Size  =   18333453 *
+*Baskets :       65 : Basket Size=     470016 bytes  Compression=   1.20     *
+*............................................................................*
+*Br  198 :CalorimeterHits.position.x : Float_t x[CalorimeterHits_]           *
+*Entries :   100000 : Total  Size=   21947918 bytes  File Size  =   20178674 *
+*Baskets :       65 : Basket Size=     470016 bytes  Compression=   1.09     *
+*............................................................................*
+*Br  199 :CalorimeterHits.position.y : Float_t y[CalorimeterHits_]           *
+*Entries :   100000 : Total  Size=   21947918 bytes  File Size  =   20178378 *
+*Baskets :       65 : Basket Size=     470016 bytes  Compression=   1.09     *
+*............................................................................*
+*Br  200 :CalorimeterHits.position.z : Float_t z[CalorimeterHits_]           *
+*Entries :   100000 : Total  Size=   21947918 bytes  File Size  =   15770644 *
+*Baskets :       65 : Basket Size=     470016 bytes  Compression=   1.39     *
+*............................................................................*
+*Br  201 :CalorimeterHits.type : Int_t type[CalorimeterHits_]                *
+*Entries :   100000 : Total  Size=   21947522 bytes  File Size  =     401857 *
+*Baskets :       65 : Basket Size=     470016 bytes  Compression=  54.61     *
+*............................................................................*
+*Br  202 :Particle  : Int_t Particle_                                        *
+*Entries :   100000 : Total  Size=     880836 bytes  File Size  =     311467 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.58     *
+*............................................................................*
+*Br  203 :Particle.PDG : Int_t PDG[Particle_]                                *
+*Entries :   100000 : Total  Size=   81473548 bytes  File Size  =   23240213 *
+*Baskets :      101 : Basket Size=    1708032 bytes  Compression=   3.51     *
+*............................................................................*
+*Br  204 :Particle.generatorStatus : Int_t generatorStatus[Particle_]        *
+*Entries :   100000 : Total  Size=   81474808 bytes  File Size  =    7616571 *
+*Baskets :      101 : Basket Size=    1708544 bytes  Compression=  10.70     *
+*............................................................................*
+*Br  205 :Particle.simulatorStatus : Int_t simulatorStatus[Particle_]        *
+*Entries :   100000 : Total  Size=   81474808 bytes  File Size  =     713393 *
+*Baskets :      101 : Basket Size=    1708544 bytes  Compression= 114.20     *
+*............................................................................*
+*Br  206 :Particle.charge : Float_t charge[Particle_]                        *
+*Entries :   100000 : Total  Size=   81473863 bytes  File Size  =    9771654 *
+*Baskets :      101 : Basket Size=    1708032 bytes  Compression=   8.34     *
+*............................................................................*
+*Br  207 :Particle.time : Float_t time[Particle_]                            *
+*Entries :   100000 : Total  Size=   81473653 bytes  File Size  =   19426248 *
+*Baskets :      101 : Basket Size=    1708032 bytes  Compression=   4.19     *
+*............................................................................*
+*Br  208 :Particle.mass : Double_t mass[Particle_]                           *
+*Entries :   100000 : Total  Size=  162541493 bytes  File Size  =   48490261 *
+*Baskets :      153 : Basket Size=    3392512 bytes  Compression=   3.35     *
+*............................................................................*
+*Br  209 :Particle.vertex.x : Double_t x[Particle_]                          *
+*Entries :   100000 : Total  Size=  162542107 bytes  File Size  =   27120190 *
+*Baskets :      153 : Basket Size=    3392512 bytes  Compression=   5.99     *
+*............................................................................*
+*Br  210 :Particle.vertex.y : Double_t y[Particle_]                          *
+*Entries :   100000 : Total  Size=  162542107 bytes  File Size  =   28049116 *
+*Baskets :      153 : Basket Size=    3392512 bytes  Compression=   5.79     *
+*............................................................................*
+*Br  211 :Particle.vertex.z : Double_t z[Particle_]                          *
+*Entries :   100000 : Total  Size=  162542107 bytes  File Size  =   26213740 *
+*Baskets :      153 : Basket Size=    3392512 bytes  Compression=   6.20     *
+*............................................................................*
+*Br  212 :Particle.endpoint.x : Double_t x[Particle_]                        *
+*Entries :   100000 : Total  Size=  162542417 bytes  File Size  =    1054139 *
+*Baskets :      153 : Basket Size=    3393024 bytes  Compression= 154.19     *
+*............................................................................*
+*Br  213 :Particle.endpoint.y : Double_t y[Particle_]                        *
+*Entries :   100000 : Total  Size=  162542417 bytes  File Size  =    1054139 *
+*Baskets :      153 : Basket Size=    3393024 bytes  Compression= 154.19     *
+*............................................................................*
+*Br  214 :Particle.endpoint.z : Double_t z[Particle_]                        *
+*Entries :   100000 : Total  Size=  162542417 bytes  File Size  =    1054139 *
+*Baskets :      153 : Basket Size=    3393024 bytes  Compression= 154.19     *
+*............................................................................*
+*Br  215 :Particle.momentum.x : Float_t x[Particle_]                         *
+*Entries :   100000 : Total  Size=   81474265 bytes  File Size  =   75481301 *
+*Baskets :      101 : Basket Size=    1708544 bytes  Compression=   1.08     *
+*............................................................................*
+*Br  216 :Particle.momentum.y : Float_t y[Particle_]                         *
+*Entries :   100000 : Total  Size=   81474265 bytes  File Size  =   75479837 *
+*Baskets :      101 : Basket Size=    1708544 bytes  Compression=   1.08     *
+*............................................................................*
+*Br  217 :Particle.momentum.z : Float_t z[Particle_]                         *
+*Entries :   100000 : Total  Size=   81474265 bytes  File Size  =   76152455 *
+*Baskets :      101 : Basket Size=    1708544 bytes  Compression=   1.07     *
+*............................................................................*
+*Br  218 :Particle.momentumAtEndpoint.x : Float_t x[Particle_]               *
+*Entries :   100000 : Total  Size=   81475295 bytes  File Size  =     713890 *
+*Baskets :      101 : Basket Size=    1709056 bytes  Compression= 114.13     *
+*............................................................................*
+*Br  219 :Particle.momentumAtEndpoint.y : Float_t y[Particle_]               *
+*Entries :   100000 : Total  Size=   81475295 bytes  File Size  =     713890 *
+*Baskets :      101 : Basket Size=    1709056 bytes  Compression= 114.13     *
+*............................................................................*
+*Br  220 :Particle.momentumAtEndpoint.z : Float_t z[Particle_]               *
+*Entries :   100000 : Total  Size=   81475295 bytes  File Size  =     713890 *
+*Baskets :      101 : Basket Size=    1709056 bytes  Compression= 114.13     *
+*............................................................................*
+*Br  221 :Particle.spin.x : Float_t x[Particle_]                             *
+*Entries :   100000 : Total  Size=   81473853 bytes  File Size  =     711969 *
+*Baskets :      101 : Basket Size=    1708032 bytes  Compression= 114.43     *
+*............................................................................*
+*Br  222 :Particle.spin.y : Float_t y[Particle_]                             *
+*Entries :   100000 : Total  Size=   81473853 bytes  File Size  =     711969 *
+*Baskets :      101 : Basket Size=    1708032 bytes  Compression= 114.43     *
+*............................................................................*
+*Br  223 :Particle.spin.z : Float_t z[Particle_]                             *
+*Entries :   100000 : Total  Size=   81473853 bytes  File Size  =     711969 *
+*Baskets :      101 : Basket Size=    1708032 bytes  Compression= 114.43     *
+*............................................................................*
+*Br  224 :Particle.colorFlow.a : Int_t a[Particle_]                          *
+*Entries :   100000 : Total  Size=   81474368 bytes  File Size  =     712966 *
+*Baskets :      101 : Basket Size=    1708544 bytes  Compression= 114.27     *
+*............................................................................*
+*Br  225 :Particle.colorFlow.b : Int_t b[Particle_]                          *
+*Entries :   100000 : Total  Size=   81474368 bytes  File Size  =     712966 *
+*Baskets :      101 : Basket Size=    1708544 bytes  Compression= 114.27     *
+*............................................................................*
+*Br  226 :Particle.parents_begin : UInt_t parents_begin[Particle_]           *
+*Entries :   100000 : Total  Size=   81474598 bytes  File Size  =    5692339 *
+*Baskets :      101 : Basket Size=    1708544 bytes  Compression=  14.31     *
+*............................................................................*
+*Br  227 :Particle.parents_end : UInt_t parents_end[Particle_]               *
+*Entries :   100000 : Total  Size=   81474388 bytes  File Size  =    5689963 *
+*Baskets :      101 : Basket Size=    1708544 bytes  Compression=  14.32     *
+*............................................................................*
+*Br  228 :Particle.daughters_begin : UInt_t daughters_begin[Particle_]       *
+*Entries :   100000 : Total  Size=   81474808 bytes  File Size  =   17945022 *
+*Baskets :      101 : Basket Size=    1708544 bytes  Compression=   4.54     *
+*............................................................................*
+*Br  229 :Particle.daughters_end : UInt_t daughters_end[Particle_]           *
+*Entries :   100000 : Total  Size=   81474598 bytes  File Size  =   18037675 *
+*Baskets :      101 : Basket Size=    1708544 bytes  Compression=   4.52     *
+*............................................................................*
+*Br  230 :Particle#0 : Int_t Particle#0_                                     *
+*Entries :   100000 : Total  Size=     812347 bytes  File Size  =     318532 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.53     *
+*............................................................................*
+*Br  231 :Particle#0.index : Int_t index[Particle#0_]                        *
+*Entries :   100000 : Total  Size=   86763992 bytes  File Size  =   18968474 *
+*Baskets :      105 : Basket Size=    1818624 bytes  Compression=   4.57     *
+*............................................................................*
+*Br  232 :Particle#0.collectionID : Int_t collectionID[Particle#0_]          *
+*Entries :   100000 : Total  Size=   86764755 bytes  File Size  =     779325 *
+*Baskets :      105 : Basket Size=    1818624 bytes  Compression= 111.33     *
+*............................................................................*
+*Br  233 :Particle#1 : Int_t Particle#1_                                     *
+*Entries :   100000 : Total  Size=     812307 bytes  File Size  =     318162 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.53     *
+*............................................................................*
+*Br  234 :Particle#1.index : Int_t index[Particle#1_]                        *
+*Entries :   100000 : Total  Size=   86091115 bytes  File Size  =   11902431 *
+*Baskets :      104 : Basket Size=    1804288 bytes  Compression=   7.23     *
+*............................................................................*
+*Br  235 :Particle#1.collectionID : Int_t collectionID[Particle#1_]          *
+*Entries :   100000 : Total  Size=   86091871 bytes  File Size  =     776025 *
+*Baskets :      104 : Basket Size=    1804800 bytes  Compression= 110.94     *
+*............................................................................*
+*Br  236 :EFlowPhoton : Int_t EFlowPhoton_                                   *
+*Entries :   100000 : Total  Size=     846916 bytes  File Size  =     287565 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.80     *
+*............................................................................*
+*Br  237 :EFlowPhoton.type : Int_t type[EFlowPhoton_]                        *
+*Entries :   100000 : Total  Size=   20154533 bytes  File Size  =     387346 *
+*Baskets :       64 : Basket Size=     432640 bytes  Compression=  52.03     *
+*............................................................................*
+*Br  238 :EFlowPhoton.energy : Float_t energy[EFlowPhoton_]                  *
+*Entries :   100000 : Total  Size=   20154669 bytes  File Size  =   18408676 *
+*Baskets :       64 : Basket Size=     432640 bytes  Compression=   1.09     *
+*............................................................................*
+*Br  239 :EFlowPhoton.energyError : Float_t energyError[EFlowPhoton_]        *
+*Entries :   100000 : Total  Size=   20155009 bytes  File Size  =     387428 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  52.02     *
+*............................................................................*
+*Br  240 :EFlowPhoton.position.x : Float_t x[EFlowPhoton_]                   *
+*Entries :   100000 : Total  Size=   20154923 bytes  File Size  =     388086 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  51.93     *
+*............................................................................*
+*Br  241 :EFlowPhoton.position.y : Float_t y[EFlowPhoton_]                   *
+*Entries :   100000 : Total  Size=   20154923 bytes  File Size  =     388086 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  51.93     *
+*............................................................................*
+*Br  242 :EFlowPhoton.position.z : Float_t z[EFlowPhoton_]                   *
+*Entries :   100000 : Total  Size=   20154923 bytes  File Size  =     388086 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  51.93     *
+*............................................................................*
+*Br  243 :EFlowPhoton.positionError[6] : Float_t positionError[EFlowPhoton_] *
+*Entries :   100000 : Total  Size=  118897265 bytes  File Size  =     873551 *
+*Baskets :      125 : Basket Size=    2478080 bytes  Compression= 136.10     *
+*............................................................................*
+*Br  244 :EFlowPhoton.iTheta : Float_t iTheta[EFlowPhoton_]                  *
+*Entries :   100000 : Total  Size=   20154669 bytes  File Size  =     387770 *
+*Baskets :       64 : Basket Size=     432640 bytes  Compression=  51.97     *
+*............................................................................*
+*Br  245 :EFlowPhoton.phi : Float_t phi[EFlowPhoton_]                        *
+*Entries :   100000 : Total  Size=   20154465 bytes  File Size  =     386920 *
+*Baskets :       64 : Basket Size=     432640 bytes  Compression=  52.09     *
+*............................................................................*
+*Br  246 :EFlowPhoton.directionError.x : Float_t x[EFlowPhoton_]             *
+*Entries :   100000 : Total  Size=   20155319 bytes  File Size  =     388147 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  51.92     *
+*............................................................................*
+*Br  247 :EFlowPhoton.directionError.y : Float_t y[EFlowPhoton_]             *
+*Entries :   100000 : Total  Size=   20155319 bytes  File Size  =     388147 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  51.92     *
+*............................................................................*
+*Br  248 :EFlowPhoton.directionError.z : Float_t z[EFlowPhoton_]             *
+*Entries :   100000 : Total  Size=   20155319 bytes  File Size  =     388147 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  51.92     *
+*............................................................................*
+*Br  249 :EFlowPhoton.shapeParameters_begin :                                *
+*         | UInt_t shapeParameters_begin[EFlowPhoton_]                       *
+*Entries :   100000 : Total  Size=   20155689 bytes  File Size  =     388835 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  51.83     *
+*............................................................................*
+*Br  250 :EFlowPhoton.shapeParameters_end :                                  *
+*         | UInt_t shapeParameters_end[EFlowPhoton_]                         *
+*Entries :   100000 : Total  Size=   20155553 bytes  File Size  =     388014 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  51.94     *
+*............................................................................*
+*Br  251 :EFlowPhoton.subdetectorEnergies_begin :                            *
+*         | UInt_t subdetectorEnergies_begin[EFlowPhoton_]                   *
+*Entries :   100000 : Total  Size=   20155961 bytes  File Size  =     389072 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  51.80     *
+*............................................................................*
+*Br  252 :EFlowPhoton.subdetectorEnergies_end :                              *
+*         | UInt_t subdetectorEnergies_end[EFlowPhoton_]                     *
+*Entries :   100000 : Total  Size=   20155825 bytes  File Size  =     388273 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  51.91     *
+*............................................................................*
+*Br  253 :EFlowPhoton.clusters_begin : UInt_t clusters_begin[EFlowPhoton_]   *
+*Entries :   100000 : Total  Size=   20155213 bytes  File Size  =     388315 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  51.90     *
+*............................................................................*
+*Br  254 :EFlowPhoton.clusters_end : UInt_t clusters_end[EFlowPhoton_]       *
+*Entries :   100000 : Total  Size=   20155077 bytes  File Size  =     387895 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  51.96     *
+*............................................................................*
+*Br  255 :EFlowPhoton.hits_begin : UInt_t hits_begin[EFlowPhoton_]           *
+*Entries :   100000 : Total  Size=   20154941 bytes  File Size  =     872179 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  23.11     *
+*............................................................................*
+*Br  256 :EFlowPhoton.hits_end : UInt_t hits_end[EFlowPhoton_]               *
+*Entries :   100000 : Total  Size=   20154805 bytes  File Size  =     860046 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  23.43     *
+*............................................................................*
+*Br  257 :EFlowPhoton.particleIDs_begin :                                    *
+*         | UInt_t particleIDs_begin[EFlowPhoton_]                           *
+*Entries :   100000 : Total  Size=   20155417 bytes  File Size  =     388535 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  51.87     *
+*............................................................................*
+*Br  258 :EFlowPhoton.particleIDs_end : UInt_t particleIDs_end[EFlowPhoton_] *
+*Entries :   100000 : Total  Size=   20155281 bytes  File Size  =     387709 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  51.98     *
+*............................................................................*
+*Br  259 :EFlowPhoton#0 : Int_t EFlowPhoton#0_                               *
+*Entries :   100000 : Total  Size=     810425 bytes  File Size  =     130876 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.15     *
+*............................................................................*
+*Br  260 :EFlowPhoton#0.index : Int_t index[EFlowPhoton#0_]                  *
+*Entries :   100000 : Total  Size=     406489 bytes  File Size  =       8576 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  47.22     *
+*............................................................................*
+*Br  261 :EFlowPhoton#0.collectionID : Int_t collectionID[EFlowPhoton#0_]    *
+*Entries :   100000 : Total  Size=     406881 bytes  File Size  =       8940 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  45.34     *
+*............................................................................*
+*Br  262 :EFlowPhoton#1 : Int_t EFlowPhoton#1_                               *
+*Entries :   100000 : Total  Size=     810905 bytes  File Size  =     286978 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   2.80     *
+*............................................................................*
+*Br  263 :EFlowPhoton#1.index : Int_t index[EFlowPhoton#1_]                  *
+*Entries :   100000 : Total  Size=   20154741 bytes  File Size  =     871177 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  23.13     *
+*............................................................................*
+*Br  264 :EFlowPhoton#1.collectionID : Int_t collectionID[EFlowPhoton#1_]    *
+*Entries :   100000 : Total  Size=   20155217 bytes  File Size  =     398300 *
+*Baskets :       64 : Basket Size=     433152 bytes  Compression=  50.60     *
+*............................................................................*
+*Br  265 :EFlowPhoton#2 : Int_t EFlowPhoton#2_                               *
+*Entries :   100000 : Total  Size=     810425 bytes  File Size  =     130876 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.15     *
+*............................................................................*
+*Br  266 :EFlowPhoton#2.index : Int_t index[EFlowPhoton#2_]                  *
+*Entries :   100000 : Total  Size=     406489 bytes  File Size  =       8576 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  47.22     *
+*............................................................................*
+*Br  267 :EFlowPhoton#2.collectionID : Int_t collectionID[EFlowPhoton#2_]    *
+*Entries :   100000 : Total  Size=     406881 bytes  File Size  =       8940 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  45.34     *
+*............................................................................*
+*Br  268 :EFlowPhoton_0 : vector<float>                                      *
+*Entries :   100000 : Total  Size=    1406171 bytes  File Size  =     155378 *
+*Baskets :       53 : Basket Size=      45056 bytes  Compression=   9.04     *
+*............................................................................*
+*Br  269 :EFlowPhoton_1 : vector<float>                                      *
+*Entries :   100000 : Total  Size=    1406171 bytes  File Size  =     155378 *
+*Baskets :       53 : Basket Size=      45056 bytes  Compression=   9.04     *
+*............................................................................*
+*Br  270 :Photon#0  : Int_t Photon#0_                                        *
+*Entries :   100000 : Total  Size=     810175 bytes  File Size  =     253246 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   3.18     *
+*............................................................................*
+*Br  271 :Photon#0.index : Int_t index[Photon#0_]                            *
+*Entries :   100000 : Total  Size=    3662905 bytes  File Size  =    1332424 *
+*Baskets :       54 : Basket Size=      92160 bytes  Compression=   2.75     *
+*............................................................................*
+*Br  272 :Photon#0.collectionID : Int_t collectionID[Photon#0_]              *
+*Entries :   100000 : Total  Size=    3663311 bytes  File Size  =     222019 *
+*Baskets :       54 : Basket Size=      92160 bytes  Compression=  16.49     *
+*............................................................................*
+*Br  273 :EFlowTrack_L : vector<float>                                       *
+*Entries :   100000 : Total  Size=   20161489 bytes  File Size  =   17156159 *
+*Baskets :       64 : Basket Size=     435712 bytes  Compression=   1.18     *
+*............................................................................*
+*Br  274 :Electron#0 : Int_t Electron#0_                                     *
+*Entries :   100000 : Total  Size=     810227 bytes  File Size  =     203877 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   3.95     *
+*............................................................................*
+*Br  275 :Electron#0.index : Int_t index[Electron#0_]                        *
+*Entries :   100000 : Total  Size=     609967 bytes  File Size  =     170093 *
+*Baskets :       52 : Basket Size=      28160 bytes  Compression=   3.58     *
+*............................................................................*
+*Br  276 :Electron#0.collectionID : Int_t collectionID[Electron#0_]          *
+*Entries :   100000 : Total  Size=     610359 bytes  File Size  =      93135 *
+*Baskets :       52 : Basket Size=      28160 bytes  Compression=   6.54     *
+*............................................................................*
+*Br  277 :EFlowNeutralHadron : Int_t EFlowNeutralHadron_                     *
+*Entries :   100000 : Total  Size=     841978 bytes  File Size  =     244047 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   3.30     *
+*............................................................................*
+*Br  278 :EFlowNeutralHadron.type : Int_t type[EFlowNeutralHadron_]          *
+*Entries :   100000 : Total  Size=    2199435 bytes  File Size  =     193686 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.35     *
+*............................................................................*
+*Br  279 :EFlowNeutralHadron.energy : Float_t energy[EFlowNeutralHadron_]    *
+*Entries :   100000 : Total  Size=    2199549 bytes  File Size  =    1804266 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=   1.22     *
+*............................................................................*
+*Br  280 :EFlowNeutralHadron.energyError :                                   *
+*         | Float_t energyError[EFlowNeutralHadron_]                         *
+*Entries :   100000 : Total  Size=    2199834 bytes  File Size  =     195414 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.25     *
+*............................................................................*
+*Br  281 :EFlowNeutralHadron.position.x : Float_t x[EFlowNeutralHadron_]     *
+*Entries :   100000 : Total  Size=    2199759 bytes  File Size  =     195344 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.25     *
+*............................................................................*
+*Br  282 :EFlowNeutralHadron.position.y : Float_t y[EFlowNeutralHadron_]     *
+*Entries :   100000 : Total  Size=    2199759 bytes  File Size  =     195344 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.25     *
+*............................................................................*
+*Br  283 :EFlowNeutralHadron.position.z : Float_t z[EFlowNeutralHadron_]     *
+*Entries :   100000 : Total  Size=    2199759 bytes  File Size  =     195344 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.25     *
+*............................................................................*
+*Br  284 :EFlowNeutralHadron.positionError[6] :                              *
+*         | Float_t positionError[EFlowNeutralHadron_]                       *
+*Entries :   100000 : Total  Size=   11163730 bytes  File Size  =     290615 *
+*Baskets :       58 : Basket Size=     246784 bytes  Compression=  38.41     *
+*............................................................................*
+*Br  285 :EFlowNeutralHadron.iTheta : Float_t iTheta[EFlowNeutralHadron_]    *
+*Entries :   100000 : Total  Size=    2199549 bytes  File Size  =     195130 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.26     *
+*............................................................................*
+*Br  286 :EFlowNeutralHadron.phi : Float_t phi[EFlowNeutralHadron_]          *
+*Entries :   100000 : Total  Size=    2199378 bytes  File Size  =     195072 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.27     *
+*............................................................................*
+*Br  287 :EFlowNeutralHadron.directionError.x :                              *
+*         | Float_t x[EFlowNeutralHadron_]                                   *
+*Entries :   100000 : Total  Size=    2200089 bytes  File Size  =     194217 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.32     *
+*............................................................................*
+*Br  288 :EFlowNeutralHadron.directionError.y :                              *
+*         | Float_t y[EFlowNeutralHadron_]                                   *
+*Entries :   100000 : Total  Size=    2200089 bytes  File Size  =     194217 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.32     *
+*............................................................................*
+*Br  289 :EFlowNeutralHadron.directionError.z :                              *
+*         | Float_t z[EFlowNeutralHadron_]                                   *
+*Entries :   100000 : Total  Size=    2200089 bytes  File Size  =     194217 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.32     *
+*............................................................................*
+*Br  290 :EFlowNeutralHadron.shapeParameters_begin :                         *
+*         | UInt_t shapeParameters_begin[EFlowNeutralHadron_]                *
+*Entries :   100000 : Total  Size=    2200404 bytes  File Size  =     195873 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.23     *
+*............................................................................*
+*Br  291 :EFlowNeutralHadron.shapeParameters_end :                           *
+*         | UInt_t shapeParameters_end[EFlowNeutralHadron_]                  *
+*Entries :   100000 : Total  Size=    2200290 bytes  File Size  =     195732 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.23     *
+*............................................................................*
+*Br  292 :EFlowNeutralHadron.subdetectorEnergies_begin :                     *
+*         | UInt_t subdetectorEnergies_begin[EFlowNeutralHadron_]            *
+*Entries :   100000 : Total  Size=    2200632 bytes  File Size  =     196180 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.21     *
+*............................................................................*
+*Br  293 :EFlowNeutralHadron.subdetectorEnergies_end :                       *
+*         | UInt_t subdetectorEnergies_end[EFlowNeutralHadron_]              *
+*Entries :   100000 : Total  Size=    2200518 bytes  File Size  =     195929 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.22     *
+*............................................................................*
+*Br  294 :EFlowNeutralHadron.clusters_begin :                                *
+*         | UInt_t clusters_begin[EFlowNeutralHadron_]                       *
+*Entries :   100000 : Total  Size=    2200005 bytes  File Size  =     195516 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.24     *
+*............................................................................*
+*Br  295 :EFlowNeutralHadron.clusters_end :                                  *
+*         | UInt_t clusters_end[EFlowNeutralHadron_]                         *
+*Entries :   100000 : Total  Size=    2199891 bytes  File Size  =     194006 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.33     *
+*............................................................................*
+*Br  296 :EFlowNeutralHadron.hits_begin :                                    *
+*         | UInt_t hits_begin[EFlowNeutralHadron_]                           *
+*Entries :   100000 : Total  Size=    2199777 bytes  File Size  =     422494 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=   5.20     *
+*............................................................................*
+*Br  297 :EFlowNeutralHadron.hits_end : UInt_t hits_end[EFlowNeutralHadron_] *
+*Entries :   100000 : Total  Size=    2199663 bytes  File Size  =     414456 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=   5.30     *
+*............................................................................*
+*Br  298 :EFlowNeutralHadron.particleIDs_begin :                             *
+*         | UInt_t particleIDs_begin[EFlowNeutralHadron_]                    *
+*Entries :   100000 : Total  Size=    2200176 bytes  File Size  =     195675 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.24     *
+*............................................................................*
+*Br  299 :EFlowNeutralHadron.particleIDs_end :                               *
+*         | UInt_t particleIDs_end[EFlowNeutralHadron_]                      *
+*Entries :   100000 : Total  Size=    2200062 bytes  File Size  =     195581 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.24     *
+*............................................................................*
+*Br  300 :EFlowNeutralHadron#0 : Int_t EFlowNeutralHadron#0_                 *
+*Entries :   100000 : Total  Size=     810887 bytes  File Size  =     131290 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.13     *
+*............................................................................*
+*Br  301 :EFlowNeutralHadron#0.index : Int_t index[EFlowNeutralHadron#0_]    *
+*Entries :   100000 : Total  Size=     406895 bytes  File Size  =       8940 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  45.34     *
+*............................................................................*
+*Br  302 :EFlowNeutralHadron#0.collectionID :                                *
+*         | Int_t collectionID[EFlowNeutralHadron#0_]                        *
+*Entries :   100000 : Total  Size=     407287 bytes  File Size  =       9305 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  43.60     *
+*............................................................................*
+*Br  303 :EFlowNeutralHadron#1 : Int_t EFlowNeutralHadron#1_                 *
+*Entries :   100000 : Total  Size=     810927 bytes  File Size  =     244176 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   3.30     *
+*............................................................................*
+*Br  304 :EFlowNeutralHadron#1.index : Int_t index[EFlowNeutralHadron#1_]    *
+*Entries :   100000 : Total  Size=    2199610 bytes  File Size  =     541293 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=   4.06     *
+*............................................................................*
+*Br  305 :EFlowNeutralHadron#1.collectionID :                                *
+*         | Int_t collectionID[EFlowNeutralHadron#1_]                        *
+*Entries :   100000 : Total  Size=    2200009 bytes  File Size  =     196670 *
+*Baskets :       53 : Basket Size=      61440 bytes  Compression=  11.18     *
+*............................................................................*
+*Br  306 :EFlowNeutralHadron#2 : Int_t EFlowNeutralHadron#2_                 *
+*Entries :   100000 : Total  Size=     810887 bytes  File Size  =     131290 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.13     *
+*............................................................................*
+*Br  307 :EFlowNeutralHadron#2.index : Int_t index[EFlowNeutralHadron#2_]    *
+*Entries :   100000 : Total  Size=     406895 bytes  File Size  =       8940 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  45.34     *
+*............................................................................*
+*Br  308 :EFlowNeutralHadron#2.collectionID :                                *
+*         | Int_t collectionID[EFlowNeutralHadron#2_]                        *
+*Entries :   100000 : Total  Size=     407287 bytes  File Size  =       9305 *
+*Baskets :       52 : Basket Size=      24064 bytes  Compression=  43.60     *
+*............................................................................*
+*Br  309 :EFlowNeutralHadron_0 : vector<float>                               *
+*Entries :   100000 : Total  Size=    1406570 bytes  File Size  =     156109 *
+*Baskets :       53 : Basket Size=      45056 bytes  Compression=   9.00     *
+*............................................................................*
+*Br  310 :EFlowNeutralHadron_1 : vector<float>                               *
+*Entries :   100000 : Total  Size=    1406570 bytes  File Size  =     156109 *
+*Baskets :       53 : Basket Size=      45056 bytes  Compression=   9.00     *
+*............................................................................*
+*Branch  :PARAMETERS                                                         *
+*Entries :   100000 : BranchElement (see below)                              *
+*............................................................................*
+*Br  311 :_intMap   : Int_t _intMap_                                         *
+*Entries :   100000 : Total  Size=     810080 bytes  File Size  =     130405 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.17     *
+*............................................................................*
+*Br  312 :_intMap.first : string first[_intMap_]                             *
+*Entries :   100000 : Total  Size=    1006141 bytes  File Size  =     147255 *
+*Baskets :       52 : Basket Size=      36352 bytes  Compression=   6.82     *
+*............................................................................*
+*Br  313 :_intMap.second : vector<int> second[_intMap_]                      *
+*Entries :   100000 : Total  Size=    1006197 bytes  File Size  =     147255 *
+*Baskets :       52 : Basket Size=      36352 bytes  Compression=   6.82     *
+*............................................................................*
+*Br  314 :_floatMap : Int_t _floatMap_                                       *
+*Entries :   100000 : Total  Size=     810222 bytes  File Size  =     130669 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.16     *
+*............................................................................*
+*Br  315 :_floatMap.first : string first[_floatMap_]                         *
+*Entries :   100000 : Total  Size=    1006257 bytes  File Size  =     147357 *
+*Baskets :       52 : Basket Size=      36352 bytes  Compression=   6.82     *
+*............................................................................*
+*Br  316 :_floatMap.second : vector<float> second[_floatMap_]                *
+*Entries :   100000 : Total  Size=    1006313 bytes  File Size  =     147359 *
+*Baskets :       52 : Basket Size=      36352 bytes  Compression=   6.82     *
+*............................................................................*
+*Br  317 :_stringMap : Int_t _stringMap_                                     *
+*Entries :   100000 : Total  Size=     810293 bytes  File Size  =     130669 *
+*Baskets :       52 : Basket Size=      32000 bytes  Compression=   6.16     *
+*............................................................................*
+*Br  318 :_stringMap.first : string first[_stringMap_]                       *
+*Entries :   100000 : Total  Size=    1006315 bytes  File Size  =     147359 *
+*Baskets :       52 : Basket Size=      36352 bytes  Compression=   6.82     *
+*............................................................................*
+*Br  319 :_stringMap.second : vector<string> second[_stringMap_]             *
+*Entries :   100000 : Total  Size=    1006371 bytes  File Size  =     147362 *
+*Baskets :       52 : Basket Size=      36352 bytes  Compression=   6.82     *
+*............................................................................*
