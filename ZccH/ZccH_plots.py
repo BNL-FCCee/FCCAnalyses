@@ -60,13 +60,27 @@ variables = [
 
 ###Dictonnary with the analysis name as a key, and the list of selections to be plotted for this analysis. The name of the selections should be the same than in the final selection
 selections = {}
-selections['ZccH'] = ["sel0"]
-selections['ZccH_combined'] = ["sel0"]
+selections['ZccH'] = [
+    "sel0",
+    "N_selected_jets_2",
+    "N_selected_jets_3",
+    "N_selected_jets_gte4",
+]
+selections['ZccH_combined'] = [
+    "sel0",
+    "N_selected_jets_2",
+    "N_selected_jets_3",
+    "N_selected_jets_gte4",
+]
 #selections['ZccH']   = ["sel0", "sel1", "sel2", "sel3", "sel4"]
 #selections['ZccH_combined']   = ["sel0", "sel1", "sel2", "sel3", "sel4"]
 
 extralabel = {}
 extralabel['sel0'] = "Jet 0 p_{T} > 1 GeV"
+extralabel['N_selected_jets_2'] = "N_{jets} == 2"
+extralabel['N_selected_jets_3'] = "N_{jets} == 3"
+extralabel['N_selected_jets_gte4'] = "N_{jets} >= 4"
+
 #extralabel['sel1'] = "Jet 0 p_{T} > 20 GeV"
 #extralabel['sel2'] = "Jet 0 p_{T} > 30 GeV"
 #extralabel['sel3'] = "Jet 0 p_{T} > 40 GeV"

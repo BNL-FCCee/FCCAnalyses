@@ -52,16 +52,9 @@ runBatch    = batch
 batchQueue = "longlunch"
 #compGroup = "group_u_FCC.local_gen"
 
-
-
-
 """ 
 Function to return all di-jet candidates, not just one near a certain resonance
 """
-
-# resonanceBuilder::resonanceBuilder(float arg_resonance_mass, bool arg_return_all) {m_resonance_mass = arg_resonance_mass; return_all = arg_return_all;}
-# ROOT::VecOps::RVec<edm4hep::ReconstructedParticleData> resonanceBuilder::operator()(ROOT::VecOps::RVec<edm4hep::ReconstructedParticleData> legs) {
-
 
 import ROOT
 ROOT.gInterpreter.Declare("""
@@ -96,22 +89,6 @@ ROOT::VecOps::RVec<edm4hep::ReconstructedParticleData> result;
 }
 
 """) ###
-#
-
-#USER DEFINED CODE
-# import ROOT
-# ROOT.gInterpreter.Declare("""
-# bool myFilter(ROOT::VecOps::RVec<float> mass) {
-#     for (size_t i = 0; i < mass.size(); ++i) {
-#         if (mass.at(i)>1. && mass.at(i)<300.)
-#             return true;
-#     }
-#     return false;
-# }
-# """)
-#END USER DEFINED CODE
-
-
 
 #Mandatory: RDFanalysis class where the use defines the operations on the TTree
 class RDFanalysis():
@@ -121,7 +98,6 @@ class RDFanalysis():
     def analysers(df):
         df2 = (
             df
-            # define an alias for jet index collection
             # only Jet#2 and Jet#3 have something with non-negative collectionIDs...
             #.Alias("JetCollection", "Jet#2.index") # Average ~ 40 per event for ZccHbb
             #.Alias("JetCollection", "Jet#3.index")  # Average 0-4 per event for ZccHmumu...
@@ -137,6 +113,7 @@ class RDFanalysis():
             #.Alias("GenParticles", "")
 
             # define the jet collection 
+            #.Alias("JetCollection", "Jet#2.index")
             #.Define("jets", "ReconstructedParticle::get(JetCollection, ReconstructedParticles)")
 
             .Define("n_jets", "ReconstructedParticle::get_n(Jet)") #count how many jets are in the event in total

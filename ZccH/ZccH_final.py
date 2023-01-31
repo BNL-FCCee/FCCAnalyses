@@ -75,6 +75,9 @@ doTree = True
 
 cutList = {
     "sel0" : "1",
+    "N_selected_jets_2" : "N_selected_jets == 2",
+    "N_selected_jets_3" : "N_selected_jets == 3",
+    "N_selected_jets_gte4" : "N_selected_jets >= 4",
     # "sel1" : "selected_jets_pt > 20",
     # "sel2" : "selected_jets_pt > 30",
     # "sel3" : "selected_jets_pt > 40",

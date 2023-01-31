@@ -48,8 +48,7 @@ ROOT::VecOps::RVec<edm4hep::ReconstructedParticleData>  sel_charge::operator() (
   return result;
 }
 
-
-
+// resonanceBuilder::resonanceBuilder(float arg_resonance_mass, bool arg_return_all) {m_resonance_mass = arg_resonance_mass; return_all = arg_return_all;}
 resonanceBuilder::resonanceBuilder(float arg_resonance_mass) {m_resonance_mass = arg_resonance_mass;}
 ROOT::VecOps::RVec<edm4hep::ReconstructedParticleData> resonanceBuilder::operator()(ROOT::VecOps::RVec<edm4hep::ReconstructedParticleData> legs) {
   ROOT::VecOps::RVec<edm4hep::ReconstructedParticleData> result;
@@ -75,7 +74,9 @@ ROOT::VecOps::RVec<edm4hep::ReconstructedParticleData> resonanceBuilder::operato
       result.emplace_back(reso);
     } while (std::next_permutation(v.begin(), v.end()));
   }
+
   if (result.size() > 1) {
+    //if(return_all) return result; // return all 
     auto resonancesort = [&] (edm4hep::ReconstructedParticleData i ,edm4hep::ReconstructedParticleData j) { return (abs( m_resonance_mass -i.mass)<abs(m_resonance_mass-j.mass)); };
     std::sort(result.begin(), result.end(), resonancesort);
     ROOT::VecOps::RVec<edm4hep::ReconstructedParticleData>::const_iterator first = result.begin();

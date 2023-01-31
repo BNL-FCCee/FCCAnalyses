@@ -17,6 +17,8 @@ namespace ReconstructedParticle{
   /// build the resonance from 2 particles from an arbitrary list of input ReconstructedPartilces. Keep the closest to the mass given as input
   struct resonanceBuilder {
     float m_resonance_mass;
+    bool return_all; // return all candidates, not just closest to resonance mass
+    // resonanceBuilder(float arg_resonance_mass, bool arg_return_all);
     resonanceBuilder(float arg_resonance_mass);
     ROOT::VecOps::RVec<edm4hep::ReconstructedParticleData> operator()(ROOT::VecOps::RVec<edm4hep::ReconstructedParticleData> legs);
   };
