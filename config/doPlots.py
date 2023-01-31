@@ -6,6 +6,35 @@ import importlib
 import ROOT
 import copy
 import re
+from array import array 
+
+def set_palette(name, ncontours):
+    """Set a color palette from a given RGB list
+    stops, red, green and blue should all be lists of the same length
+    see set_decent_colors for an example"""
+
+    if name == "gray" or name == "grayscale":
+        stops = [0.00, 0.34, 0.61, 0.84, 1.00]
+        red   = [1.00, 0.84, 0.61, 0.34, 0.00]
+        green = [1.00, 0.84, 0.61, 0.34, 0.00]
+        blue  = [1.00, 0.84, 0.61, 0.34, 0.00]
+    # elif name == "whatever":
+        # (define more palettes)
+    else:
+        # default palette, looks cool
+        stops = [0.00, 0.34, 0.61, 0.84, 1.00]
+        red   = [0.00, 0.00, 0.87, 1.00, 0.51]
+        green = [0.00, 0.81, 1.00, 0.20, 0.00]
+        blue  = [0.51, 1.00, 0.12, 0.00, 0.00]
+
+    s = array('d', stops)
+    r = array('d', red)
+    g = array('d', green)
+    b = array('d', blue)
+
+    npoints = len(s)
+    ROOT.TColor.CreateGradientColorTable(npoints, s, r, g, b, ncontours)
+    ROOT.gStyle.SetNumberContours(ncontours)
 
 #__________________________________________________________
 def removekey(d, key):
@@ -85,8 +114,10 @@ def runPlots(var,sel,param,hsignal,hbackgrounds,extralab,splitLeg):
     if(splitLeg):
         legsize = 0.04*(len(hsignal))
         legsize2 = 0.04*(len(hbackgrounds))
-        legCoord = [0.15,0.60 - legsize,0.50,0.62]
-        leg2 = ROOT.TLegend(0.60,0.60 - legsize2,0.88,0.62)
+        #legCoord = [0.15,0.60 - legsize,0.50,0.62]
+        legCoord=[0.45, (0.86-legsize)*2., 0.94, 0.88] # hack :) 
+        leg2 = ROOT.TLegend(0.60,0.6,0.88,0.62)
+        #leg2 = ROOT.TLegend(0.4,0.60 - legsize2,0.85,0.62)
         leg2.SetFillColor(0)
         leg2.SetFillStyle(0)
         leg2.SetLineColor(0)
@@ -95,15 +126,19 @@ def runPlots(var,sel,param,hsignal,hbackgrounds,extralab,splitLeg):
         leg2.SetTextFont(42)
     else:
         legsize = 0.04*(len(hbackgrounds)+len(hsignal))
-        legCoord=[0.68, 0.86-legsize, 0.96, 0.88]
+        #legCoord=[0.68, 0.86-legsize, 0.96, 0.88]
+        #legCoord=[0.45, (0.86-legsize)*2., 0.94, 0.88] # hack :) 
+        legCoord=[0.45, 0.6, 0.94, 0.88] # hack :) 
         try:
             legCoord=param.legendCoord
         except AttributeError:
             print ('no legCoord, using default one...')
-            legCoord=[0.68, 0.86-legsize, 0.96, 0.88]
+            #legCoord=[0.68, 0.86-legsize, 0.96, 0.88]
+            legCoord=[0.45, 0.6, 0.94, 0.88] # hack :) 
         leg2 = None
 
     leg = ROOT.TLegend(legCoord[0],legCoord[1],legCoord[2],legCoord[3])
+    leg.SetNColumns(2) # 
     leg.SetFillColor(0)
     leg.SetFillStyle(0)
     leg.SetLineColor(0)
@@ -125,6 +160,10 @@ def runPlots(var,sel,param,hsignal,hbackgrounds,extralab,splitLeg):
         yields[s]=[param.legend[s],hsignal[s][0].Integral(0,-1), hsignal[s][0].GetEntries()]
     for b in hbackgrounds:
         yields[b]=[param.legend[b],hbackgrounds[b][0].Integral(0,-1), hbackgrounds[b][0].GetEntries()]
+
+    # save yields for given set of selections
+    print("sel:",sel)
+    print("yields",yields)
 
     histos=[]
     colors=[]
@@ -271,19 +310,21 @@ def drawStack(name, ylabel, legend, leftText, rightText, formats, directory, log
     # finally add signal on top
     for l in range(nsig):
       histos[l].SetLineWidth(3)
-      histos[l].SetLineColor(colors[l])
+      #histos[l].SetLineColor("PLC")
+      #histos[l].SetLineColor(colors[l])
+      #histos[l].SetLineColor(colors[l])
       if stacksig:
         hStack.Add(histos[l])
       else:
         hStackSig.Add(histos[l])
 
     if stacksig:
-        hStack.Draw("hist")
+        hStack.Draw("hist PLC")
 
     xlabel = histos[0].GetXaxis().GetTitle()
 
     if (not stacksig) and nbkg==0:
-        hStackSig.Draw("hist nostack")
+        hStackSig.Draw("hist nostack PLC")
         hStackSig.GetXaxis().SetTitle(xlabel)
         hStackSig.GetYaxis().SetTitle(ylabel)
 
@@ -299,6 +340,7 @@ def drawStack(name, ylabel, legend, leftText, rightText, formats, directory, log
     lowY=0.
     if logY:
         highY=200.*maxh/ROOT.gPad.GetUymax()
+        #highY *= 10 # hack to fit text and legend 
         threshold=0.5
         if (not stacksig) and nbkg==0:
             bin_width=hStackSig.GetXaxis().GetBinWidth(1)
@@ -355,8 +397,10 @@ def drawStack(name, ylabel, legend, leftText, rightText, formats, directory, log
         if 'AAAyields' not in name and nbkg>0:
             hStackSig.Draw("same hist nostack")
         else:
-            hStackSig.Draw("hist nostack")
+            #hStackSig.Draw("hist nostack") 
+            hStackSig.Draw("hist PLC nostack") 
 
+    # legend.SetNColumns(2) 
     legend.Draw()
     if legend2 != None:
         legend2.Draw()
@@ -479,6 +523,7 @@ def drawStack(name, ylabel, legend, leftText, rightText, formats, directory, log
         #canvas.Modified()
         #canvas.Update()
 
+    ymax = ROOT.gPad.GetUymax()
 
     printCanvas(canvas, name, formats, directory)
 
@@ -501,6 +546,7 @@ def printCanvas(canvas, name, formats, directory):
 def run(paramFile):
     ROOT.gROOT.SetBatch(True)
     ROOT.gErrorIgnoreLevel = ROOT.kWarning
+    set_palette("RainBow", 10)
 
     module_path = os.path.abspath(paramFile)
     module_dir = os.path.dirname(module_path)

@@ -14,54 +14,63 @@ with open(configFile, 'r') as cfg:
     
     batch = values["batch"]
     EOSoutput = values["EOSoutput"]
+    JobName = values["JobName"]
 
 print("batch:",batch)
 print("EOSoutput:",EOSoutput)
+print("JobName:",JobName)
 
 import ROOT
 
 # global parameters
-intLumi        = 999e+06 #in pb-1
+intLumi        = 5e+06 #in pb-1
 ana_tex        = 'e^{+}e^{-} #rightarrow Z(cc)H'
 delphesVersion = '3.4.2'
 energy         = 240.0
 collider       = 'FCC-ee'
 
 if(EOSoutput):
-    inputDir = "/eos/user/a/atishelm/ntuples/FCC/ZccH/final/"
+    inputDir = f"/eos/user/a/atishelm/ntuples/FCC/{JobName}/final/"
 else:
-    inputDir       = 'ZccH/final/'
+    inputDir       = f'{JobName}/final/'
 
 formats        = ['png','pdf']
 yaxis          = ['lin','log']
-stacksig       = ['stack','nostack']
-outdir         = '/eos/user/a/atishelm/www/FCC/ZccH/plots/'
+stacksig       = ['nostack']
+#stacksig       = ['stack','nostack']
+outdir         = f'/eos/user/a/atishelm/www/FCC/{JobName}/plots/'
 
 variables = [
-    "jets_pt",
-    "jets_y",
-    "jets_p",
-    "jets_e",
+    "N_selected_jets",
+    # "jets_pt",
+    # "jets_y",
+    # "jets_p",
+    # "jets_e",
 
-    "jets_pt_0",
-    "jets_y_0",
-    "jets_p_0",
-    "jets_e_0",
-    "mjj",
-    "hadronic_recoil_m"
+    "N_dijet_pair",
+    # "dijet_pair_all_pt",    
+    "dijet_pair_all_m",
+    # "dijet_pair_all_recoil_m",
+
+    # "dijet_pair_nearZpeak_pt",    
+    "dijet_pair_nearZpeak_m",
+    # "dijet_pair_nearZpeak_recoil_m",
+
 ]
 
 ###Dictonnary with the analysis name as a key, and the list of selections to be plotted for this analysis. The name of the selections should be the same than in the final selection
 selections = {}
-selections['ZccH']   = ["sel0", "sel1", "sel2", "sel3", "sel4"]
-selections['ZccH_combined']   = ["sel0", "sel1", "sel2", "sel3", "sel4"]
+selections['ZccH'] = ["sel0"]
+selections['ZccH_combined'] = ["sel0"]
+#selections['ZccH']   = ["sel0", "sel1", "sel2", "sel3", "sel4"]
+#selections['ZccH_combined']   = ["sel0", "sel1", "sel2", "sel3", "sel4"]
 
 extralabel = {}
-extralabel['sel0'] = "Jet 0 p_{T} > 10 GeV"
-extralabel['sel1'] = "Jet 0 p_{T} > 20 GeV"
-extralabel['sel2'] = "Jet 0 p_{T} > 30 GeV"
-extralabel['sel3'] = "Jet 0 p_{T} > 40 GeV"
-extralabel['sel4'] = "Jet 0 p_{T} > 50 GeV"
+extralabel['sel0'] = "Jet 0 p_{T} > 1 GeV"
+#extralabel['sel1'] = "Jet 0 p_{T} > 20 GeV"
+#extralabel['sel2'] = "Jet 0 p_{T} > 30 GeV"
+#extralabel['sel3'] = "Jet 0 p_{T} > 40 GeV"
+#extralabel['sel4'] = "Jet 0 p_{T} > 50 GeV"
 #extralabel['sel1'] = "Selection: N_{Z} = 1; 80 GeV < m_{Z} < 100 GeV"
 
 colors = {}
@@ -69,17 +78,59 @@ colors = {}
 # exclusive 
 
 # ZccH
-colors['ZccHbb'] = ROOT.kRed
-colors['ZccHmumu'] = ROOT.kRed+2
-colors['ZccHWW'] = ROOT.kGreen
-colors['ZccHgg'] = ROOT.kGreen+4
-colors['ZccHZa'] = ROOT.kBlue
-colors['ZccHss'] = ROOT.kBlue+2
-colors['ZccHcc'] = ROOT.kMagenta-9
-colors['ZccHmumu'] = ROOT.kMagenta+2
-colors['ZccHZZ'] = ROOT.kBlack
-colors['ZccHaa'] = ROOT.kGray
-colors['ZccHtautau'] = ROOT.kViolet
+# colors['ZccHbb'] = ROOT.kRed
+# colors['ZccHmumu'] = ROOT.kRed+2
+# colors['ZccHWW'] = ROOT.kGreen
+# colors['ZccHgg'] = ROOT.kGreen+4
+# colors['ZccHZa'] = ROOT.kBlue
+# colors['ZccHss'] = ROOT.kBlue+2
+# colors['ZccHcc'] = ROOT.kMagenta-9
+# colors['ZccHmumu'] = ROOT.kMagenta+2
+# colors['ZccHZZ'] = ROOT.kBlack
+# colors['ZccHaa'] = ROOT.kGray
+# colors['ZccHtautau'] = ROOT.kViolet
+
+#ROOT.gStyle.SetPalette(55)
+
+colors['ZccHbb'] = 1
+colors['ZccHmumu'] = 2
+colors['ZccHWW'] = 3
+colors['ZccHgg'] = 4
+colors['ZccHZa'] = 5
+colors['ZccHss'] = 6
+colors['ZccHcc'] = 7
+colors['ZccHmumu'] = 8
+colors['ZccHZZ'] = 9
+colors['ZccHaa'] = 10
+colors['ZccHtautau'] = 11
+
+#ROOT.gStyle.SetPalette(55)
+
+print("colors:",colors)
+
+# # https://loading.io/color/feature/Spectral-10/
+# RGBs = [
+#     [158, 1, 66],
+#     [213, 62, 79],
+#     [244, 109, 67],
+#     [253, 174, 97],
+#     [254, 254, 139],
+#     [230, 245, 152],
+#     [171, 221, 164],
+#     [102, 194, 165],
+#     [50, 136, 189],
+#     [94, 79, 162],
+# ]
+
+# for ci, key in enumerate(colors):
+#     tmp_color = ROOT.TColor(999, 0.1, 0.2, 0.3)
+#     #TColor *color = new TColor(ci, 0.1, 0.2, 0.3);
+#     c1, c2, c3 = RGBs[ci]
+#     tmp_color = tmp_color.SetRGB(c1, c2, c3)
+#     print("tmp_color:",tmp_color)
+#     colors[key] = tmp_color
+
+print("colors:",colors)
 
 # VV 
 colors['WW'] = ROOT.kBlue+1

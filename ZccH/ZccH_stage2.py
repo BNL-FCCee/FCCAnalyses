@@ -14,9 +14,11 @@ with open(configFile, 'r') as cfg:
     
     batch = values["batch"]
     EOSoutput = values["EOSoutput"]
+    JobName = values["JobName"]
 
 print("batch:",batch)
 print("EOSoutput:",EOSoutput)
+print("JobName:",JobName)
 
 processList = {
     # Z(cc)H by higgs final state 
@@ -37,12 +39,12 @@ processList = {
 }
 
 if(EOSoutput):
-    inputDir    = "/eos/user/a/atishelm/ntuples/FCC/ZccH/stage1/"
-    outputDir = "/eos/user/a/atishelm/ntuples/FCC/ZccH/stage2/"
+    inputDir    = f"/eos/user/a/atishelm/ntuples/FCC/{JobName}/stage1/"
+    outputDir = f"/eos/user/a/atishelm/ntuples/FCC/{JobName}/stage2/"
     eosType = "eosuser"
 else:
-    inputDir    = "ZccH/stage1/"
-    outputDir   = "ZccH/stage2/"
+    inputDir    = f"{JobName}/stage1/"
+    outputDir   = f"{JobName}/stage2/"
 
 nCPUS       = 4
 runBatch    = batch
@@ -71,26 +73,29 @@ class RDFanalysis():
     def analysers(df):
         df2 = (df
                #Filter to have exactly one Zcc candidate
-               .Filter("zed_hadronic_m.size() == 1") # exactly one 
+               #.Filter("dijet_pair_m.size() == 1") # exactly one 
 
-               # create branches with jet (transverse momentum, rapidity, total momentum, energy)
-               .Define("selected_jets_pt_0", "selected_jets_pt[0]") # what does [0] take? leading? 
-               .Define("selected_jets_y_0", "selected_jets_y[0]")
-               .Define("selected_jets_p_0", "selected_jets_p[0]")
-               .Define("selected_jets_e_0", "selected_jets_e[0]")
+            #    # create branches with jet (transverse momentum, rapidity, total momentum, energy)
+            #    .Define("selected_jets_pt_0", "selected_jets_pt[0]") # what does [0] take? leading? 
+            #    .Define("selected_jets_y_0", "selected_jets_y[0]")
+            #    .Define("selected_jets_p_0", "selected_jets_p[0]")
+            #    .Define("selected_jets_e_0", "selected_jets_e[0]")
 
+               # Can only get this for events with at least one dijet pair
                #Define Z candidate mass
-               .Define("Zcand_m","zed_hadronic_m[0]")
+               .Define("dijet_pair_m","dijet_pair_m[0]")
                #Define Z candidate recoil mass
-               .Define("Zcand_recoil_m","zed_hadronic_recoil_m[0]")
+               .Define("dijet_pair_recoil_m","dijet_pair_recoil_m[0]")
                #Define Z candidate pt
-               .Define("Zcand_pt","zed_hadronic_pt[0]")
+               .Define("dijet_pair_pt","dijet_pair_pt[0]")
+
                #Define new var rdf entry (example)
                #.Define("entry", "rdfentry_")
                #Define a weight based on entry (inline example of possible operations)
                #.Define("weight", "return 1./(entry+1)")
                #Define a variable based on a custom filter
                #.Define("MyFilter", "myFilter(zed_leptonic_m)") # maybe choose flavour here. 
+
                )
         return df2
 
@@ -98,17 +103,52 @@ class RDFanalysis():
     #Mandatory: output function, please make sure you return the branchlist as a python list.
     def output():
         branchList = [
+            # "selected_jets_pt",
+            # "selected_jets_y",
+            # "selected_jets_p",
+            # "selected_jets_e",            
+            # "selected_jets_pt_0",
+            # "selected_jets_y_0",
+            # "selected_jets_p_0",
+            # "selected_jets_e_0",            
+            # "dijet_pair_m", 
+            # "dijet_pair_pt", 
+            # "dijet_pair_recoil_m",
+            # "N_jets",
+            # "N_dijet_pair",   
+
+            # "selected_jets_pt",
+            # "selected_jets_y",
+            # "selected_jets_p",
+            # "selected_jets_e",
+            # "dijet_pair_pt",
+            # "dijet_pair_m",
+            # "dijet_pair_recoil_m",
+            # "N_jets",
+            # "N_dijet_pair",
+            # "selected_jets_pt_0",
+            # "selected_jets_y_0",
+            # "selected_jets_p_0",
+            # "selected_jets_e_0",   
+
+            # jets 
+            "N_selected_jets",
             "selected_jets_pt",
             "selected_jets_y",
             "selected_jets_p",
-            "selected_jets_e",            
-            "selected_jets_pt_0",
-            "selected_jets_y_0",
-            "selected_jets_p_0",
-            "selected_jets_e_0",            
-            "Zcand_m", 
-            "Zcand_pt", 
-            "Zcand_recoil_m",
+            "selected_jets_e",
+
+            # dijets pairs 
+            "N_dijet_pair",
+            "dijet_pair_all_pt",
+            "dijet_pair_all_m",
+            "dijet_pair_all_recoil_m",
+
+            # Zed candidate near z mass peak 
+            "dijet_pair_nearZpeak_m",           
+            "dijet_pair_nearZpeak_pt",           
+            "dijet_pair_nearZpeak_recoil_m",     
+
             #"entry",
             #"weight",
         ]
