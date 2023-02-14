@@ -51,11 +51,12 @@ in `/eos/experiment/fcc/ee/generation/DelphesEvents/winter2023/IDEA/wzp6_ee_ccH_
 
 Know this from podio_metadata->Scan("m_names")
 
+```
 ***********************************
 *    Row   * Instance *   m_names *
 ***********************************
 *        0 *        0 * MissingET *
-*        0 *        1 * MCRecoAss *
+*        0 *        1 * MCReco *
 *        0 *        2 * ParticleI *
 *        0 *        3 * magFieldB *
 *        0 *        4 * TrackerHi *
@@ -71,6 +72,7 @@ Know this from podio_metadata->Scan("m_names")
 *        0 *       14 * Reconstru *
 *        0 *       15 *      Muon *
 ***********************************
+```
 
 Can also tell by printing the collectionID:
 
