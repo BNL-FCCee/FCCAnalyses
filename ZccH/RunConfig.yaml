@@ -1,5 +1,5 @@
 # configuration file 
 
-batch: 1
-EOSoutput: 1
+batch: 0
+EOSoutput: 0
 JobName: "ZccH"
