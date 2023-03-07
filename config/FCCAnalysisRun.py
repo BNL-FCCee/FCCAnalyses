@@ -17,7 +17,7 @@ ROOT.gErrorIgnoreLevel = ROOT.kFatal
 _fcc  = ROOT.dummyLoader
 
 
-date=datetime.datetime.fromtimestamp(datetime.datetime.now().timestamp()).strftime('%Y-%m-%d_%H-%M-%S')
+DATE = datetime.datetime.fromtimestamp(datetime.datetime.now().timestamp()).strftime('%Y-%m-%d_%H-%M-%S')
 
 #__________________________________________________________
 def getElement(rdfModule, element, isFinal=False):
@@ -389,9 +389,20 @@ def runRDF(rdfModule, inputlist, outFile, nevt, args):
 #__________________________________________________________
 def sendToBatch(rdfModule, chunkList, process, analysisFile):
     localDir = os.environ["LOCAL_DIR"]
-    logDir   = localDir+"/BatchOutputs/{}/{}".format(date,process)
+    logDir   = localDir+"/BatchOutputs/{}/{}".format(DATE, process)
     if not os.path.exists(logDir):
         os.system("mkdir -p {}".format(logDir))
+
+    # Making sure the FCCAnalyses libraries are compiled and installed
+    try:
+        subprocess.check_output(['make', 'install'],
+                                cwd=localDir+'/build',
+                                stderr=subprocess.DEVNULL
+        )
+    except subprocess.CalledProcessError as e:
+        print("----> The FCCanalyses libraries are not properly build and installed!")
+        print('----> Aborting job submission...')
+        sys.exit(3)
 
     outputDir       = getElement(rdfModule, "outputDir")
     outputDirEos    = getElement(rdfModule, "outputDirEos")
@@ -416,10 +427,7 @@ def sendToBatch(rdfModule, chunkList, process, analysisFile):
 
         subprocess.getstatusoutput('chmod 777 %s'%(frunname))
         frun.write('#!/bin/bash\n')
-        frun.write('source /cvmfs/sw.hsf.org/key4hep/setup.sh\n')
-        frun.write('export PYTHONPATH=$LOCAL_DIR:$PYTHONPATH\n')
-        frun.write('export LD_LIBRARY_PATH=$LOCAL_DIR/install/lib:$LD_LIBRARY_PATH\n')
-        frun.write('export ROOT_INCLUDE_PATH=$LOCAL_DIR/install/include/FCCAnalyses:$ROOT_INCLUDE_PATH\n')
+        frun.write('source ${LOCAL_DIR}/setup.sh\n')
 
         #add userBatchConfig if any
         if userBatchConfig!="":
@@ -570,10 +578,9 @@ def runLocal(rdfModule, fileList, args):
     if args.bench:
         import json
 
-        analysis_path = args.pathToAnalysisScript.rsplit('/', 1)[0]
         analysis_name = getElement(rdfModule, 'analysisName')
         if not analysis_name:
-            analysis_name = analysis_path
+            analysis_name = args.pathToAnalysisScript
 
         bench_time = {}
         bench_time['name'] = 'Time spent running the analysis: '
@@ -581,7 +588,7 @@ def runLocal(rdfModule, fileList, args):
         bench_time['unit'] = 'Seconds'
         bench_time['value'] = elapsed_time
         bench_time['range'] = 10
-        bench_time['extra'] = 'Analysis path: ' + analysis_path
+        bench_time['extra'] = 'Analysis path: ' + args.pathToAnalysisScript
         saveBenchmark('benchmarks_smaller_better.json', bench_time)
 
         bench_evt_per_sec = {}
@@ -590,7 +597,7 @@ def runLocal(rdfModule, fileList, args):
         bench_evt_per_sec['unit'] = 'Evt/s'
         bench_evt_per_sec['value'] = nevents_local / elapsed_time
         bench_time['range'] = 1000
-        bench_time['extra'] = 'Analysis path: ' + analysis_path
+        bench_time['extra'] = 'Analysis path: ' + args.pathToAnalysisScript
         saveBenchmark('benchmarks_bigger_better.json', bench_evt_per_sec)
 
 
@@ -1059,12 +1066,13 @@ def run(mainparser, subparser=None):
     rdfSpec.loader.exec_module(rdfModule)
 
     try:
+        print(args.command)
         args.command
         if args.command == "run":      runStages(args, rdfModule, args.preprocess, analysisFile)
         elif args.command == "final":  runFinal(rdfModule)
         elif args.command == "plots":  runPlots(analysisFile)
         return
-    except AttributeError:
+    except Exception as e:
         print("============running the old way")
 
 
