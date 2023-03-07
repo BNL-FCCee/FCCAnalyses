@@ -1,5 +1,6 @@
 # configuration file 
 
-batch: 0
-EOSoutput: 0
-JobName: "ZccH"
+batch: 1
+EOSoutput: 1
+JobName: "ZccH_4jetsRequired"
+njets: 4

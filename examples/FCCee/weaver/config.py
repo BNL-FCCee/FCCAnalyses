@@ -6,7 +6,7 @@ this configuration file contains the:
 """
 
 ## number of jets for exclusive clustering
-njets = 2
+njets = 4
 
 ## name of collections in EDM root files
 collections = {
@@ -446,5 +446,13 @@ variables_event = {
         "xmax": 10,
         "scale": "lin",
     },
+    "all_invariant_masses": {
+        "name": "all_invariant_masses",
+        "title": "m_{jj} [GeV]",
+        "bin": 100,
+        "xmin": 0,
+        "xmax": 200,
+        "scale": "lin",    
+    }
 
 }

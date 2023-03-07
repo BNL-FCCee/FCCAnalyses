@@ -1067,12 +1067,12 @@ def run(mainparser, subparser=None):
 
     try:
         print(args.command)
-        args.command
         if args.command == "run":      runStages(args, rdfModule, args.preprocess, analysisFile)
         elif args.command == "final":  runFinal(rdfModule)
         elif args.command == "plots":  runPlots(analysisFile)
         return
     except Exception as e:
+        print("Exception:",e)
         print("============running the old way")
 
 

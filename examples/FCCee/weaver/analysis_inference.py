@@ -70,6 +70,9 @@ class RDFanalysis:
         ## tagger inference
         df = jetFlavourHelper.inference(weaver_preproc, weaver_model, df)
 
+        df = df.Define("jet_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
+        df = df.Define("event_invariant_mass", "JetConstituentsUtils::InvariantMass(jet_p4[0], jet_p4[1])") # I also want the invariant mass of all pairs
+
         return df
 
     # __________________________________________________________
