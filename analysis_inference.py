@@ -147,7 +147,7 @@ class RDFanalysis:
         df = jetFlavourHelper.define(df)
         df = df.Define("jet_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
         df = df.Define("event_invariant_mass", "JetConstituentsUtils::InvariantMass(jet_p4[0], jet_p4[1])") 
-        df = df.Define("all_invariant_masses", "JetConstituentsUtils::AllInvariantMasses(jet_p4)")
+        df = df.Define("all_invariant_masses", "JetConstituentsUtils::all_invariant_masses(jet_p4)")
 
         ## tagger inference
         df = jetFlavourHelper.inference(weaver_preproc, weaver_model, df) #.Define("recojetpair_isC", "SumFlavorScores(recojet_isC)")
@@ -166,7 +166,7 @@ class RDFanalysis:
 
         branchList = branches_event + branches_jet + branches_pfcand
         branchList += jetFlavourHelper.outputBranches()
-
+        branchList += ["all_invariant_masses"]
         branchList += ["recojetpair_isC"]
         branchList += ["recojetpair_isB"]
 
