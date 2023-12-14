@@ -28,7 +28,7 @@ class ExclusiveJetClusteringHelper:
 
         # compute jet observables
 
-        observables = ["p", "e", "mass", "phi", "theta", "nconst"]
+        observables = ["p", "px", "py", "pz", "e", "mass", "phi", "theta", "nconst", "cluster", "const0", "const1", "const2", "const3"]
 
         self.jet_obs = dict()
         for obs in observables:
@@ -55,6 +55,8 @@ class ExclusiveJetClusteringHelper:
 
         # run jet clustering with all reconstructed particles. ee_kt_algorithm, R=1.5, inclusive clustering, E-scheme
         self.definition[_jet] = "JetClustering::clustering_ee_kt(2, {}, 1, 0)({})".format(njets, pjetc)
+#        self.definition[_jet] = "JetClustering::clustering_ee_kt(0, 0.4, 1, 0)({})".format(pjetc)
+#        self.definition[_jet] = "JetClustering::clustering_ee_genkt(0.4, 0, 10., 0, 0, 1)({})".format(pjetc)
 
         # get the jets out of the struct
         self.definition[jet] = "JetClusteringUtils::get_pseudoJets({})".format(_jet)
@@ -69,11 +71,29 @@ class ExclusiveJetClusteringHelper:
 
         # compute jet observables
         self.definition[self.jet_obs["p"]] = "JetClusteringUtils::get_p({})".format(self.jets)
+        self.definition[self.jet_obs["px"]] = "JetClusteringUtils::get_px({})".format(self.jets)
+        self.definition[self.jet_obs["py"]] = "JetClusteringUtils::get_py({})".format(self.jets)
+        self.definition[self.jet_obs["pz"]] = "JetClusteringUtils::get_pz({})".format(self.jets)
         self.definition[self.jet_obs["e"]] = "JetClusteringUtils::get_e({})".format(self.jets)
         self.definition[self.jet_obs["mass"]] = "JetClusteringUtils::get_m({})".format(self.jets)
         self.definition[self.jet_obs["phi"]] = "JetClusteringUtils::get_phi({})".format(self.jets)
         self.definition[self.jet_obs["theta"]] = "JetClusteringUtils::get_theta({})".format(self.jets)
         self.definition[self.jet_obs["nconst"]] = "JetConstituentsUtils::count_consts({})".format(self.constituents)
+#        self.definition[self.jet_obs["pseudos"]] = "JetClusteringUtils::get_pseudoJets({})".format(_jet)
+        self.definition[self.jet_obs["cluster"]] = "JetClusteringUtils::get_constituents({})".format(_jet)
+#        self.definition[self.jet_obs["cluster0"]] = "JetClusteringUtils::get_constituents({})[0]".format(_jet)
+#        self.definition[self.jet_obs["cluster1"]] = "JetClusteringUtils::get_constituents({})[1]".format(_jet)
+#        self.definition[self.jet_obs["cluster2"]] = "JetClusteringUtils::get_constituents({})[2]".format(_jet)
+#        self.definition[self.jet_obs["cluster3"]] = "JetClusteringUtils::get_constituents({})[3]".format(_jet)
+#        self.definition[self.jet_obs["const0"]] = "JetConstituentsUtils::get_jet_constituents({}, 0)[1]".format(jetc)
+#        self.definition[self.jet_obs["const1"]] = "JetConstituentsUtils::get_jet_constituents({}, 1)[1]".format(jetc)
+#        self.definition[self.jet_obs["const2"]] = "JetConstituentsUtils::get_jet_constituents({}, 2)[1]".format(jetc)
+#        self.definition[self.jet_obs["const3"]] = "JetConstituentsUtils::get_jet_constituents({}, 3)[1]".format(jetc)
+        self.definition[self.jet_obs["const0"]] = "JetConstituentsUtils::get_jet_constituents({}, 0)".format(jetc)
+        self.definition[self.jet_obs["const1"]] = "JetConstituentsUtils::get_jet_constituents({}, 1)".format(jetc)
+        self.definition[self.jet_obs["const2"]] = "JetConstituentsUtils::get_jet_constituents({}, 2)".format(jetc)
+        self.definition[self.jet_obs["const3"]] = "JetConstituentsUtils::get_jet_constituents({}, 3)".format(jetc)
+        print("dummy")
         self.definition[event_njet] = "JetConstituentsUtils::count_jets({})".format(self.constituents)
 
     def define(self, df):

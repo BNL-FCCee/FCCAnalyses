@@ -354,6 +354,30 @@ variables_jet = {
         "xmax": 100.0,
         "scale": "lin",
     },
+    "jet_px": {
+        "name": "jet_px",
+        "title": "p_{jet} [GeV]",
+        "bin": 100,
+        "xmin": 0,
+        "xmax": 100.0,
+        "scale": "lin",
+    },
+    "jet_py": {
+        "name": "jet_py",
+        "title": "p_{jet} [GeV]",
+        "bin": 100,
+        "xmin": 0,
+        "xmax": 100.0,
+        "scale": "lin",
+    },
+    "jet_pz": {
+        "name": "jet_pz",
+        "title": "p_{jet} [GeV]",
+        "bin": 100,
+        "xmin": 0,
+        "xmax": 100.0,
+        "scale": "lin",
+    },
     "jet_e": {
         "name": "jet_e",
         "title": "E_{jet} [GeV]",
@@ -437,14 +461,14 @@ variables_jet = {
 }
 
 variables_event = {
-    "event_invariant_mass": {
-        "name": "event_invariant_mass",
-        "title": "m_{jj} [GeV]",
-        "bin": 100,
-        "xmin": 0,
-        "xmax": 200,
-        "scale": "lin",
-    },
+#    "event_invariant_mass": {
+#        "name": "event_invariant_mass",
+#        "title": "m_{jj} [GeV]",
+#        "bin": 100,
+#        "xmin": 0,
+#        "xmax": 200,
+#        "scale": "lin",
+#    },
     "event_njet": {
         "name": "event_njet",
         "title": "N_{j} ",

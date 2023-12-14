@@ -64,6 +64,7 @@ find_package(FastJet)
 
 find_package( Delphes REQUIRED )
 
+link_directories(/cvmfs/sw.hsf.org/spackages7/intel-tbb/2020.3/x86_64-centos7-gcc11.2.0-opt/ey3ft/lib /cvmfs/sw.hsf.org/spackages7/zlib/1.2.13/x86_64-centos7-gcc11.2.0-opt/2wmsk/lib)
 
 if(WITH_ACTS)
   find_package( Acts COMPONENTS Core )
@@ -159,3 +160,6 @@ endif()
 if(BUILD_TESTING)
   add_subdirectory(tests)
 endif()
+
+
+
