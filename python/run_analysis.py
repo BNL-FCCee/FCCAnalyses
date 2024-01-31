@@ -512,12 +512,12 @@ def run_local(rdf_module, infile_list, args):
     outn = run_rdf(rdf_module, file_list, outfile_path, args)
     outn = outn.GetValue()
 
-    with ROOT.TFile(outfile_path, 'update') as outfile:
-        param = ROOT.TParameter(int)(
-                'eventsProcessed',
-                nevents_orig if nevents_orig != 0 else nevents_local)
-        param.Write()
-        outfile.Write()
+    outfile = ROOT.TFile(outfile_path, 'update')
+    param = ROOT.TParameter(int)(
+            'eventsProcessed',
+            nevents_orig if nevents_orig != 0 else nevents_local)
+    param.Write()
+    outfile.Write()
 
     elapsed_time = time.time() - start_time
     info_msg = f"{' SUMMARY ':=^80}\n"
