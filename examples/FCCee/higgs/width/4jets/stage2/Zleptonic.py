@@ -1,7 +1,8 @@
-inputDir    = "outputs/fccee/higgs/mH-recoil/hzz/stage1/"
+inputDir    = "/usatlas/u/atishelma/FCC/FCCAnalyses/2DPlotting/stage1"
 
 #Optional: output directory, default is local dir
-outputDir   = "outputs/fccee/higgs/mH-recoil/hzz/stage2/4jets/Zleptonic/"
+outputDir    = "/usatlas/u/atishelma/FCC/FCCAnalyses/2DPlotting/stage2"
+# outputDir   = "outputs/fccee/higgs/mH-recoil/hzz/stage2/4jets/Zleptonic/"
 
 processList = {#'wzp6_ee_mumuH_HZZ_ecm240':{},
                #'wzp6_ee_mumuH_HWW_ecm240':{}, 
@@ -26,7 +27,7 @@ processList = {#'wzp6_ee_mumuH_HZZ_ecm240':{},
               # 'wzp6_ee_eeH_Htautau_ecm240':{},
               # 'wzp6_ee_ee_Mee_30_150_ecm240':{},
               # 'p8_ee_ZZ_ecm240':{},#Run the full statistics in one output file named <outputDir>/p8_ee_ZZ_ecm240.root
-               'p8_ee_WW_ecm240':{} #Run 50% of the statistics in two files named <outputDir>/p8_ee_WW_ecm240/chunk<N>.root
+#                'p8_ee_WW_ecm240':{} #Run 50% of the statistics in two files named <outputDir>/p8_ee_WW_ecm240/chunk<N>.root
     #'p8_ee_ZH_ecm240':{'fraction':0.2, 'output':'p8_ee_ZH_ecm240_out'} #Run 20% of the statistics in one file named <outputDir>/p8_ee_ZH_ecm240_out.root (example on how to change the output name)
                }
 
@@ -78,7 +79,7 @@ class RDFanalysis():
 
                .Filter("size(jets_e4)>0") 
                #Filter to have exactly one Z candidate for the reconstructed particles
-               .Filter("zed_leptonic_m.size() == 1")
+#                .Filter("zed_leptonic_m.size() == 1")
                #.Define Z candidate mass
                .Define("Zcand_m","zed_leptonic_m[0]")
                #Define Z candidate recoil mass
@@ -448,15 +449,13 @@ class RDFanalysis():
                #.Define("diffZ12", "abs( inv_mass_Z1 - jet1_2_m )")
                #.Define("diffZ22", "abs( inv_mass_Z2 - jet2_2_m )")
 
-               .Define("thetaphi", "MCParticle::fill_thetaphi_Zdecay(hzz_decay)")
-               .Define("Z1part_theta", "thetaphi.Z1_theta")
-               .Define("Z1part_phi", "thetaphi.Z1_phi")
-               .Define("Z2part_theta", "thetaphi.Z2_theta")
-               .Define("Z2part_phi", "thetaphi.Z2_phi")
-               .Define("Z1part_energy", "thetaphi.Z1_energy")
-               .Define("Z2part_energy", "thetaphi.Z2_energy")
-               
-
+               .Define("thetaphi", "MCParticle::fill_thetaphi_ZHdecay(ZH_decay)")
+               .Define("Hpart_theta", "thetaphi.H_theta")
+               .Define("Hpart_phi", "thetaphi.H_phi")
+               .Define("Hpart_energy", "thetaphi.H_energy")
+               .Define("Zpart_theta", "thetaphi.Z_theta")
+               .Define("Zpart_phi", "thetaphi.Z_phi")
+               .Define("Zpart_energy", "thetaphi.Z_energy")
 
         
                )
@@ -619,10 +618,10 @@ class RDFanalysis():
             "flavourscoreZ1_gm",
             "flavourscoreZ2_gm",
 
-            "Z1part_theta",
-            "Z1part_phi",
-            "Z2part_theta",
-            "Z2part_phi",
+            "Hpart_theta",
+            "Hpart_phi",
+            "Zpart_theta",
+            "Zpart_phi",
 
             "jetconstituents_4_1",
             "jetconstituents_4_2",
@@ -659,8 +658,8 @@ class RDFanalysis():
             "jetconstituents_4_energy_4",
 
             
-            "Z1part_energy",
-            "Z2part_energy",
+            "Hpart_energy",
+            "Zpart_energy",
 
             "firstZ_firstjet",
             "firstZ_secondjet",

@@ -32,7 +32,8 @@ prodTag     = "FCCee/winter2023/IDEA/" #IDEA concept de detecteur
 
 #Optional: output directory, default is local running directory
 #outputDir   = "outputs/fccee/higgs/mH-recoil/hzz/stage1/"
-outputDir   = "outputs/fccee/higgs/mH-recoil/hzz/stage1/"
+# outputDir   = "outputs/fccee/higgs/mH-recoil/hzz/stage1/"
+outputDir   = ""
 
 
 #Optional: analysisName, default is ""
@@ -133,7 +134,9 @@ class RDFanalysis():
             .Alias("Electron0", "Electron#0.index")
 
 
+#             .Define("vrai_Z", "MCParticle::sel_pdgID(23, true)(Particle)")
             .Define("vrai_Z", "MCParticle::sel_pdgID(23, true)(Particle)")
+            .Define("vrai_H", "MCParticle::sel_pdgID(25, true)(Particle)")
 
 
             .Define("muons",                "ReconstructedParticle::get(Muon0, ReconstructedParticles)")
@@ -361,11 +364,12 @@ class RDFanalysis():
 
 #"vraie" saveur reconstruite des jets (attention à la définition de get_flavour) (attention la VRAIE saveur c'est la saveur de la particule qui a donné naissance au jet qu'on connait via pdgid MONTE CARLO ; quand on reconstruit des jets on ne peut pas savoir laquelle exactement est à l'origine du jet donc on doit la déterminer au mieux via get_flavour qui n'est pas du tagging mais juste une manière d'attribuer une vraie valeur de saveur mais à un JET et non une particule, ce qui n'est pas évident)
 
-            .Define("jets_ee_genkt_flavour2",   "JetTaggingUtils::get_flavour(jets_ee_genkt2, Particle, 2, 0.8)")
+            .Define("jets_ee_genkt_flavour2",   "JetTaggingUtils::get_flavour(jets_ee_genkt2, Particle)") #, 2, 0.8)")
 
             #nouveau get flavour : get_flavour_gm
             
-            .Define("jets_ee_flavour2", "JetTaggingUtils::get_flavour_gm(jets_ee_genkt2, Particle)")
+#             .Define("jets_ee_flavour2", "JetTaggingUtils::get_flavour_gm(jets_ee_genkt2, Particle)")
+            .Define("jets_ee_flavour2", "JetTaggingUtils::get_flavour(jets_ee_genkt2, Particle)")
 
 #tagging (méthode pour les données obtenues par un détecteur) suivant la méthode paramétrée (voir ipad) : on définit des cuts nous-même pour l'algorithme, donnés avant le df dans ce fichier
 
@@ -643,10 +647,12 @@ class RDFanalysis():
 
             # get truth jet flavour
         
-            .Define("jets_ee_genkt_flavour4",   "JetTaggingUtils::get_flavour(jets_ee_genkt4, Particle, 2, 0.8)")
+#             .Define("jets_ee_genkt_flavour4",   "JetTaggingUtils::get_flavour(jets_ee_genkt4, Particle, 2, 0.8)")
+            .Define("jets_ee_genkt_flavour4",   "JetTaggingUtils::get_flavour(jets_ee_genkt4, Particle)")   #, 2, 0.8)")
 
 
-            .Define("jets_ee_flavour4", "JetTaggingUtils::get_flavour_gm(jets_ee_genkt4, Particle)")
+#             .Define("jets_ee_flavour4", "JetTaggingUtils::get_flavour_gm(jets_ee_genkt4, Particle)")
+            .Define("jets_ee_flavour4", "JetTaggingUtils::get_flavour(jets_ee_genkt4, Particle)")
              
 #check
 
@@ -768,16 +774,18 @@ class RDFanalysis():
 #hzz monte carlo
 
             .Alias("Particle1", "Particle#1.index")
-            .Define("hzz_decay", "MCParticle::fill_ZHZZ_decay(Particle, Particle1)")
+#             .Define("hzz_decay", "MCParticle::fill_ZHZZ_decay(Particle, Particle1)")
+            .Define("ZH_decay", "MCParticle::fill_ZH_decay(Particle, Particle1)")
+#             .Define("inv_mass_H", "MCParticle::invariant_mass(Hbb_decay.Z_decay)")
 
-            .Define("inv_mass_Z", "MCParticle::invariant_mass(hzz_decay.Z_decay)")
-            .Define("pdg_Z", "MCParticle::get_pdg(hzz_decay.Z_decay)")
+#             .Define("inv_mass_Z", "MCParticle::invariant_mass(hzz_decay.Z_decay)")
+#             .Define("pdg_Z", "MCParticle::get_pdg(hzz_decay.Z_decay)")
 
-            .Define("inv_mass_Z1", "MCParticle::invariant_mass(hzz_decay.Z1_decay)")
-            .Define("pdg_Z1", "MCParticle::get_pdg(hzz_decay.Z1_decay)")
+#             .Define("inv_mass_Z1", "MCParticle::invariant_mass(hzz_decay.Z1_decay)")
+#             .Define("pdg_Z1", "MCParticle::get_pdg(hzz_decay.Z1_decay)")
 
-            .Define("inv_mass_Z2", "MCParticle::invariant_mass(hzz_decay.Z2_decay)")
-            .Define("pdg_Z2", "MCParticle::get_pdg(hzz_decay.Z2_decay)")
+#             .Define("inv_mass_Z2", "MCParticle::invariant_mass(hzz_decay.Z2_decay)")
+#             .Define("pdg_Z2", "MCParticle::get_pdg(hzz_decay.Z2_decay)")
 
 #testé ici mais va au stage 2 Zleptonique
             #.Define("Zelectronique", "MCParticle::sel_pdgID(11, true)(hzz_decay.Z_decay)")
@@ -1017,15 +1025,18 @@ class RDFanalysis():
 
             
             
-            "hzz_decay",
-            "inv_mass_Z",
-            "pdg_Z",
+#             "hzz_decay",
+            "ZH_decay",
+#             "inv_mass_H",
+#             "inv_mass_Z",
+#             "inv_mass_H",
+#             "pdg_Z",
 
-            "inv_mass_Z1",
-            "pdg_Z1",
+#             "inv_mass_Z1",
+#             "pdg_Z1",
 
-            "inv_mass_Z2",
-            "pdg_Z2",
+#             "inv_mass_Z2",
+#             "pdg_Z2",
 
             "emiss",
             "pxmiss",

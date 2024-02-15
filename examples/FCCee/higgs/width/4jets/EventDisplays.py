@@ -4,10 +4,6 @@ import ROOT
 import numpy as np
 from matplotlib import pyplot as plt
 
-#wzp6_ee_mumuH_HZZ_ecm240
-#p8_ee_ZZ_ecm240
-#stage2 tourné avec ces variables pour HZZ Hbb et ZZ
-
 colors = {
     "gray": {
         0: "#f8f9fa",
@@ -169,30 +165,31 @@ colors = {
 
 def main():
     event_number = 0
-    nevents = 50
+    nevents = 5
     e_cut = 0
-    d = ROOT.RDataFrame("events", "/scratch/combes/stage2/wzp6_ee_mumuH_Hbb_ecm240.root")
+    inFile = "/usatlas/u/atishelma/FCC/FCCAnalyses/2DPlotting/stage2/output.root"
+    d = ROOT.RDataFrame("events", inFile)
      # can put some of the cuts we use to look at signal-like events
-    d = d.Filter("Zcand_m > 81") #sel1
-    d = d.Filter("Zcand_m < 101") #sel1 bis 
-    d = d.Filter("Zcand_recoil_m > 124") #sel2
-    d = d.Filter("Zcand_recoil_m < 140") #sel2 bis
-    d = d.Filter("etmiss < 13") #sel3
-    d = d.Filter("dmerge_4_34 > 60") #sel4
-    d = d.Filter("higgs_4_m > 110") #sel5
-    d = d.Filter("higgs_4_m < 138") #sel5 bis
-    #d = d.Filter("dmerge_4_23 > 250") #sel6
-    d = d.Filter("pzmiss < 15") #sel7
-    d = d.Filter("N_selected_leptons == 2") #sel8
+#     d = d.Filter("Zcand_m > 81") #sel1
+#     d = d.Filter("Zcand_m < 101") #sel1 bis 
+#     d = d.Filter("Zcand_recoil_m > 124") #sel2
+#     d = d.Filter("Zcand_recoil_m < 140") #sel2 bis
+#     d = d.Filter("etmiss < 13") #sel3
+#     d = d.Filter("dmerge_4_34 > 60") #sel4
+#     d = d.Filter("higgs_4_m > 110") #sel5
+#     d = d.Filter("higgs_4_m < 138") #sel5 bis
+#     #d = d.Filter("dmerge_4_23 > 250") #sel6
+#     d = d.Filter("pzmiss < 15") #sel7
+#     d = d.Filter("N_selected_leptons == 2") #sel8
     
     # now let's select the events
     d1 = d.Range(event_number, event_number + nevents) # Range([first, last[)
-    d1 = d1.Define("z1_phi", f"Z1part_phi[Z1part_energy>{e_cut}]")
-    d1 = d1.Define("z1_theta", f"Z1part_theta[Z1part_energy>{e_cut}]")
-    d1 = d1.Define("z1_energy", f"Z1part_energy[Z1part_energy>{e_cut}]")
-    d1 = d1.Define("z2_phi", f"Z2part_phi[Z2part_energy>{e_cut}]")
-    d1 = d1.Define("z2_theta", f"Z2part_theta[Z2part_energy>{e_cut}]")
-    d1 = d1.Define("z2_energy", f"Z2part_energy[Z2part_energy>{e_cut}]")
+    d1 = d1.Define("H_phi", f"Hpart_phi[Hpart_energy>{e_cut}]")
+    d1 = d1.Define("H_theta", f"Hpart_theta[Hpart_energy>{e_cut}]")
+    d1 = d1.Define("H_energy", f"Hpart_energy[Hpart_energy>{e_cut}]")
+    d1 = d1.Define("Z_phi", f"Zpart_phi[Zpart_energy>{e_cut}]")
+    d1 = d1.Define("Z_theta", f"Zpart_theta[Zpart_energy>{e_cut}]")
+    d1 = d1.Define("Z_energy", f"Zpart_energy[Zpart_energy>{e_cut}]")
 
     d1 = d1.Define("Jetconstituents_4_theta_1", f"jetconstituents_4_theta_1[jetconstituents_4_energy_1>{e_cut}]")
     d1 = d1.Define("Jetconstituents_4_theta_2", f"jetconstituents_4_theta_2[jetconstituents_4_energy_2>{e_cut}]")
@@ -209,7 +206,7 @@ def main():
     d1 = d1.Define("Jetconstituents_4_energy_3", f"jetconstituents_4_energy_3[jetconstituents_4_energy_3>{e_cut}]")
     d1 = d1.Define("Jetconstituents_4_energy_4", f"jetconstituents_4_energy_4[jetconstituents_4_energy_4>{e_cut}]")
 
-    arr = d1.AsNumpy(["z1_phi", "z1_theta", "z1_energy", "z2_phi", "z2_theta", "z2_energy",
+    arr = d1.AsNumpy(["H_phi", "H_theta", "H_energy", "Z_phi", "Z_theta", "Z_energy",
         "Jetconstituents_4_phi_1", "Jetconstituents_4_theta_1", "Jetconstituents_4_energy_1",
         "Jetconstituents_4_phi_2", "Jetconstituents_4_theta_2", "Jetconstituents_4_energy_2",
         "Jetconstituents_4_phi_3", "Jetconstituents_4_theta_3", "Jetconstituents_4_energy_3",
@@ -220,12 +217,12 @@ def main():
 
     for idx in range (nevents):
 
-        z1_phi = np.asarray(arr['z1_phi'][idx])
-        z1_theta = np.asarray(arr['z1_theta'][idx])
-        z1_energy = np.asarray(arr['z1_energy'][idx])
-        z2_phi = np.asarray(arr['z2_phi'][idx])
-        z2_theta = np.asarray(arr['z2_theta'][idx])
-        z2_energy = np.asarray(arr['z2_energy'][idx])
+        H_phi = np.asarray(arr['H_phi'][idx])
+        H_theta = np.asarray(arr['H_theta'][idx])
+        H_energy = np.asarray(arr['H_energy'][idx])
+        Z_phi = np.asarray(arr['Z_phi'][idx])
+        Z_theta = np.asarray(arr['Z_theta'][idx])
+        Z_energy = np.asarray(arr['Z_energy'][idx])
 
         jc_phi_tmp = [np.asarray(arr['Jetconstituents_4_phi_1'][idx]),
                 np.asarray(arr['Jetconstituents_4_phi_2'][idx]),
@@ -248,12 +245,12 @@ def main():
         nconst = [len(jc) for jc in jc_phi_tmp]
 
         # trick to show correctly markers that overlap around pi in phi
-        z1_phi = np.concatenate((z1_phi, z1_phi+2*np.pi, z1_phi-2*np.pi))
-        z1_theta = np.concatenate((z1_theta, z1_theta, z1_theta))
-        z1_energy = np.concatenate((z1_energy, z1_energy, z1_energy))
-        z2_phi = np.concatenate((z2_phi, z2_phi+2*np.pi, z2_phi-2*np.pi))
-        z2_theta = np.concatenate((z2_theta, z2_theta, z2_theta))
-        z2_energy = np.concatenate((z2_energy, z2_energy, z2_energy))
+        H_phi = np.concatenate((H_phi, H_phi+2*np.pi, H_phi-2*np.pi))
+        H_theta = np.concatenate((H_theta, H_theta, H_theta))
+        H_energy = np.concatenate((H_energy, H_energy, H_energy))
+        Z_phi = np.concatenate((Z_phi, Z_phi+2*np.pi, Z_phi-2*np.pi))
+        Z_theta = np.concatenate((Z_theta, Z_theta, Z_theta))
+        Z_energy = np.concatenate((Z_energy, Z_energy, Z_energy))
 
         jc_phi = [np.concatenate((jc, jc+2*np.pi, jc-2*np.pi)) for jc in jc_phi_tmp]
         jc_theta = [np.concatenate((jc, jc, jc)) for jc in jc_theta_tmp]
@@ -262,7 +259,7 @@ def main():
 
         p = plt.rcParams
         #p["font.sans-serif"] = ["Nimbus Sans"]
-        p["font.sans-serif"] = ["Liberation Sans"]
+#         p["font.sans-serif"] = ["Liberation Sans"]
         p["mathtext.fontset"] = "stixsans"
         #p["font.weight"] = "light"
 
@@ -293,21 +290,27 @@ def main():
                 c=jet_colors[i], alpha=0.4,
                 label=f"Jet {ii+1}, {nconst[ii]} constituents"))
 
-        z1=ax.scatter(z1_phi, z1_theta, s=10*z1_energy**.5,
+        print("len(H_phi):",len(H_phi))
+        print("len(H_theta):",len(H_theta))
+        
+        print("len(Z_phi):",len(Z_phi))
+        print("len(Z_theta):",len(Z_theta))
+            
+        H_truth=ax.scatter(H_phi, H_theta, s=10*H_energy**.5,
                 c=colors['orange'][8], alpha=1, marker='P',
-                label="Truth particles from on-shell Z")
-        z2=ax.scatter(z2_phi, z2_theta, s=10*z2_energy**.5,
+                label="Truth particles from Higgs(bb)")
+        Z_truth=ax.scatter(Z_phi, Z_theta, s=10*Z_energy**.5,
                 c=colors['green'][8], alpha=1, marker='P',
-                label="Truth particles from off-shell Z")
+                label="Truth particles from Z(cc)")
 
-        ax.legend(handles=[z1, js[0], js[1], z2, js[2], js[3]], loc='upper left', ncol=2)
-        ax.text(0, 1.0, fr"Reconstructed masses: $m(Z_1) = {mZ1:.1f}$ GeV, $m(Z_2) = {mZ2:.1f}$ GeV, $m(H) = {higgsrecomass:.1f}$ GeV",
+        ax.legend(handles=[H_truth, js[0], js[1], Z_truth, js[2], js[3]], loc='upper left', ncol=2)
+#         ax.text(0, 1.0, fr"Reconstructed masses: $m(Z_1) = {mZ1:.1f}$ GeV, $m(Z_2) = {mZ2:.1f}$ GeV, $m(H) = {higgsrecomass:.1f}$ GeV",
+        ax.text(0, 1.0, fr"",
             transform=ax.transAxes)
-        ax.set_title("Hbb events, after selections, Durham-kt N=4", loc='left',
+        ax.set_title("Z(cc)H(bb) events, after selections, Durham-kt N=4", loc='left',
                 fontdict={'fontweight':'bold'}, y=1.03)
 
-        plt.savefig(f"outputs/fccee/higgs/mH-recoil/hzz/plots/Display_{idx}.png")
-        #plt.show() 
+        plt.savefig(f"outputs/Display_{idx}.png", dpi=500)
         plt.close()
     pass
 

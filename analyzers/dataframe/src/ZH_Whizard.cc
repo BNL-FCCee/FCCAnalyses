@@ -9,87 +9,91 @@ namespace FCCAnalyses{
 
 namespace MCParticle{
 
-  ZHZZ fill_ZHZZ_decay(const ROOT::VecOps::RVec<edm4hep::MCParticleData> &in,
+  ZH fill_ZH_decay(const ROOT::VecOps::RVec<edm4hep::MCParticleData> &in,
                        const ROOT::VecOps::RVec<int> &ind) {
-    ZHZZ res;
+    ZH res;
 
-    // check if we have a HZZ decay, and collect H and ZZ indices
-    ROOT::VecOps::RVec<int> HZZ_indices = get_indices(25, {23, 23}, false, false, false, false)(in, ind);
-
-    if (HZZ_indices.empty()) {
+    // Look for a Higgs boson
+    ROOT::VecOps::RVec<int> Hbb_indices = get_indices(25, {5, -5}, false, false, false, false)(in, ind);
+      
+    // Look for Z
+    ROOT::VecOps::RVec<int> Zcc_indices = get_indices(11, {4, -4}, false, false, false, false)(in, ind);
+      
+    if (Hbb_indices.empty()) {
       return res;
     }
+      
+//     if (Zcc_indices.empty()) {
+//       return res;
+//     }
 
-    res.Higgs.push_back(in[HZZ_indices[0]]);
-    int ind_Z_on_shell = 0;
-    int ind_Z_off_shell = 0;
-    if (in[HZZ_indices[1]].mass > in[HZZ_indices[2]].mass) {
-      ind_Z_on_shell = HZZ_indices[1];
-      ind_Z_off_shell = HZZ_indices[2];
-    }
-    else {
-      ind_Z_on_shell = HZZ_indices[2];
-      ind_Z_off_shell = HZZ_indices[1];
-    }
-    std::vector<int> Z1_idx = get_list_of_particles_from_decay(ind_Z_on_shell, in, ind);
-    res.Z1_decay.push_back(in[Z1_idx[0]]);
-    res.Z1_decay.push_back(in[Z1_idx[1]]);
-    std::vector<int> Z1_idxstable = get_list_of_stable_particles_from_decay(ind_Z_on_shell, in, ind);
-    std::set<int> Z1_idxstable_uniq(Z1_idxstable.begin(), Z1_idxstable.end());
-    for (int idx : Z1_idxstable_uniq) {
-      res.Z1_completedecay.push_back(in[idx]);
-      //std::cout << in[Z1_idx[i]].generatorStatus << std::endl;
-    }
+    std::cout << "Hbb_indices[0]: " << Hbb_indices[0] << std::endl;
+    std::cout << "Hbb_indices[1]: " << Hbb_indices[1] << std::endl;
+    std::cout << "Hbb_indices[2]: " << Hbb_indices[2] << std::endl;
+    
+    int ind_H = Hbb_indices[0];
+//     int ind_Z = Zcc_indices[0];
+      
+    int ind_Z = 8;
+    
+//     std::cout << "Zcc_indices[0]: " << Hbb_indices[0] << std::endl;
+//     std::cout << "Zcc_indices[1]: " << Hbb_indices[1] << std::endl;
+//     std::cout << "Zcc_indices[2]: " << Hbb_indices[2] << std::endl;
 
-    std::vector<int> Z2_idx = get_list_of_particles_from_decay(ind_Z_off_shell, in, ind);
-    res.Z2_decay.push_back(in[Z2_idx[0]]);
-    res.Z2_decay.push_back(in[Z2_idx[1]]);
-    std::vector<int> Z2_idxstable = get_list_of_stable_particles_from_decay(ind_Z_off_shell, in, ind);
-    std::set<int> Z2_idxstable_uniq(Z2_idxstable.begin(), Z2_idxstable.end());
-    for (int idx : Z2_idxstable_uniq) {
-      res.Z2_completedecay.push_back(in[idx]);
+    // Get Higgs decay products
+    std::vector<int> H_idxstable = get_list_of_stable_particles_from_decay(ind_H, in, ind);
+    std::cout << "H_idxstable.size(): " << H_idxstable.size() << std::endl;
+      
+    std::set<int> H_idxstable_uniq(H_idxstable.begin(), H_idxstable.end());
+    for (int idx : H_idxstable_uniq) {
+      res.H_completedecay.push_back(in[idx]);
     }
-
-    res.Z_decay.push_back(in[8]);
-    res.Z_decay.push_back(in[9]);
-
+      
+    // Get Z decay products
+    std::vector<int> Z_idxstable = get_list_of_stable_particles_from_decay(ind_Z, in, ind);
+    std::cout << "Z_idxstable.size(): " << Z_idxstable.size() << std::endl;
+      
+    std::set<int> Z_idxstable_uniq(Z_idxstable.begin(), Z_idxstable.end());
+    for (int idx : Z_idxstable_uniq) {
+      res.Z_completedecay.push_back(in[idx]);
+    }
+    
+//     res.Z_decay.push_back(in[8]);
+//     res.Z_decay.push_back(in[9]);
+      
     return res;
   }
 
   
-  thetaphi fill_thetaphi_Zdecay(const ZHZZ &HZZ){
+  thetaphi fill_thetaphi_ZHdecay(const ZH &HZZ){
     thetaphi res; 
-    ROOT::VecOps::RVec<edm4hep::MCParticleData> Z1_finaldecay;
-    ROOT::VecOps::RVec<edm4hep::MCParticleData> Z2_finaldecay;
-    
-							       
-    for (auto & p: HZZ.Z1_completedecay) {
-      //std::cout << p.generatorStatus << std::endl;
+    ROOT::VecOps::RVec<edm4hep::MCParticleData> H_finaldecay;
+    ROOT::VecOps::RVec<edm4hep::MCParticleData> Z_finaldecay;
+
+    // Save Higgs info
+    for (auto & p: HZZ.H_completedecay) {
       if (p.generatorStatus == 1) {
-	Z1_finaldecay.push_back(p);
+	    H_finaldecay.push_back(p);
       } 
     }
-    for (auto & q: HZZ.Z2_completedecay) {
-      if (q.generatorStatus == 1) {
-	Z2_finaldecay.push_back(q);
-      }
+ 
+    res.H_theta = get_theta(H_finaldecay);
+    res.H_phi = get_phi(H_finaldecay);
+    res.H_energy = get_e(H_finaldecay);
+      
+    // Save Z info
+    for (auto & p: HZZ.Z_completedecay) {
+      if (p.generatorStatus == 1) {
+	    Z_finaldecay.push_back(p);
+      } 
     }
  
-    res.Z1_theta = get_theta(Z1_finaldecay);
-    res.Z1_phi = get_phi(Z1_finaldecay);
-    res.Z1_energy = get_e(Z1_finaldecay);
-    res.Z2_theta = get_theta(Z2_finaldecay);
-    res.Z2_phi = get_phi(Z2_finaldecay);
-    res.Z2_energy = get_e(Z2_finaldecay);
- 
+    res.Z_theta = get_theta(Z_finaldecay);
+    res.Z_phi = get_phi(Z_finaldecay);
+    res.Z_energy = get_e(Z_finaldecay);
 
     return res;
   }
-
-
-
-    
-
   
 
   float invariant_mass(const ROOT::VecOps::RVec<edm4hep::MCParticleData> &in) {

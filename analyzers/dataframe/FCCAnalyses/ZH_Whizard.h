@@ -20,31 +20,26 @@ namespace FCCAnalyses{
 
 namespace MCParticle{
 
-  struct ZHZZ {
-    //'lonely'Z
-    ROOT::VecOps::RVec<edm4hep::MCParticleData> Z_decay;
-    ROOT::VecOps::RVec<edm4hep::MCParticleData> Higgs;
-    //on shell Z from the Higgs
-    ROOT::VecOps::RVec<edm4hep::MCParticleData> Z1_decay;
-    //off shell Z from the Higgs
-    ROOT::VecOps::RVec<edm4hep::MCParticleData> Z2_decay;
-    ROOT::VecOps::RVec<edm4hep::MCParticleData> Z1_completedecay;
-    ROOT::VecOps::RVec<edm4hep::MCParticleData> Z2_completedecay;
+  struct ZH {
+    ROOT::VecOps::RVec<edm4hep::MCParticleData> H_completedecay;
+    ROOT::VecOps::RVec<edm4hep::MCParticleData> Z_completedecay;
+      
   };
 
   struct thetaphi {
-    ROOT::VecOps::RVec<float> Z1_theta;
-    ROOT::VecOps::RVec<float> Z1_phi;
-    ROOT::VecOps::RVec<float> Z1_energy;
-    ROOT::VecOps::RVec<float> Z2_theta;
-    ROOT::VecOps::RVec<float> Z2_phi;
-    ROOT::VecOps::RVec<float> Z2_energy;
+    
+    ROOT::VecOps::RVec<float> H_theta;
+    ROOT::VecOps::RVec<float> H_phi;
+    ROOT::VecOps::RVec<float> H_energy;
+    ROOT::VecOps::RVec<float> Z_theta;
+    ROOT::VecOps::RVec<float> Z_phi;
+    ROOT::VecOps::RVec<float> Z_energy;
   };
 
-  thetaphi fill_thetaphi_Zdecay(const ZHZZ &HZZ);
+  thetaphi fill_thetaphi_ZHdecay(const ZH &HZZ);
 
   // fill a struct with information from ZH, H->ZZ decays
-  ZHZZ fill_ZHZZ_decay(const ROOT::VecOps::RVec<edm4hep::MCParticleData> &in,
+  ZH fill_ZH_decay(const ROOT::VecOps::RVec<edm4hep::MCParticleData> &in,
                        const ROOT::VecOps::RVec<int> &ind);
 
   // return the invariant mass of particles in the input collection
