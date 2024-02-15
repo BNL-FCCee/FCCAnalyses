@@ -16,33 +16,16 @@ namespace MCParticle{
     // Look for a Higgs boson
     ROOT::VecOps::RVec<int> Hbb_indices = get_indices(25, {5, -5}, false, false, false, false)(in, ind);
       
-    // Look for Z
-    ROOT::VecOps::RVec<int> Zcc_indices = get_indices(11, {4, -4}, false, false, false, false)(in, ind);
-      
     if (Hbb_indices.empty()) {
       return res;
     }
-      
-//     if (Zcc_indices.empty()) {
-//       return res;
-//     }
 
-    std::cout << "Hbb_indices[0]: " << Hbb_indices[0] << std::endl;
-    std::cout << "Hbb_indices[1]: " << Hbb_indices[1] << std::endl;
-    std::cout << "Hbb_indices[2]: " << Hbb_indices[2] << std::endl;
-    
     int ind_H = Hbb_indices[0];
-//     int ind_Z = Zcc_indices[0];
       
-    int ind_Z = 8;
+    int ind_Z = 8; // assumes certain process (check MC particle visual)
     
-//     std::cout << "Zcc_indices[0]: " << Hbb_indices[0] << std::endl;
-//     std::cout << "Zcc_indices[1]: " << Hbb_indices[1] << std::endl;
-//     std::cout << "Zcc_indices[2]: " << Hbb_indices[2] << std::endl;
-
     // Get Higgs decay products
     std::vector<int> H_idxstable = get_list_of_stable_particles_from_decay(ind_H, in, ind);
-    std::cout << "H_idxstable.size(): " << H_idxstable.size() << std::endl;
       
     std::set<int> H_idxstable_uniq(H_idxstable.begin(), H_idxstable.end());
     for (int idx : H_idxstable_uniq) {
@@ -51,16 +34,12 @@ namespace MCParticle{
       
     // Get Z decay products
     std::vector<int> Z_idxstable = get_list_of_stable_particles_from_decay(ind_Z, in, ind);
-    std::cout << "Z_idxstable.size(): " << Z_idxstable.size() << std::endl;
       
     std::set<int> Z_idxstable_uniq(Z_idxstable.begin(), Z_idxstable.end());
     for (int idx : Z_idxstable_uniq) {
       res.Z_completedecay.push_back(in[idx]);
     }
     
-//     res.Z_decay.push_back(in[8]);
-//     res.Z_decay.push_back(in[9]);
-      
     return res;
   }
 
