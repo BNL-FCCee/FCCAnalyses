@@ -133,12 +133,6 @@ class RDFanalysis():
             .Alias("Muon0", "Muon#0.index")
             .Alias("Electron0", "Electron#0.index")
 
-
-#             .Define("vrai_Z", "MCParticle::sel_pdgID(23, true)(Particle)")
-            .Define("vrai_Z", "MCParticle::sel_pdgID(23, true)(Particle)")
-            .Define("vrai_H", "MCParticle::sel_pdgID(25, true)(Particle)")
-
-
             .Define("muons",                "ReconstructedParticle::get(Muon0, ReconstructedParticles)")
             .Define("electrons",            "ReconstructedParticle::get(Electron0, ReconstructedParticles)")
 
@@ -508,16 +502,6 @@ class RDFanalysis():
             
 
 
-
-
-            
-            
-        
-
-
-            
-            
-            
             
 
             #Durham N=4
@@ -763,12 +747,6 @@ class RDFanalysis():
             #.Define("selected_ltagged_jets_m4",    "JetClusteringUtils::get_m(selected_ltagged_jets4)")
             #.Define("selected_nonltagged_jets_m4", "JetClusteringUtils::get_m(selected_nonltagged_jets4)")
 
-            
-
-            
-            
-            
-
         
 
 #hzz monte carlo
@@ -776,6 +754,32 @@ class RDFanalysis():
             .Alias("Particle1", "Particle#1.index")
 #             .Define("hzz_decay", "MCParticle::fill_ZHZZ_decay(Particle, Particle1)")
             .Define("ZH_decay", "MCParticle::fill_ZH_decay(Particle, Particle1)")
+            
+            .Define("truth_Z", "MCParticle::sel_pdgID(23, true)(Particle)")
+            .Define("truth_H", "MCParticle::sel_pdgID(25, true)(Particle)")
+            
+            # Depends on MC file
+#             .Define("truth_Zq1", "MCParticle::sel_byIndex(8, Particle)")
+#             .Define("truth_Zq2", "MCParticle::sel_byIndex(9, Particle)")
+#             .Define("truth_Hq1", "MCParticle::sel_byIndex(11, Particle)")
+#             .Define("truth_Hq2", "MCParticle::sel_byIndex(12, Particle)")
+            
+            .Define("truth_Z_theta", "MCParticle::get_theta(truth_Z)")
+            .Define("truth_Z_phi", "MCParticle::get_phi(truth_Z)")
+
+            .Define("truth_H_theta", "MCParticle::get_theta(truth_H)")
+            .Define("truth_H_phi", "MCParticle::get_phi(truth_H)")
+            
+#             .Define("truth_Zq1_theta", "MCParticle::get_theta(truth_Zq1)")
+#             .Define("truth_Zq2_theta", "MCParticle::get_theta(truth_Zq2)")
+#             .Define("truth_Hq1_theta", "MCParticle::get_theta(truth_Hq1)")
+#             .Define("truth_Hq2_theta", "MCParticle::get_theta(truth_Hq2)")
+            
+#             .Define("truth_Zq1_phi", "MCParticle::get_phi(truth_Zq1)")
+#             .Define("truth_Zq2_phi", "MCParticle::get_phi(truth_Zq2)")
+#             .Define("truth_Hq1_phi", "MCParticle::get_phi(truth_Hq1)")
+#             .Define("truth_Hq2_phi", "MCParticle::get_phi(truth_Hq2)")
+            
 #             .Define("inv_mass_H", "MCParticle::invariant_mass(Hbb_decay.Z_decay)")
 
 #             .Define("inv_mass_Z", "MCParticle::invariant_mass(hzz_decay.Z_decay)")
@@ -1027,6 +1031,26 @@ class RDFanalysis():
             
 #             "hzz_decay",
             "ZH_decay",
+            
+            
+            "truth_Z_theta",
+            "truth_Z_phi",
+            
+            "truth_H_theta",
+            "truth_H_phi",
+            
+#             "truth_Zq1_theta",
+#             "truth_Zq2_theta",
+#             "truth_Hq1_theta",
+#             "truth_Hq2_theta",
+            
+#             "truth_Zq1_phi",
+#             "truth_Zq2_phi",
+#             "truth_Hq1_phi",
+#             "truth_Hq2_phi",
+            
+            
+            
 #             "inv_mass_H",
 #             "inv_mass_Z",
 #             "inv_mass_H",
@@ -1043,7 +1067,7 @@ class RDFanalysis():
             "pymiss",
             "pzmiss",
             "etmiss",
-	    "missing_tlv",
+	        "missing_tlv",
 
 
             "N_jets_antikt4",

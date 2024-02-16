@@ -456,6 +456,19 @@ class RDFanalysis():
                .Define("Zpart_theta", "thetaphi.Z_theta")
                .Define("Zpart_phi", "thetaphi.Z_phi")
                .Define("Zpart_energy", "thetaphi.Z_energy")
+               
+               .Define("truth_Zq1_theta", "thetaphi.truth_Zq1_theta")
+               .Define("truth_Zq1_phi", "thetaphi.truth_Zq1_phi")
+               
+               .Define("truth_Zq2_theta", "thetaphi.truth_Zq2_theta")
+               .Define("truth_Zq2_phi", "thetaphi.truth_Zq2_phi")
+               
+               .Define("truth_Hq1_theta", "thetaphi.truth_Hq1_theta")
+               .Define("truth_Hq1_phi", "thetaphi.truth_Hq1_phi")
+               
+               .Define("truth_Hq2_theta", "thetaphi.truth_Hq2_theta")
+               .Define("truth_Hq2_phi", "thetaphi.truth_Hq2_phi")
+
 
         
                )
@@ -622,6 +635,16 @@ class RDFanalysis():
             "Hpart_phi",
             "Zpart_theta",
             "Zpart_phi",
+            
+            "truth_Zq1_theta",
+            "truth_Zq1_phi",
+            "truth_Zq2_theta",
+            "truth_Zq2_phi",
+            
+            "truth_Hq1_theta",
+            "truth_Hq1_phi",
+            "truth_Hq2_theta",
+            "truth_Hq2_phi",
 
             "jetconstituents_4_1",
             "jetconstituents_4_2",
@@ -792,6 +815,12 @@ class RDFanalysis():
             "firstZ_m_antikt_1_2_ter",
             "firstZ_m_antikt_reco_ter",
 
+            
+            "truth_Z_theta",
+            "truth_Z_phi",
+            
+            "truth_H_theta",
+            "truth_H_phi",
 
 
             "N_jets_4" #test pour durham 4 

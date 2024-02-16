@@ -171,16 +171,6 @@ def main():
     d = ROOT.RDataFrame("events", inFile)
      # can put some of the cuts we use to look at signal-like events
 #     d = d.Filter("Zcand_m > 81") #sel1
-#     d = d.Filter("Zcand_m < 101") #sel1 bis 
-#     d = d.Filter("Zcand_recoil_m > 124") #sel2
-#     d = d.Filter("Zcand_recoil_m < 140") #sel2 bis
-#     d = d.Filter("etmiss < 13") #sel3
-#     d = d.Filter("dmerge_4_34 > 60") #sel4
-#     d = d.Filter("higgs_4_m > 110") #sel5
-#     d = d.Filter("higgs_4_m < 138") #sel5 bis
-#     #d = d.Filter("dmerge_4_23 > 250") #sel6
-#     d = d.Filter("pzmiss < 15") #sel7
-#     d = d.Filter("N_selected_leptons == 2") #sel8
     
     # now let's select the events
     d1 = d.Range(event_number, event_number + nevents) # Range([first, last[)
@@ -206,7 +196,12 @@ def main():
     d1 = d1.Define("Jetconstituents_4_energy_3", f"jetconstituents_4_energy_3[jetconstituents_4_energy_3>{e_cut}]")
     d1 = d1.Define("Jetconstituents_4_energy_4", f"jetconstituents_4_energy_4[jetconstituents_4_energy_4>{e_cut}]")
 
-    arr = d1.AsNumpy(["H_phi", "H_theta", "H_energy", "Z_phi", "Z_theta", "Z_energy",
+    arr = d1.AsNumpy(["H_phi", "H_theta", "H_energy", "Z_phi", "Z_theta", "Z_energy", 
+                      "truth_H_theta", "truth_H_phi", 
+                      "truth_Zq1_theta", "truth_Zq1_phi",
+                      "truth_Zq2_theta", "truth_Zq2_phi",
+                      "truth_Hq1_theta", "truth_Hq1_phi",
+                      "truth_Hq2_theta", "truth_Hq2_phi",
         "Jetconstituents_4_phi_1", "Jetconstituents_4_theta_1", "Jetconstituents_4_energy_1",
         "Jetconstituents_4_phi_2", "Jetconstituents_4_theta_2", "Jetconstituents_4_energy_2",
         "Jetconstituents_4_phi_3", "Jetconstituents_4_theta_3", "Jetconstituents_4_energy_3",
@@ -223,6 +218,20 @@ def main():
         Z_phi = np.asarray(arr['Z_phi'][idx])
         Z_theta = np.asarray(arr['Z_theta'][idx])
         Z_energy = np.asarray(arr['Z_energy'][idx])
+        
+        truth_H_theta = np.asarray(arr['truth_H_theta'][idx])
+        truth_H_phi = np.asarray(arr['truth_H_phi'][idx])
+        
+        truth_Zq1_theta = np.asarray(arr['truth_Zq1_theta'][idx])
+        truth_Zq1_phi = np.asarray(arr['truth_Zq1_phi'][idx])
+        truth_Zq2_theta = np.asarray(arr['truth_Zq2_theta'][idx])
+        truth_Zq2_phi = np.asarray(arr['truth_Zq2_phi'][idx])
+        
+        truth_Hq1_theta = np.asarray(arr['truth_Hq1_theta'][idx])
+        truth_Hq1_phi = np.asarray(arr['truth_Hq1_phi'][idx])
+        truth_Hq2_theta = np.asarray(arr['truth_Hq2_theta'][idx])
+        truth_Hq2_phi = np.asarray(arr['truth_Hq2_phi'][idx])
+        
 
         jc_phi_tmp = [np.asarray(arr['Jetconstituents_4_phi_1'][idx]),
                 np.asarray(arr['Jetconstituents_4_phi_2'][idx]),
@@ -244,6 +253,16 @@ def main():
                 arr['secondZ_firstjet'][idx]-1, arr['secondZ_secondjet'][idx]-1]
         nconst = [len(jc) for jc in jc_phi_tmp]
 
+        print("truth_Zq1_theta:",truth_Zq1_theta)
+        print("truth_Zq1_phi:",truth_Zq1_phi)
+        print("truth_Zq2_theta:",truth_Zq2_theta)
+        print("truth_Zq2_phi:",truth_Zq2_phi)
+        
+        print("truth_Hq1_theta:",truth_Hq1_theta)
+        print("truth_Hq1_phi:",truth_Hq1_phi)
+        print("truth_Hq2_theta:",truth_Hq2_theta)
+        print("truth_Hq2_phi:",truth_Hq2_phi)
+        
         # trick to show correctly markers that overlap around pi in phi
         H_phi = np.concatenate((H_phi, H_phi+2*np.pi, H_phi-2*np.pi))
         H_theta = np.concatenate((H_theta, H_theta, H_theta))
@@ -251,11 +270,23 @@ def main():
         Z_phi = np.concatenate((Z_phi, Z_phi+2*np.pi, Z_phi-2*np.pi))
         Z_theta = np.concatenate((Z_theta, Z_theta, Z_theta))
         Z_energy = np.concatenate((Z_energy, Z_energy, Z_energy))
+        
+        truth_H_phi = np.concatenate((truth_H_phi, truth_H_phi+2*np.pi, truth_H_phi-2*np.pi))
+        truth_H_theta = np.concatenate((truth_H_theta, truth_H_theta, truth_H_theta))
+        
+        truth_Zq1_theta = np.concatenate((truth_Zq1_theta, truth_Zq1_theta, truth_Zq1_theta))
+        truth_Zq2_theta = np.concatenate((truth_Zq2_theta, truth_Zq2_theta, truth_Zq2_theta))
+        truth_Hq1_theta = np.concatenate((truth_Hq1_theta, truth_Hq1_theta, truth_Hq1_theta))
+        truth_Hq2_theta = np.concatenate((truth_Hq2_theta, truth_Hq2_theta, truth_Hq2_theta))
 
+        truth_Zq1_phi = np.concatenate((truth_Zq1_phi, truth_Zq1_phi+2*np.pi, truth_Zq1_phi-2*np.pi))
+        truth_Zq2_phi = np.concatenate((truth_Zq2_phi, truth_Zq2_phi+2*np.pi, truth_Zq2_phi-2*np.pi))
+        truth_Hq1_phi = np.concatenate((truth_Hq1_phi, truth_Hq1_phi+2*np.pi, truth_Hq1_phi-2*np.pi))
+        truth_Hq2_phi = np.concatenate((truth_Hq2_phi, truth_Hq2_phi+2*np.pi, truth_Hq2_phi-2*np.pi))
+        
         jc_phi = [np.concatenate((jc, jc+2*np.pi, jc-2*np.pi)) for jc in jc_phi_tmp]
         jc_theta = [np.concatenate((jc, jc, jc)) for jc in jc_theta_tmp]
         jc_energy = [np.concatenate((jc, jc, jc)) for jc in jc_energy_tmp]
-
 
         p = plt.rcParams
         #p["font.sans-serif"] = ["Nimbus Sans"]
@@ -295,7 +326,10 @@ def main():
         
         print("len(Z_phi):",len(Z_phi))
         print("len(Z_theta):",len(Z_theta))
-            
+        
+        print("len(truth_H_phi):",len(truth_H_phi))
+        print("len(truth_H_theta):",len(truth_H_theta))
+
         H_truth=ax.scatter(H_phi, H_theta, s=10*H_energy**.5,
                 c=colors['orange'][8], alpha=1, marker='P',
                 label="Truth particles from Higgs(bb)")

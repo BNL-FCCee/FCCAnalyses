@@ -22,7 +22,7 @@ namespace MCParticle{
 
     int ind_H = Hbb_indices[0];
       
-    int ind_Z = 8; // assumes certain process (check MC particle visual)
+    int ind_Z = 8; // assumes certain process (check MC particle visual) // could be truth quark 1 (from Z)
     
     // Get Higgs decay products
     std::vector<int> H_idxstable = get_list_of_stable_particles_from_decay(ind_H, in, ind);
@@ -39,7 +39,12 @@ namespace MCParticle{
     for (int idx : Z_idxstable_uniq) {
       res.Z_completedecay.push_back(in[idx]);
     }
-    
+      
+    res.truth_Zq1.push_back(sel_byIndex(8,in));
+    res.truth_Zq2.push_back(sel_byIndex(9,in));
+    res.truth_Hq1.push_back(sel_byIndex(11,in));
+    res.truth_Hq2.push_back(sel_byIndex(12,in));
+      
     return res;
   }
 
@@ -48,6 +53,11 @@ namespace MCParticle{
     thetaphi res; 
     ROOT::VecOps::RVec<edm4hep::MCParticleData> H_finaldecay;
     ROOT::VecOps::RVec<edm4hep::MCParticleData> Z_finaldecay;
+      
+    ROOT::VecOps::RVec<edm4hep::MCParticleData> Zq1;
+    ROOT::VecOps::RVec<edm4hep::MCParticleData> Zq2;
+    ROOT::VecOps::RVec<edm4hep::MCParticleData> Hq1;
+    ROOT::VecOps::RVec<edm4hep::MCParticleData> Hq2;
 
     // Save Higgs info
     for (auto & p: HZZ.H_completedecay) {
@@ -70,7 +80,36 @@ namespace MCParticle{
     res.Z_theta = get_theta(Z_finaldecay);
     res.Z_phi = get_phi(Z_finaldecay);
     res.Z_energy = get_e(Z_finaldecay);
-
+      
+    // Save truth quark info
+    for (auto & p: HZZ.truth_Zq1) {
+	    Zq1.push_back(p);
+    }
+      
+    for (auto & p: HZZ.truth_Zq2) {
+	    Zq2.push_back(p);
+    }
+      
+    for (auto & p: HZZ.truth_Hq1) {
+	    Hq1.push_back(p);
+    }
+      
+    for (auto & p: HZZ.truth_Hq2) {
+	    Hq2.push_back(p);
+    }
+      
+    res.truth_Zq1_theta = get_theta(Zq1);
+    res.truth_Zq1_phi = get_phi(Zq1);
+      
+    res.truth_Zq2_theta = get_theta(Zq2);
+    res.truth_Zq2_phi = get_phi(Zq2);
+  
+    res.truth_Hq1_theta = get_theta(Hq1);
+    res.truth_Hq1_phi = get_phi(Hq1);
+      
+    res.truth_Hq2_theta = get_theta(Hq2);
+    res.truth_Hq2_phi = get_phi(Hq2);
+ 
     return res;
   }
   

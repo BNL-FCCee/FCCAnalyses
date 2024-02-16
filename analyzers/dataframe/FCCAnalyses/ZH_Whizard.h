@@ -24,6 +24,11 @@ namespace MCParticle{
     ROOT::VecOps::RVec<edm4hep::MCParticleData> H_completedecay;
     ROOT::VecOps::RVec<edm4hep::MCParticleData> Z_completedecay;
       
+    ROOT::VecOps::RVec<edm4hep::MCParticleData> truth_Zq1;
+    ROOT::VecOps::RVec<edm4hep::MCParticleData> truth_Zq2;
+    ROOT::VecOps::RVec<edm4hep::MCParticleData> truth_Hq1;
+    ROOT::VecOps::RVec<edm4hep::MCParticleData> truth_Hq2;
+      
   };
 
   struct thetaphi {
@@ -34,6 +39,19 @@ namespace MCParticle{
     ROOT::VecOps::RVec<float> Z_theta;
     ROOT::VecOps::RVec<float> Z_phi;
     ROOT::VecOps::RVec<float> Z_energy;
+      
+    ROOT::VecOps::RVec<float> truth_Zq1_theta;
+    ROOT::VecOps::RVec<float> truth_Zq1_phi;
+      
+    ROOT::VecOps::RVec<float> truth_Zq2_theta;
+    ROOT::VecOps::RVec<float> truth_Zq2_phi;
+      
+    ROOT::VecOps::RVec<float> truth_Hq1_theta;
+    ROOT::VecOps::RVec<float> truth_Hq1_phi;
+      
+    ROOT::VecOps::RVec<float> truth_Hq2_theta;
+    ROOT::VecOps::RVec<float> truth_Hq2_phi;
+      
   };
 
   thetaphi fill_thetaphi_ZHdecay(const ZH &HZZ);
