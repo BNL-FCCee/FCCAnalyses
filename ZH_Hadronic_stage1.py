@@ -10,7 +10,7 @@ import urllib.request
 import yaml 
 import sys
 
-sys.path.append(" /usatlas/u/ivelisce/FCC_at_BNL/FCCAnalyses/")
+sys.path.append("/usatlas/u/ivelisce/FCC_at_BNL/FCCAnalyses/")
 
 from examples.FCCee.weaver.config import collections
 from CustomDefinitions import CustomDefinitions
