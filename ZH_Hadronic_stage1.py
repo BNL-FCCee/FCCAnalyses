@@ -21,6 +21,7 @@ batch = 1 # use HTCondor
 EOSoutput = 0 # output to EOS
 JobName = "ZHadronic_4JetReco" # job named used for output directory
 njets = 4 # number of jets in exclusive reclustering 
+#change to my directory 
 outputDir   = f"/usatlas/atlas01/atlasdisk/users/ivelisce/{JobName}/stage1/"
 #exclusive = 1 # to be implemented: type of reclustering to e.g. inclusive vs. exclusive
 
