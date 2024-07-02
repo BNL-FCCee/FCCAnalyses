@@ -20,7 +20,7 @@ from CustomDefinitions import CustomDefinitions
 batch = 1 # use HTCondor
 EOSoutput = 0 # output to EOS
 JobName = "ZHadronic_4JetReco" # job named used for output directory
-njets = 4 # number of jets in exclusive reclustering
+njets = 4 # number of jets in exclusive reclustering 
 outputDir   = f"/usatlas/atlas01/atlasdisk/users/ivelisce/{JobName}/stage1/"
 #exclusive = 1 # to be implemented: type of reclustering to e.g. inclusive vs. exclusive
 
@@ -29,10 +29,14 @@ outputDir   = f"/usatlas/atlas01/atlasdisk/users/ivelisce/{JobName}/stage1/"
 #addons/FastJet/python/jetClusteringHelper.py
 #addons/FastJet/src/JetClustering.cc
   # flag for exclusive jet clustering. Possible choices are: 
-  # 0 = inclusive clustering, for duram kt 
+  # 0 = inclusive clustering, for durham kt 
+
   # 1 = exclusive clustering that would be obtained when running the algorithm with the given dcut, 
+
   # 2 = exclusive clustering when the event is clustered (in the exclusive sense) to exactly njets, 
+
   # 3 = exclusive clustering when the event is clustered (in the exclusive sense) up to exactly njets,
+
   # 4 = exclusive jets obtained at the given ycutei 
 
 # example for running locally (will also happen by default if you specify an input file at the command line)
@@ -162,6 +166,7 @@ from examples.FCCee.weaver.config import (
 from addons.ONNXRuntime.python.jetFlavourHelper import JetFlavourHelper
 from addons.FastJet.python.jetClusteringHelper import ExclusiveJetClusteringHelper
 
+
 jetFlavourHelper = None
 jetClusteringHelper = None
 
@@ -228,7 +233,8 @@ def jet_sequence(df, njets):
     tag = ""
 
     ## define jet clustering parameters
-    # This is where you can try passing the "exclusive" parameter, and you will have to follow it to the ExclusiveJetClusteringHelper definition, which then goes to something else...
+    # This is where you can try passing the "exclusive" parameter, and you will have to follow it to the 
+    # ExclusiveJetClusteringHelper definition, which then goes to something else...
     #jetClusteringHelper = ExclusiveJetClusteringHelper(collections["PFParticles"], njets, exclusive, tag)
     jetClusteringHelper = ExclusiveJetClusteringHelper(collections["PFParticles"], njets, tag)
 
