@@ -4,6 +4,7 @@ import ROOT
 ROOT.gROOT.SetBatch(True)
 
 class ExclusiveJetClusteringHelper:
+    #class takes these parameters
     def __init__(self, coll, njets, tag=""):
 
         self.input_coll = coll
@@ -29,12 +30,16 @@ class ExclusiveJetClusteringHelper:
 
         # compute jet observables
 
+        #array of jet observables
         observables = ["p", "e", "mass", "phi", "theta", "nconst"]
 
+        # create dictionary of jet observables
         self.jet_obs = dict()
+        #assign values to the dictionary in the form obs:jet_obs_tag
         for obs in observables:
             self.jet_obs[obs] = "jet_{}{}".format(obs, self.tag)
         event_njet = "event_njet{}".format(self.tag)
+
 
         self.jets = jet
         self.constituents = jetc
