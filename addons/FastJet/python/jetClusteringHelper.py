@@ -65,10 +65,13 @@ class ExclusiveJetClusteringHelper:
             part_px, part_py, part_pz, part_e
         )
 
-        #pjetc is pseudojets, njets number of jets for nJets mode
-
         # run jet clustering with all reconstructed particles. ee_kt_algorithm, R=1.5, 
         #inclusive clustering, E-scheme
+
+        #2=exclusive clustering when the event is clustered (in the exclusive sense) to exactly njets
+        #{} njets indiciates number of jets for nJets mode
+        #pT ordering=0, E ordering=1 -- sorted by energy
+        
         self.definition[_jet] = "JetClustering::clustering_ee_kt(2, {}, 1, 0)({})".format(njets, pjetc)
 
         # get the jets out of the struct
