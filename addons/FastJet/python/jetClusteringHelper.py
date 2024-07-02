@@ -60,7 +60,7 @@ class ExclusiveJetClusteringHelper:
         self.definition[part_q] = "ReconstructedParticle::get_charge({})".format(self.input_coll)
 
         #form fastjet pseudo jets
-        #input particle propertiesto create pseudo jets
+        #input particle properties to create pseudo jets
         self.definition[pjetc] = "JetClusteringUtils::set_pseudoJets({}, {}, {}, {})".format(
             part_px, part_py, part_pz, part_e
         )
@@ -70,7 +70,8 @@ class ExclusiveJetClusteringHelper:
 
         #2=exclusive clustering when the event is clustered (in the exclusive sense) to exactly njets
         #{} njets indiciates number of jets for nJets mode
-        #pT ordering=0, E ordering=1 -- sorted by energy
+        #E ordering=1 -- sorted by energy
+        #E_scheme=0
         
         self.definition[_jet] = "JetClustering::clustering_ee_kt(2, {}, 1, 0)({})".format(njets, pjetc)
 
