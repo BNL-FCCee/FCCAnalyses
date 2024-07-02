@@ -14,6 +14,7 @@ class ExclusiveJetClusteringHelper:
         if tag != "":
             self.tag = "_{}".format(tag)
 
+        #particle properties wwith tag identification
         part_px = "part{}_px".format(self.tag)
         part_py = "part{}_py".format(self.tag)
         part_pz = "part{}_pz".format(self.tag)
@@ -40,13 +41,15 @@ class ExclusiveJetClusteringHelper:
             self.jet_obs[obs] = "jet_{}{}".format(obs, self.tag)
         event_njet = "event_njet{}".format(self.tag)
 
-
+        #reassigns names to jets and constituents attributes
         self.jets = jet
         self.constituents = jetc
 
+        #create new definition dictionary 
         self.definition = dict()
 
-        # get single particle properties
+        #definition dictionary is of the form part_<x>: ReconstructedParticle::get_<x>(self.input_coll)
+        # get single particle properties 
         self.definition[part_px] = "ReconstructedParticle::get_px({})".format(self.input_coll)
         self.definition[part_py] = "ReconstructedParticle::get_py({})".format(self.input_coll)
         self.definition[part_pz] = "ReconstructedParticle::get_pz({})".format(self.input_coll)
