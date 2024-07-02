@@ -65,8 +65,7 @@ class ExclusiveJetClusteringHelper:
             part_px, part_py, part_pz, part_e
         )
 
-        # run jet clustering with all reconstructed particles. ee_kt_algorithm, R=1.5, 
-        #inclusive clustering, E-scheme
+        # run jet clustering with all reconstructed particles. ee_kt_algorithm, E-scheme
 
         #2=exclusive clustering when the event is clustered (in the exclusive sense) to exactly njets
         #{} njets indiciates number of jets for nJets mode
