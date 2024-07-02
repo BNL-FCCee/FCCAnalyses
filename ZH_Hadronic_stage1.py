@@ -196,7 +196,8 @@ def analysis_sequence(df):
         .Define("P3_vis","TVector3(P4_vis.Px(), P4_vis.Py(), P4_vis.Pz())")
         .Define("vis_theta", "P3_vis.Theta()")
 
-        #EVENTWIDE VARIABLES: Access quantities that exist only once per event, such as the missing energy (despite the name, the MissingET collection contains the total missing energy)
+        #EVENTWIDE VARIABLES: Access quantities that exist only once per event, such as the missing energy (despite the name, 
+        # the MissingET collection contains the total missing energy)
         .Define("RecoMissingEnergy_e", "ReconstructedParticle::get_e(MissingET)")
         .Define("RecoMissingEnergy_p", "ReconstructedParticle::get_p(MissingET)")
         .Define("RecoMissingEnergy_pt", "ReconstructedParticle::get_pt(MissingET)")
@@ -206,10 +207,10 @@ def analysis_sequence(df):
         .Define("RecoMissingEnergy_eta", "ReconstructedParticle::get_eta(MissingET)")
         .Define("RecoMissingEnergy_theta", "ReconstructedParticle::get_theta(MissingET)")
         .Define("RecoMissingEnergy_phi", "ReconstructedParticle::get_phi(MissingET)") #angle of RecoMissingEnergy
-
+        
 
         #using Higgs Tools
-        
+
     )
 
     for x in range(1, 9):
