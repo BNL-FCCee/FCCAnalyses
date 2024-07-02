@@ -48,8 +48,10 @@ class ExclusiveJetClusteringHelper:
         #create new definition dictionary 
         self.definition = dict()
 
-        #definition dictionary is of the form part_<x>: ReconstructedParticle::get_<x>(self.input_coll)
-        # get single particle properties 
+        #an example input collection is ReconstructedParticles (PFParticles)
+        #get single particle properties 
+        #entries of the form part_<x>: ReconstructedParticle::get_<x>(self.input_coll)
+
         self.definition[part_px] = "ReconstructedParticle::get_px({})".format(self.input_coll)
         self.definition[part_py] = "ReconstructedParticle::get_py({})".format(self.input_coll)
         self.definition[part_pz] = "ReconstructedParticle::get_pz({})".format(self.input_coll)
@@ -57,12 +59,16 @@ class ExclusiveJetClusteringHelper:
         self.definition[part_m] = "ReconstructedParticle::get_mass({})".format(self.input_coll)
         self.definition[part_q] = "ReconstructedParticle::get_charge({})".format(self.input_coll)
 
-        # form fastjet pseudo jets
+        #form fastjet pseudo jets
+        #input particle propertiesto create pseudo jets
         self.definition[pjetc] = "JetClusteringUtils::set_pseudoJets({}, {}, {}, {})".format(
             part_px, part_py, part_pz, part_e
         )
 
-        # run jet clustering with all reconstructed particles. ee_kt_algorithm, R=1.5, inclusive clustering, E-scheme
+        #pjetc is pseudojets, njets number of jets for nJets mode
+
+        # run jet clustering with all reconstructed particles. ee_kt_algorithm, R=1.5, 
+        #inclusive clustering, E-scheme
         self.definition[_jet] = "JetClustering::clustering_ee_kt(2, {}, 1, 0)({})".format(njets, pjetc)
 
         # get the jets out of the struct
