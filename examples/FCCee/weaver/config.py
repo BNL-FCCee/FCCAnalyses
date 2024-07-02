@@ -10,7 +10,9 @@ njets = 4
 
 ## name of collections in EDM root files
 collections = {
+    #MC Particles
     "GenParticles": "Particle",
+    #Reco Particles
     "PFParticles": "ReconstructedParticles",
     "PFTracks": "EFlowTrack",
     "PFPhotons": "EFlowPhoton",
