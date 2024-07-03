@@ -24,39 +24,19 @@ from addons.ONNXRuntime.python.jetFlavourHelper import JetFlavourHelper
 from addons.FastJet.python.jetClusteringHelper import ExclusiveJetClusteringHelper
 from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelper
 
-#algorithm array 
-from addons.FastJet.python.jetClusteringHelper import inclusive_Algs
-
 # originally had YAML config here. Not strictly necessary. Check previous commits if you want an example.
 
 batch = 1 # use HTCondor
 EOSoutput = 0 # output to EOS
 JobName = "ZHadronic_4JetReco" # job named used for output directory
+
 njets = 4 #number of jets in exclusive reclustering 
 rad = 0.4 #radius in inclusive clustering
-exclusive_alg=4
-algs= ["antikt","inc_ee_kt","cambridge","ee_kt"]
-alg=0 #inclusive algorithm -- 0-antikt, 1-inclusive eekt  2-cambridge
-
-
-#change to my directory 
+algs = ["antikt","ee_kt"] #set algorithms
+exlcusive_alg = 1 
+alg = 0 #inclusive algorithm -- 0-antikt, 1-inclusive eekt  2-cambridge
 #outputDir   = f"/usatlas/atlas01/atlasdisk/users/ivelisce/{JobName}/stage1/"
 
-
-# originally was using the flag definitions below. Should follow the path of the `exclusive` flag to see what it actually means.
-# these files may be relevant:
-#addons/FastJet/python/jetClusteringHelper.py
-#addons/FastJet/src/JetClustering.cc
-  # flag for exclusive jet clustering. Possible choices are: 
-  # 0 = inclusive clustering, for durham kt 
-
-  # 1 = exclusive clustering that would be obtained when running the algorithm with the given dcut, 
-
-  # 2 = exclusive clustering when the event is clustered (in the exclusive sense) to exactly njets, 
-
-  # 3 = exclusive clustering when the event is clustered (in the exclusive sense) up to exactly njets,
-
-  # 4 = exclusive jets obtained at the given ycutei 
 
 # example for running locally (will also happen by default if you specify an input file at the command line)
 #batch = 0
@@ -177,7 +157,6 @@ local_model = "{}/{}.onnx".format(model_dir, model_name)
 weaver_preproc = get_file_path(url_preproc, local_preproc)
 weaver_model = get_file_path(url_model, local_model)
 
-
 ee_ktClustering = None
 ee_ktFlavourHelper = None
 antiktClustering = None
@@ -245,11 +224,13 @@ def jet_sequence(df, njets, rad, alg):
     global antiktClustering
     global antiktFlavourHelper
 
-
-    #tag = ""
-    tag = algs[exclusive_alg]
+    #set variable arrays
     jet_reco_vars = ["e", "p", "px", "py", "pz", "m", "theta"]
     jet_corr_vars = ["e", "px", "py", "pz"]
+
+    #tag = ""
+    tag = algs[exlcusive_alg]
+  
     ## define jet clustering parameters
    
     #create instance of ExclusiveJetClusteringHelper class
@@ -268,24 +249,23 @@ def jet_sequence(df, njets, rad, alg):
 
     ## define observables for tagger
     df = ee_ktFlavourHelper.define(df)
-    df = df.Define("jet{}_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(tag,ee_ktClustering.jets))
+    df = df.Define("jet_ee_kt_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(ee_ktClustering.jets))
    
     # apply energy correction
     for jet_reco_var in jet_reco_vars:
-        df=(df.Define("recojet{}_{}".format(tag,jet_reco_var), "JetClusteringUtils::get_{}(jet)".format(jet_reco_var)))
+        df=(df.Define("recojet_ee_kt_{}".format(jet_reco_var), "JetClusteringUtils::get_{}(jet)".format(jet_reco_var)))
     
     # phi has slightly different naming
-    df=(df.Define("recojet{}_phi".format(tag), "JetClusteringUtils::get_phi_std(jet)"))
+    df=(df.Define("recojet_ee_kt_phi", "JetClusteringUtils::get_phi_std(jet)"))
  
     ###
-    df = df.Define("jets{}_tlv_corr".format(tag), "FCCAnalyses::energyReconstructFourJet(recojet{}_px, recojet{}_py, recojet{}_pz, recojet{}_e)".format(tag))
+    df = df.Define("jets_ee_kt_tlv_corr", "FCCAnalyses::energyReconstructFourJet(recojet{}_px, recojet{}_py, recojet{}_pz, recojet{}_e)".format("_ee_kt"))
 
-
-    for jet_corr_var in jet_corr_vars: df = df.Define("jet{}_{}_corr".format(tag,jet_corr_var), "FCCAnalyses::TLVHelpers::get_{}(jets_tlv_corr)".format(jet_corr_var))
-   # for jet_corr_var in jet_corr_vars: df = df.Define("jet_%s_corr"%(jet_corr_var), "FCCAnalyses::TLVHelpers::get_%s(jets_tlv_corr)"%(jet_corr_var))
+    for jet_corr_var in jet_corr_vars: 
+        df = df.Define("jet_ee_kt_{}_corr".format(jet_corr_var), "FCCAnalyses::TLVHelpers::get_{}(jets_tlv_corr)".format(jet_corr_var))
     
-    df = df.Define("all_invariant_masses", "JetConstituentsUtils::all_invariant_masses(jet{}_p4)".format(tag))
-    df = df.Define("recoil_masses{}".format(tag), "all_recoil_masses(jet{}_p4)".format(tag))
+    df = df.Define("all_invariant_masses_ee_kt", "JetConstituentsUtils::all_invariant_masses(jet{}_p4)".format(tag))
+    df = df.Define("recoil_masses_ee_kt", "all_recoil_masses(jet_ee_kt_p4)")
     
     ## tagger inference
     df = ee_ktFlavourHelper.inference(weaver_preproc, weaver_model, df) 
@@ -299,13 +279,12 @@ def jet_sequence(df, njets, rad, alg):
     df = df.Define("jets_truthv2", "FCCAnalyses::jetTruthFinderV2(jet_p4, Particle)")
 
 
-    ##AntiKT clustering
 
-    tag = inclusive_Algs[alg]
-    print(tag)
-
+    ##First inclusive algorithm clustering --- Antikt
+    tag = algs[alg]
     ## define jet clustering parameters
-    antiktClustering = InclusiveJetClusteringHelper(collections["PFParticles"],rad,alg,tag)
+
+    antiktClustering = InclusiveJetClusteringHelper(collections["PFParticles"],rad,alg, tag)
   
     ## runs inclusive antikt jet clustering 
     df = antiktClustering.define(df)
@@ -320,30 +299,37 @@ def jet_sequence(df, njets, rad, alg):
 
     ## define observables for tagger
     df = antiktFlavourHelper.define(df)
-    df = df.Define("jet{}_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(tag,antiktClustering.jets))
+    df = df.Define("jet_antikt_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(antiktClustering.jets))
 
     # apply energy correction
     for jet_reco_var in jet_reco_vars:
-        df=(df.Define("recojet{}_{}".format(tag,jet_reco_var), "JetClusteringUtils::get_{}(jet)".format(jet_reco_var)))
+        df=(df.Define("recojet_antikt_{}".format(jet_reco_var), "JetClusteringUtils::get_{}(jet)".format(jet_reco_var)))
     
     # phi has slightly different naming
-    df=(df.Define("recojet{}_phi".format(tag), "JetClusteringUtils::get_phi_std(jet)"))
+    df=(df.Define("recojet_antikt_phi".format(tag), "JetClusteringUtils::get_phi_std(jet)"))
  
     ###
-    df = df.Define("jets{}_tlv_corr".format(tag), "FCCAnalyses::energyReconstructFourJet(recojet{}_px, recojet{}_py, recojet{}_pz, recojet{}_e)".format(tag))
+    df = df.Define("jets_antikt_tlv_corr".format(tag), "FCCAnalyses::energyReconstructFourJet(recojet{}_px, recojet{}_py, recojet{}_pz, recojet{}_e)".format(tag))
 
-    for jet_corr_var in jet_corr_vars: df = df.Define("jet{}_{}_corr".format(tag,jet_corr_var), "FCCAnalyses::TLVHelpers::get_{}(jets_tlv_corr)".format(jet_corr_var))
-   #for jet_corr_var in jet_corr_vars: df = df.Define("jet_%s_corr"%(jet_corr_var), "FCCAnalyses::TLVHelpers::get_%s(jets_tlv_corr)"%(jet_corr_var))
+    for jet_corr_var in jet_corr_vars: 
+         df = df.Define("jet_antikt_{}_corr".format(jet_corr_var), "FCCAnalyses::TLVHelpers::get_{}(jets_tlv_corr)".format(jet_corr_var))
     
-    df = df.Define("all_invariant_masses{}".format(tag), "JetConstituentsUtils::all_invariant_masses(jet{}_p4)".format(tag))
-    df = df.Define("recoil_masses{}".format(tag), "all_recoil_masses(jet{}_p4)".format(tag))
+    df = df.Define("all_invariant_masses_antikt", "JetConstituentsUtils::all_invariant_masses(jet{}_p4)")
+    df = df.Define("recoil_masses_antikt", "all_recoil_masses(jet_antikt_p4)")
     
     ## tagger inference
     df = antiktFlavourHelper.inference(weaver_preproc, weaver_model, df) 
 
+## define variables using tagger inference outputs
+    df = df.Define("recojetpair_isC", "SumFlavorScores(recojet_isC)") 
+    df = df.Define("recojetpair_isB", "SumFlavorScores(recojet_isB)") 
+
+    df = df.Define("jetconstituents_antikt", "FCCAnalyses::JetClusteringUtils::get_constituents(_jet)")
+    df = df.Define("jets_truth_antikt", "FCCAnalyses::jetTruthFinder(jetconstituents_antikt, ReconstructedParticles, Particle)")
+    df = df.Define("jets_truthv2_antikt_", "FCCAnalyses::jetTruthFinderV2(jet_antikt_p4, Particle)")
+
 
     return df
-
 
 
 
@@ -369,29 +355,50 @@ class RDFanalysis:
         # jets
         branches_jet = list(variables_jet.keys())
         branchList = branches_jet 
-        branchList += jetFlavourHelper.outputBranches()
+
+        branchList += ee_ktFlavourHelper.outputBranches()
+        branchList += antiktFlavourHelper.outputBranches()
 
         branchList += ["event_njet"]
         
-        branchList += ["all_invariant_masses"]
+        branchList += ["all_invariant_masses_ee_kt"]
+        branchList += ["all_invariant_masses_antikt"]
+
        	branchList += ["recojetpair_isC"]
         branchList += ["recojetpair_isB"]
-        branchList += ["recoil_masses"]
 
-        branchList += ["jet_e_corr"]
-        branchList += ["jet_px_corr"]
-        branchList += ["jet_py_corr"]
-        branchList += ["jet_pz_corr"]
+        branchList += ["recoil_masses_ee_kt"]
+        branchList += ["recoil_masses_antikt"]
+
+        branchList += ["jet_ee_kt_e_corr"]
+        branchList += ["jet_ee_kt_px_corr"]
+        branchList += ["jet_ee_kt_py_corr"]
+        branchList += ["jet_ee_kt_pz_corr"]
+        
+        branchList += ["jet_antikt_e_corr"]
+        branchList += ["jet_antikt_px_corr"]
+        branchList += ["jet_antikt_py_corr"]
+        branchList += ["jet_antikt_pz_corr"]
         
         # not corrected pt, e
-        branchList += ["recojet_e"]
-        branchList += ["recojet_px"]
-        branchList += ["recojet_py"]
-        branchList += ["recojet_pz"]
+        branchList += ["recojet_ee_kt_e"]
+        branchList += ["recojet_ee_kt_px"]
+        branchList += ["recojet_ee_kt_py"]
+        branchList += ["recojet_ee_kt_pz"]
+        
+        # not corrected pt, e
+        branchList += ["recojet_antikt_e"]
+        branchList += ["recojet_antikt_px"]
+        branchList += ["recojet_antikt_py"]
+        branchList += ["recojet_antikt_pz"]
         
         # truth info
-        branchList += ["jets_truth"]
-        branchList += ["jets_truthv2"]
+        branchList += ["jets_truth_ee_kt"]
+        branchList += ["jets_truthv2_ee_kt"]
+
+         # truth info
+        branchList += ["jets_truth_antikt"]
+        branchList += ["jets_truthv2_antikt"]
         
         # vis kinematics
         branchList += ["vis_theta"]
