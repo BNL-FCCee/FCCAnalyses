@@ -237,7 +237,7 @@ def jet_sequence(df, njets):
     # This is where you can try passing the "exclusive" parameter, and you will have to follow it to the 
     # ExclusiveJetClusteringHelper definition, which then goes to something else...
     #jetClusteringHelper = ExclusiveJetClusteringHelper(collections["PFParticles"], njets, exclusive, tag)
-    #create instance of  ExclusiveJetClusteringHelper class
+    #create instance of ExclusiveJetClusteringHelper class
     jetClusteringHelper = ExclusiveJetClusteringHelper(collections["PFParticles"], njets, tag)
 
     ## runs exclusive Durham jet clustering 
@@ -284,6 +284,10 @@ def jet_sequence(df, njets):
     df = df.Define("jets_truthv2", "FCCAnalyses::jetTruthFinderV2(jet_p4, Particle)")
 
     return df
+
+
+
+
 
 # Mandatory: RDFanalysis class where the use defines the operations on the TTree
 class RDFanalysis:
