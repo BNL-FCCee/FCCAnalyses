@@ -166,6 +166,7 @@ from examples.FCCee.weaver.config import (
 
 from addons.ONNXRuntime.python.jetFlavourHelper import JetFlavourHelper
 from addons.FastJet.python.jetClusteringHelper import ExclusiveJetClusteringHelper
+from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelper
 
 
 jetFlavourHelper = None
@@ -226,10 +227,13 @@ def analysis_sequence(df):
 
 
 #def jet_sequence(df, njets, exclusive):
-def jet_sequence(df, njets):
 
-    global jetClusteringHelper
-    global jetFlavourHelper
+def jet_sequence(df, njets, rad, alg):
+
+    global eektClustering
+    global eektFlavourHelper
+    global antiktClustering
+    global antiktFlavourHelper
 
     tag = ""
 
@@ -238,22 +242,23 @@ def jet_sequence(df, njets):
     # ExclusiveJetClusteringHelper definition, which then goes to something else...
     #jetClusteringHelper = ExclusiveJetClusteringHelper(collections["PFParticles"], njets, exclusive, tag)
     #create instance of ExclusiveJetClusteringHelper class
-    jetClusteringHelper = ExclusiveJetClusteringHelper(collections["PFParticles"], njets, tag)
+    eektClustering = ExclusiveJetClusteringHelper(collections["PFParticles"], njets, tag)
 
     ## runs exclusive Durham jet clustering 
-    df = jetClusteringHelper.define(df)
+    df = eektClustering.define(df)
 
     ## define jet flavour tagging parameters
-    jetFlavourHelper = JetFlavourHelper(
+    eektFlavourHelper = JetFlavourHelper(
         collections,
-        jetClusteringHelper.jets,
-        jetClusteringHelper.constituents,
+        eektClustering.jets,
+        eektClustering.constituents,
         tag,
     )
 
     ## define observables for tagger
-    df = jetFlavourHelper.define(df)
-    df = df.Define("jet_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
+    df = eektFlavourHelper.define(df)
+    df = df.Define("jet_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(eektClustering.jets))
+   
    
     # apply energy correction
     jet_reco_vars = ["e", "p", "px", "py", "pz", "m", "theta"]
@@ -273,7 +278,7 @@ def jet_sequence(df, njets):
     df = df.Define("recoil_masses", "all_recoil_masses(jet_p4)")
     
     ## tagger inference
-    df = jetFlavourHelper.inference(weaver_preproc, weaver_model, df) 
+    df = eektFlavourHelper.inference(weaver_preproc, weaver_model, df) 
 
     ## define variables using tagger inference outputs
     df = df.Define("recojetpair_isC", "SumFlavorScores(recojet_isC)") 
@@ -282,6 +287,13 @@ def jet_sequence(df, njets):
     df = df.Define("jetconstituents", "FCCAnalyses::JetClusteringUtils::get_constituents(_jet)")
     df = df.Define("jets_truth", "FCCAnalyses::jetTruthFinder(jetconstituents, ReconstructedParticles, Particle)")
     df = df.Define("jets_truthv2", "FCCAnalyses::jetTruthFinderV2(jet_p4, Particle)")
+
+    tag = "antikt"
+
+    antiktClustering = InclusiveJetClusteringHelper(collections["PFParticles"],0.4,0,"antikt")
+
+
+
 
     return df
 
@@ -294,9 +306,10 @@ class RDFanalysis:
     # __________________________________________________________
     # Mandatory: analysers funtion to define the analysers to process, please make sure you return the last dataframe, in this example it is df2
     def analysers(df):
+        df = analysis_sequence(df)
         df = jet_sequence(df, njets)
         #df = jet_sequence(df, njets, exclusive) # again, was playing with exclusive parameter here. Don't remember if you need to pass it here.
-        df = analysis_sequence(df)
+        
 
         return df
 
