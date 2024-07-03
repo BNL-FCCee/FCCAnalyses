@@ -237,9 +237,10 @@ def jet_sequence(df, njets):
     # This is where you can try passing the "exclusive" parameter, and you will have to follow it to the 
     # ExclusiveJetClusteringHelper definition, which then goes to something else...
     #jetClusteringHelper = ExclusiveJetClusteringHelper(collections["PFParticles"], njets, exclusive, tag)
+    #create instance of  ExclusiveJetClusteringHelper class
     jetClusteringHelper = ExclusiveJetClusteringHelper(collections["PFParticles"], njets, tag)
 
-    ## run jet clustering
+    ## runs exclusive Durham jet clustering 
     df = jetClusteringHelper.define(df)
 
     ## define jet flavour tagging parameters
