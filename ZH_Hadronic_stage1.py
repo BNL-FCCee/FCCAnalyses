@@ -15,6 +15,18 @@ sys.path.append("/usatlas/u/ivelisce/FCC_at_BNL/FCCAnalyses/")
 from examples.FCCee.weaver.config import collections
 from CustomDefinitions import CustomDefinitions
 
+from examples.FCCee.weaver.config import (
+    variables_pfcand,
+    variables_jet,
+)
+
+from addons.ONNXRuntime.python.jetFlavourHelper import JetFlavourHelper
+from addons.FastJet.python.jetClusteringHelper import ExclusiveJetClusteringHelper
+from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelper
+
+#algorithm array 
+from addons.FastJet.python.jetClusteringHelper import inclusive_Algs
+
 # originally had YAML config here. Not strictly necessary. Check previous commits if you want an example.
 
 batch = 1 # use HTCondor
@@ -22,11 +34,14 @@ EOSoutput = 0 # output to EOS
 JobName = "ZHadronic_4JetReco" # job named used for output directory
 njets = 4 #number of jets in exclusive reclustering 
 rad = 0.4 #radius in inclusive clustering
-alg = 0 #algorithm used in inclusive clustering
+exclusive_alg=4
+algs= ["antikt","inc_ee_kt","cambridge","ee_kt"]
+alg=0 #inclusive algorithm -- 0-antikt, 1-inclusive eekt  2-cambridge
+
 
 #change to my directory 
-outputDir   = f"/usatlas/atlas01/atlasdisk/users/ivelisce/{JobName}/stage1/"
-#exclusive = 1 # to be implemented: type of reclustering to e.g. inclusive vs. exclusive
+#outputDir   = f"/usatlas/atlas01/atlasdisk/users/ivelisce/{JobName}/stage1/"
+
 
 # originally was using the flag definitions below. Should follow the path of the `exclusive` flag to see what it actually means.
 # these files may be relevant:
@@ -162,20 +177,9 @@ local_model = "{}/{}.onnx".format(model_dir, model_name)
 weaver_preproc = get_file_path(url_preproc, local_preproc)
 weaver_model = get_file_path(url_model, local_model)
 
-from examples.FCCee.weaver.config import (
-    variables_pfcand,
-    variables_jet,
-)
 
-from addons.ONNXRuntime.python.jetFlavourHelper import JetFlavourHelper
-from addons.FastJet.python.jetClusteringHelper import ExclusiveJetClusteringHelper
-from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelper
-
-#algorithm array 
-from addons.FastJet.python.jetClusteringHelper import inclusive_Algs
-
-eektClustering = None
-eektFlavourHelper = None
+ee_ktClustering = None
+ee_ktFlavourHelper = None
 antiktClustering = None
 antiktFlavourHelper = None
 
@@ -236,46 +240,47 @@ def analysis_sequence(df):
 
 def jet_sequence(df, njets, rad, alg):
 
-    global eektClustering
-    global eektFlavourHelper
+    global ee_ktClustering
+    global ee_ktFlavourHelper
     global antiktClustering
     global antiktFlavourHelper
 
-    tag = ""
 
+    #tag = ""
+    tag = algs[exclusive_alg]
+    jet_reco_vars = ["e", "p", "px", "py", "pz", "m", "theta"]
+    jet_corr_vars = ["e", "px", "py", "pz"]
     ## define jet clustering parameters
    
     #create instance of ExclusiveJetClusteringHelper class
-    eektClustering = ExclusiveJetClusteringHelper(collections["PFParticles"], njets, tag)
+    ee_ktClustering = ExclusiveJetClusteringHelper(collections["PFParticles"], njets, tag)
 
     ## runs exclusive Durham jet clustering 
-    df = eektClustering.define(df)
+    df = ee_ktClustering.define(df)
 
     ## define jet flavour tagging parameters
-    eektFlavourHelper = JetFlavourHelper(
+    ee_ktFlavourHelper = JetFlavourHelper(
         collections,
-        eektClustering.jets,
-        eektClustering.constituents,
+        ee_ktClustering.jets,
+        ee_ktClustering.constituents,
         tag,
     )
 
     ## define observables for tagger
-    df = eektFlavourHelper.define(df)
-    df = df.Define("jet{}_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(tag,eektClustering.jets))
-   
+    df = ee_ktFlavourHelper.define(df)
+    df = df.Define("jet{}_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(tag,ee_ktClustering.jets))
    
     # apply energy correction
-    jet_reco_vars = ["e", "p", "px", "py", "pz", "m", "theta"]
     for jet_reco_var in jet_reco_vars:
         df=(df.Define("recojet{}_{}".format(tag,jet_reco_var), "JetClusteringUtils::get_{}(jet)".format(jet_reco_var)))
     
     # phi has slightly different naming
     df=(df.Define("recojet{}_phi".format(tag), "JetClusteringUtils::get_phi_std(jet)"))
  
-###
+    ###
     df = df.Define("jets{}_tlv_corr".format(tag), "FCCAnalyses::energyReconstructFourJet(recojet{}_px, recojet{}_py, recojet{}_pz, recojet{}_e)".format(tag))
 
-    jet_corr_vars = ["e", "px", "py", "pz"]
+
     for jet_corr_var in jet_corr_vars: df = df.Define("jet{}_{}_corr".format(tag,jet_corr_var), "FCCAnalyses::TLVHelpers::get_{}(jets_tlv_corr)".format(jet_corr_var))
    # for jet_corr_var in jet_corr_vars: df = df.Define("jet_%s_corr"%(jet_corr_var), "FCCAnalyses::TLVHelpers::get_%s(jets_tlv_corr)"%(jet_corr_var))
     
@@ -283,7 +288,7 @@ def jet_sequence(df, njets, rad, alg):
     df = df.Define("recoil_masses{}".format(tag), "all_recoil_masses(jet{}_p4)".format(tag))
     
     ## tagger inference
-    df = eektFlavourHelper.inference(weaver_preproc, weaver_model, df) 
+    df = ee_ktFlavourHelper.inference(weaver_preproc, weaver_model, df) 
 
     ## define variables using tagger inference outputs
     df = df.Define("recojetpair_isC", "SumFlavorScores(recojet_isC)") 
@@ -294,6 +299,7 @@ def jet_sequence(df, njets, rad, alg):
     df = df.Define("jets_truthv2", "FCCAnalyses::jetTruthFinderV2(jet_p4, Particle)")
 
 
+    ##AntiKT clustering
 
     tag = inclusive_Algs[alg]
     print(tag)
@@ -316,8 +322,24 @@ def jet_sequence(df, njets, rad, alg):
     df = antiktFlavourHelper.define(df)
     df = df.Define("jet{}_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(tag,antiktClustering.jets))
 
+    # apply energy correction
+    for jet_reco_var in jet_reco_vars:
+        df=(df.Define("recojet{}_{}".format(tag,jet_reco_var), "JetClusteringUtils::get_{}(jet)".format(jet_reco_var)))
+    
+    # phi has slightly different naming
+    df=(df.Define("recojet{}_phi".format(tag), "JetClusteringUtils::get_phi_std(jet)"))
+ 
+    ###
+    df = df.Define("jets{}_tlv_corr".format(tag), "FCCAnalyses::energyReconstructFourJet(recojet{}_px, recojet{}_py, recojet{}_pz, recojet{}_e)".format(tag))
 
-
+    for jet_corr_var in jet_corr_vars: df = df.Define("jet{}_{}_corr".format(tag,jet_corr_var), "FCCAnalyses::TLVHelpers::get_{}(jets_tlv_corr)".format(jet_corr_var))
+   #for jet_corr_var in jet_corr_vars: df = df.Define("jet_%s_corr"%(jet_corr_var), "FCCAnalyses::TLVHelpers::get_%s(jets_tlv_corr)"%(jet_corr_var))
+    
+    df = df.Define("all_invariant_masses{}".format(tag), "JetConstituentsUtils::all_invariant_masses(jet{}_p4)".format(tag))
+    df = df.Define("recoil_masses{}".format(tag), "all_recoil_masses(jet{}_p4)".format(tag))
+    
+    ## tagger inference
+    df = antiktFlavourHelper.inference(weaver_preproc, weaver_model, df) 
 
 
     return df
