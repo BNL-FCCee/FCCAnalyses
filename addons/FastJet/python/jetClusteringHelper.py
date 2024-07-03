@@ -9,7 +9,6 @@ class ExclusiveJetClusteringHelper:
 
         self.input_coll = coll
         self.njets = njets
-
         self.tag = tag
         if tag != "":
             self.tag = "_{}".format(tag)
@@ -180,7 +179,7 @@ class InclusiveJetClusteringHelper:
         )
 
         #array of inclusive algorithms
-        inclusive_algs = ["antikt", "ee_kt", "cambridge"]
+        inclusive_Algs = ["antikt", "ee_kt", "cambridge"]
         
         # run jet clustering with all reconstructed particles. 0.5 radius. ee_kt_algorithm, E-scheme
 
@@ -192,7 +191,7 @@ class InclusiveJetClusteringHelper:
         #algorithm is determined by user entry of 0, 1, 2 
         #0 - antikt, 1 - inclusive kt, 2 - Cambridge
         #radius for distance measure given by user entry
-        self.definition[_jet] = "JetClustering::clustering_{}({}, 0, 0, 0, 0)({})".format(inclusive_algs[alg], rad, pjetc)
+        self.definition[_jet] = "JetClustering::clustering_{}({}, 0, 0, 0, 0)({})".format(inclusive_Algs[alg], rad, pjetc)
 
         #jet and jet constituents are both obtained from _jet 
         # get the jets out of the struct 
