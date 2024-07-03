@@ -3,7 +3,11 @@ January 2023
 Abraham Tishelman-Charny
 
 The purpose of this python module is to perform initial selections and variable definitions for processing FCC files.
+
+July 2024
+Anna Connelly
 """
+
 
 import os
 import urllib.request
@@ -23,6 +27,7 @@ from examples.FCCee.weaver.config import (
 from addons.ONNXRuntime.python.jetFlavourHelper import JetFlavourHelper
 from addons.FastJet.python.jetClusteringHelper import ExclusiveJetClusteringHelper
 from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelper
+from addons.FastJet.python.jetClusteringHelper import inclusive_Algs
 
 # originally had YAML config here. Not strictly necessary. Check previous commits if you want an example.
 
@@ -32,8 +37,8 @@ JobName = "ZHadronic_4JetReco" # job named used for output directory
 
 njets = 4 #number of jets in exclusive reclustering 
 rad = 0.4 #radius in inclusive clustering
-algs = ["antikt","ee_kt"] #set algorithms
-exlcusive_alg = 1 
+#set algorithms
+exlcusive_alg = 4 
 alg = 0 #inclusive algorithm -- 0-antikt, 1-inclusive eekt  2-cambridge
 #outputDir   = f"/usatlas/atlas01/atlasdisk/users/ivelisce/{JobName}/stage1/"
 
@@ -229,7 +234,7 @@ def jet_sequence(df, njets, rad, alg):
     jet_corr_vars = ["e", "px", "py", "pz"]
 
     #tag = ""
-    tag = algs[exlcusive_alg]
+    tag = inclusive_Algs[exlcusive_alg]
   
     ## define jet clustering parameters
    
@@ -281,7 +286,7 @@ def jet_sequence(df, njets, rad, alg):
 
 
     ##First inclusive algorithm clustering --- Antikt
-    tag = algs[alg]
+    tag = inclusive_Algs[alg]
     ## define jet clustering parameters
 
     antiktClustering = InclusiveJetClusteringHelper(collections["PFParticles"],rad,alg, tag)
@@ -363,8 +368,7 @@ class RDFanalysis:
         
         branchList += ["all_invariant_masses_ee_kt"]
         branchList += ["all_invariant_masses_antikt"]
-
-       	branchList += ["recojetpair_isC"]
+        branchList += ["recojetpair_isC"]
         branchList += ["recojetpair_isB"]
 
         branchList += ["recoil_masses_ee_kt"]
