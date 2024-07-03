@@ -5,28 +5,29 @@ Abraham Tishelman-Charny
 The purpose of this python module is to perform initial selections and variable definitions for processing FCC files.
 
 July 2024
-Anna Connelly
-"""
+Anna Elizabeth Connelly
 
+"""
 
 import os
 import urllib.request
-import yaml 
+#import yaml 
 import sys
 
 sys.path.append("/usatlas/u/ivelisce/FCC_at_BNL/FCCAnalyses/")
 
 from examples.FCCee.weaver.config import collections
 from CustomDefinitions import CustomDefinitions
-
 from examples.FCCee.weaver.config import (
-    variables_pfcand,
-    variables_jet,
+    #variables_pfcand,
+    variables_jet
 )
-
 from addons.ONNXRuntime.python.jetFlavourHelper import JetFlavourHelper
+#Exclusive Clustering Class
 from addons.FastJet.python.jetClusteringHelper import ExclusiveJetClusteringHelper
+#Inclusive Clustering Class
 from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelper
+#algorithms array
 from addons.FastJet.python.jetClusteringHelper import inclusive_Algs
 
 # originally had YAML config here. Not strictly necessary. Check previous commits if you want an example.
@@ -40,21 +41,8 @@ rad = 0.4 #radius in inclusive clustering
 #set algorithms
 exlcusive_alg = 4 
 alg = 0 #inclusive algorithm -- 0-antikt, 1-inclusive eekt  2-cambridge
+
 #outputDir   = f"/usatlas/atlas01/atlasdisk/users/ivelisce/{JobName}/stage1/"
-
-
-# example for running locally (will also happen by default if you specify an input file at the command line)
-#batch = 0
-#EOSoutput = 0
-#JobName = "Inclusive_R0p4"
-#njets = 4
-#exclusive = 0 
-#outputDir   = f"/usatlas/atlas01/atlasdisk/users/atishelma/{JobName}/stage1/"
-
-print("batch:",batch)
-print("EOSoutput:",EOSoutput)
-print("name:",JobName)
-print("njets:",njets)
 
 processList = {
 
@@ -109,7 +97,7 @@ processList = {
 }
 
 #Mandatory: Production tag when running over EDM4Hep centrally produced events, this points to the yaml files for getting sample statistics
-prodTag     = "FCCee/winter2023/IDEA/" 
+prodTag = "FCCee/winter2023/IDEA/" 
 procDict = "FCCee_procDict_winter2023_IDEA.json" 
 
 if(EOSoutput):
@@ -210,8 +198,6 @@ def analysis_sequence(df):
         .Define("RecoMissingEnergy_theta", "ReconstructedParticle::get_theta(MissingET)")
         .Define("RecoMissingEnergy_phi", "ReconstructedParticle::get_phi(MissingET)") #angle of RecoMissingEnergy
         
-        #using Higgs Tools
-
     )
 
     for x in range(1, 9):
@@ -284,12 +270,11 @@ def jet_sequence(df, njets, rad, alg):
     df = df.Define("jets_truthv2", "FCCAnalyses::jetTruthFinderV2(jet_p4, Particle)")
 
 
-
     ##First inclusive algorithm clustering --- Antikt
     tag = inclusive_Algs[alg]
     ## define jet clustering parameters
 
-    antiktClustering = InclusiveJetClusteringHelper(collections["PFParticles"],rad,alg, tag)
+    antiktClustering = InclusiveJetClusteringHelper(collections["PFParticles"],rad, alg, tag)
   
     ## runs inclusive antikt jet clustering 
     df = antiktClustering.define(df)
