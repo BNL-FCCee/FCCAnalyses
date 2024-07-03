@@ -180,7 +180,7 @@ class InclusiveJetClusteringHelper:
         )
 
         #array of inclusive algorithms
-        inc_algs = ["antikt", "cambridge", "ee_kt"]
+        inclusive_algs = ["antikt", "ee_kt", "cambridge"]
         
         # run jet clustering with all reconstructed particles. 0.5 radius. ee_kt_algorithm, E-scheme
 
@@ -188,7 +188,11 @@ class InclusiveJetClusteringHelper:
         #{} njets indiciates number of jets for nJets mode
         #E ordering=1 -- sorted by energy
         #E_scheme=0
-        self.definition[_jet] = "JetClustering::clustering_{}({}, 0, 0, 0)({})".format(inc_algs[alg], rad, pjetc)
+
+        #algorithm is determined by user entry of 0, 1, 2 
+        #0 - antikt, 1 - inclusive kt, 2 - Cambridge
+        #radius for distance measure given by user entry
+        self.definition[_jet] = "JetClustering::clustering_{}({}, 0, 0, 0, 0)({})".format(inclusive_algs[alg], rad, pjetc)
 
         #jet and jet constituents are both obtained from _jet 
         # get the jets out of the struct 
