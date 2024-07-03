@@ -20,7 +20,10 @@ from CustomDefinitions import CustomDefinitions
 batch = 1 # use HTCondor
 EOSoutput = 0 # output to EOS
 JobName = "ZHadronic_4JetReco" # job named used for output directory
-njets = 4 # number of jets in exclusive reclustering 
+njets = 4 #number of jets in exclusive reclustering 
+rad = 0.4 #radius in inclusive clustering
+alg = 0 #algorithm used in inclusive clustering
+
 #change to my directory 
 outputDir   = f"/usatlas/atlas01/atlasdisk/users/ivelisce/{JobName}/stage1/"
 #exclusive = 1 # to be implemented: type of reclustering to e.g. inclusive vs. exclusive
@@ -167,7 +170,7 @@ from examples.FCCee.weaver.config import (
 from addons.ONNXRuntime.python.jetFlavourHelper import JetFlavourHelper
 from addons.FastJet.python.jetClusteringHelper import ExclusiveJetClusteringHelper
 from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelper
-
+from addons.FastJet.python.jetClusteringHelper import inclusive_Algs
 
 jetFlavourHelper = None
 jetClusteringHelper = None
@@ -288,9 +291,16 @@ def jet_sequence(df, njets, rad, alg):
     df = df.Define("jets_truth", "FCCAnalyses::jetTruthFinder(jetconstituents, ReconstructedParticles, Particle)")
     df = df.Define("jets_truthv2", "FCCAnalyses::jetTruthFinderV2(jet_p4, Particle)")
 
-    tag = "antikt"
+    tag = inclusive_Algs[alg]
 
-    antiktClustering = InclusiveJetClusteringHelper(collections["PFParticles"],0.4,0,"antikt")
+    ## define jet clustering parameters
+    antiktClustering = InclusiveJetClusteringHelper(collections["PFParticles"],rad,alg,tag)
+  
+    ## runs inclusive antikt jet clustering 
+    df = antiktClustering.define(df)
+
+
+
 
 
 
