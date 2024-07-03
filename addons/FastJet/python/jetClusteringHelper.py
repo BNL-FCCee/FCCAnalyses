@@ -65,7 +65,7 @@ class ExclusiveJetClusteringHelper:
             part_px, part_py, part_pz, part_e
         )
 
-        # run jet clustering with all reconstructed particles. 0.5 radius. ee_kt_algorithm, E-scheme
+        # run jet clustering with all reconstructed particles. radius 0,5. ee_kt_algorithm, E-scheme
 
         #2=exclusive clustering when the event is clustered (in the exclusive sense) to exactly njets
         #{} njets indiciates number of jets for nJets mode
@@ -179,15 +179,16 @@ class InclusiveJetClusteringHelper:
             part_px, part_py, part_pz, part_e
         )
 
-        inclusive_algorithms = ["antikt", "cambridge",]
-
+        #array of inclusive algorithms
+        inc_algs = ["antikt", "cambridge", "ee_kt"]
+        
         # run jet clustering with all reconstructed particles. 0.5 radius. ee_kt_algorithm, E-scheme
 
         #2=exclusive clustering when the event is clustered (in the exclusive sense) to exactly njets
         #{} njets indiciates number of jets for nJets mode
         #E ordering=1 -- sorted by energy
         #E_scheme=0
-        self.definition[_jet] = "JetClustering::clustering_{}({}, 0, 0, 0)({})".format(alg, rad, pjetc)
+        self.definition[_jet] = "JetClustering::clustering_{}({}, 0, 0, 0)({})".format(inc_algs[alg], rad, pjetc)
 
         #jet and jet constituents are both obtained from _jet 
         # get the jets out of the struct 
