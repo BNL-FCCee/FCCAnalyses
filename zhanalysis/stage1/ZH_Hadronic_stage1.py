@@ -178,7 +178,6 @@ def jet_sequence(df, rad, alg):
     global antiktFlavourHelper
 
 
-
     #array of algorithms
     algs = ["antikt", "incl_ee_kt", "cambridge", "ee_kt"]
 
