@@ -120,6 +120,7 @@ class InclusiveJetClusteringHelper:
         #2 - inclusive kt
     def __init__(self, coll, rad, alg, tag=""):
 
+        #input collection of particles
         self.input_coll = coll
         self.rad = rad
         self.alg = alg
@@ -160,7 +161,8 @@ class InclusiveJetClusteringHelper:
         self.jets = jet
         self.constituents = jetc
 
-        #create new definition dictionary 
+        #create definition dictionary attribute  
+        #associates a particles attributes with the reconstructed particle value from the input collection
         self.definition = dict()
 
         #an example input collection is ReconstructedParticles (PFParticles)
