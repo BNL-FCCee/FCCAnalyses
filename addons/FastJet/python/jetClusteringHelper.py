@@ -148,7 +148,7 @@ class InclusiveJetClusteringHelper:
         #array of jet observables
         observables = ["p", "e", "mass", "phi", "theta", "nconst"]
 
-        # create dictionary of jet observables
+        # create dictionary storing jet observables
         self.jet_obs = dict()
         #assign values to the dictionary in the form obs:jet_obs_tag
         for obs in observables:
