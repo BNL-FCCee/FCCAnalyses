@@ -38,7 +38,6 @@ from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelp
 njets = 4 #number of jets in exclusive reclustering 
 rad = 0.4 #radius in inclusive clustering
 #set algorithms
-exlcusive_alg = 3
 alg = 0 #inclusive algorithm -- 0-antikt, 1-inclusive eekt  2-cambridge
 
 outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/stage1"
@@ -209,16 +208,16 @@ def jet_sequence(df, rad, alg):
         df=(df.Define("recojet_antikt_{}".format(jet_reco_var), "JetClusteringUtils::get_{}(jet)".format(jet_reco_var)))
     
     # phi has slightly different naming
-    df=(df.Define("recojet_antikt_phi".format(tag), "JetClusteringUtils::get_phi_std(jet)"))
+    df=(df.Define("recojet_antikt_phi", "JetClusteringUtils::get_phi_std(jet)"))
  
     ###
-    df = df.Define("jets_antikt_tlv_corr".format(tag), "FCCAnalyses::energyReconstructFourJet(recojet{}_px, recojet{}_py, recojet{}_pz, recojet{}_e)".format(tag))
+    df = df.Define("jets_antikt_tlv_corr", "FCCAnalyses::energyReconstructFourJet(recojet_antikt_px, recojet_antikt_py, recojet_antikt_pz, recojet_antikt_e)")
 
     jet_corr_vars = ["e", "px", "py", "pz"]
     for jet_corr_var in jet_corr_vars: 
          df = df.Define("jet_antikt_{}_corr".format(jet_corr_var), "FCCAnalyses::TLVHelpers::get_{}(jets_tlv_corr)".format(jet_corr_var))
     
-    df = df.Define("all_invariant_masses_antikt", "JetConstituentsUtils::all_invariant_masses(jet{}_p4)")
+    df = df.Define("all_invariant_masses_antikt", "JetConstituentsUtils::all_invariant_masses(jet_antikt_p4)")
     df = df.Define("recoil_masses_antikt", "all_recoil_masses(jet_antikt_p4)")
     
     ## tagger inference
