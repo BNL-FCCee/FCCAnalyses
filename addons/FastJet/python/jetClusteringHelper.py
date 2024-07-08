@@ -127,6 +127,7 @@ class InclusiveJetClusteringHelper:
         if tag != "":
             self.tag = "_{}".format(tag)
 
+        
         #particle properties wwith tag identification
         part_px = "part{}_px".format(self.tag)
         part_py = "part{}_py".format(self.tag)
@@ -152,6 +153,7 @@ class InclusiveJetClusteringHelper:
         #assign values to the dictionary in the form obs:jet_obs_tag
         for obs in observables:
             self.jet_obs[obs] = "jet_{}{}".format(obs, self.tag)
+            
         event_njet = "event_njet{}".format(self.tag)
 
         #reassigns names to jets and constituents attributes

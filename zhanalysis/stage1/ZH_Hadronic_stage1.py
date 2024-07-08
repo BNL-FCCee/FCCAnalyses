@@ -161,8 +161,8 @@ def analysis_sequence(df):
         .Define("RecoMissingEnergy_phi", "ReconstructedParticle::get_phi(MissingET)") #angle of RecoMissingEnergy
     )
 
-    for x in range(1, 9):
-        df = (df.Define("d_{}{}".format(x,x+1), "JetClusteringUtils::get_exclusive_dmerge(_jet, {})".format(x))) #dmerge from x+1 to x
+    #for x in range(1, 9):
+       # df = (df.Define("d_{}{}".format(x,x+1), "JetClusteringUtils::get_exclusive_dmerge(_jet, {})".format(x))) #dmerge from x+1 to x
 
     return df
 
@@ -179,14 +179,10 @@ def jet_sequence(df, rad, alg):
 
 
     #array of algorithms
-    algs = ["antikt", "incl_ee_kt", "cambridge", "ee_kt"]
-
-    #set variable arrays
-    jet_reco_vars = ["e", "p", "px", "py", "pz", "m", "theta"]
-    jet_corr_vars = ["e", "px", "py", "pz"]
+    #algs = ["antikt", "incl_ee_kt", "cambridge", "ee_kt"]
 
     ##First inclusive algorithm clustering --- Antikt
-    tag = algs[alg]
+    tag = ""
 
     ## define jet clustering parameters
     antiktClustering = InclusiveJetClusteringHelper(collections["PFParticles"],rad, alg, tag)
@@ -207,6 +203,8 @@ def jet_sequence(df, rad, alg):
     df = df.Define("jet_antikt_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(antiktClustering.jets))
 
     # apply energy correction
+    jet_reco_vars = ["e", "p", "px", "py", "pz", "m", "theta"]
+
     for jet_reco_var in jet_reco_vars:
         df=(df.Define("recojet_antikt_{}".format(jet_reco_var), "JetClusteringUtils::get_{}(jet)".format(jet_reco_var)))
     
@@ -216,6 +214,7 @@ def jet_sequence(df, rad, alg):
     ###
     df = df.Define("jets_antikt_tlv_corr".format(tag), "FCCAnalyses::energyReconstructFourJet(recojet{}_px, recojet{}_py, recojet{}_pz, recojet{}_e)".format(tag))
 
+    jet_corr_vars = ["e", "px", "py", "pz"]
     for jet_corr_var in jet_corr_vars: 
          df = df.Define("jet_antikt_{}_corr".format(jet_corr_var), "FCCAnalyses::TLVHelpers::get_{}(jets_tlv_corr)".format(jet_corr_var))
     
