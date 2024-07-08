@@ -44,18 +44,20 @@ outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/stage1"
 
 processList = {
 
-    # Hadronic ZH
-    "wzp6_ee_bbH_Hbb_ecm240" : {'chunks' : 2},
-    #"""
-    "wzp6_ee_bbH_Hcc_ecm240" : {'chunks' : 2},
-    "wzp6_ee_bbH_Hgg_ecm240" : {'chunks' : 2},
-    "wzp6_ee_bbH_Hss_ecm240" : {'chunks' : 2},
-    "wzp6_ee_bbH_Htautau_ecm240" : {'chunks' : 2},
-    "wzp6_ee_bbH_HWW_ecm240" : {'chunks' : 2},
-    "wzp6_ee_bbH_HZa_ecm240" : {'chunks' : 2},
-    "wzp6_ee_bbH_HZZ_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ccH_Hbb_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ccH_Hcc_ecm240" : {'chunks' : 2}}
+    # # Hadronic ZH
+    # "wzp6_ee_bbH_Hbb_ecm240" : {'chunks' : 2},
+    # #"""
+    # "wzp6_ee_bbH_Hcc_ecm240" : {'chunks' : 2},
+    # "wzp6_ee_bbH_Hgg_ecm240" : {'chunks' : 2},
+    # "wzp6_ee_bbH_Hss_ecm240" : {'chunks' : 2},
+    # "wzp6_ee_bbH_Htautau_ecm240" : {'chunks' : 2},
+    # "wzp6_ee_bbH_HWW_ecm240" : {'chunks' : 2},
+    # "wzp6_ee_bbH_HZa_ecm240" : {'chunks' : 2},
+    # "wzp6_ee_bbH_HZZ_ecm240" : {'chunks' : 2},
+    # "wzp6_ee_ccH_Hbb_ecm240" : {'chunks' : 2},
+    # "wzp6_ee_ccH_Hcc_ecm240" : {'chunks' : 2}
+    
+    }
 
 #Mandatory: Production tag when running over EDM4Hep centrally produced events, this points to the yaml files for getting sample statistics
 prodTag = "FCCee/winter2023/IDEA/" 
@@ -68,19 +70,19 @@ procDict = "FCCee_procDict_winter2023_IDEA.json"
 
 #     eosType = "eosuser" # specify as necessary
 
-# runBatch    = batch
+#runBatch   = False
 # batchQueue = "testmatch" 
 
 # # Define any functionality which is not implemented in FCCAnalyses
 
 # # ____________________________________________________________
-# def get_file_path(url, filename):
-#     print("Looking for file:",filename)
-#     if os.path.exists(filename):
-#         return os.path.abspath(filename)
-#     else:
-#         urllib.request.urlretrieve(url, os.path.basename(url))
-#         return os.path.basename(url)
+def get_file_path(url, filename):
+    print("Looking for file:",filename)
+    if os.path.exists(filename):
+        return os.path.abspath(filename)
+    else:
+        urllib.request.urlretrieve(url, os.path.basename(url))
+        return os.path.basename(url)
 
 # # ____________________________________________________________
 
@@ -90,26 +92,30 @@ ROOT.gInterpreter.Declare(CustomDefinitions)
 # testFile = "https://fccsw.web.cern.ch/fccsw/testsamples/wzp6_ee_nunuH_Hss_ecm240.root"
 
 # ## latest particle transformer model, trained on 9M jets in winter2023 samples - need to separate train/test samples?
-# model_name = "fccee_flavtagging_edm4hep_wc"
+model_name = "fccee_flavtagging_edm4hep_wc"
 
 # ## model files needed for unit testing in CI
-# url_model_dir = "https://fccsw.web.cern.ch/fccsw/testsamples/jet_flavour_tagging/winter2023/wc_pt_13_01_2022/"
-# url_preproc = "{}/{}.json".format(url_model_dir, model_name)
-# url_model = "{}/{}.onnx".format(url_model_dir, model_name)
- 
+url_model_dir = "https://fccsw.web.cern.ch/fccsw/testsamples/jet_flavour_tagging/winter2023/wc_pt_13_01_2022/"
+#url_model_dir = "/usatlas/u/aconnelly/IzaFCCAnalysis"
+url_preproc = "{}/{}.json".format(url_model_dir, model_name)
+#url_preproc = "/usatlas/u/aconnelly/IzaFCCAnalysis/fccee_flavtagging_edm4hep_wc.json"
+url_model = "{}/{}.onnx".format(url_model_dir, model_name)
+#url_model = "/usatlas/u/aconnelly/IzaFCCAnalysis/fccee_flavtagging_edm4hep_wc.json"
+
 # ## model files locally stored on /eos
 # if(batch):
 #     #model_dir = "/usatlas/u/ivelisce/FCC_at_BNL/FCCAnalyses/"
 #     model_dir = "/usatlas/u/aconnelly/IzaFCCAnalysis/"
 # else: model_dir = "./"
-# #model_dir = "/eos/experiment/fcc/ee/jet_flavour_tagging/winter2023/wc_pt_7classes_12_04_2023/"
-# local_preproc = "{}/{}.json".format(model_dir, model_name)
-# local_model = "{}/{}.onnx".format(model_dir, model_name)
+
+model_dir = "/usatlas/u/aconnelly/IzaFCCAnalysis"
+local_preproc = "{}/{}.json".format(model_dir, model_name)
+local_model = "{}/{}.onnx".format(model_dir, model_name)
 
 
 # ## get local file, else download from url
-# weaver_preproc = get_file_path(url_preproc, local_preproc)
-# weaver_model = get_file_path(url_model, local_model)
+weaver_preproc = get_file_path(url_preproc, local_preproc)
+weaver_model = get_file_path(url_model, local_model)
 
 # ee_ktClustering = None
 # ee_ktFlavourHelper = None
@@ -215,7 +221,7 @@ def jet_sequence(df, rad, alg):
 
     jet_corr_vars = ["e", "px", "py", "pz"]
     for jet_corr_var in jet_corr_vars: 
-         df = df.Define("jet_antikt_{}_corr".format(jet_corr_var), "FCCAnalyses::TLVHelpers::get_{}(jets_tlv_corr)".format(jet_corr_var))
+         df = df.Define("jet_antikt_{}_corr".format(jet_corr_var), "FCCAnalyses::TLVHelpers::get_{}(jets_antikt_tlv_corr)".format(jet_corr_var))
     
     df = df.Define("all_invariant_masses_antikt", "JetConstituentsUtils::all_invariant_masses(jet_antikt_p4)")
     df = df.Define("recoil_masses_antikt", "all_recoil_masses(jet_antikt_p4)")
