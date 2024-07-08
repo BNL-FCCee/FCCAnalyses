@@ -235,7 +235,7 @@ def jet_sequence(df, rad, alg):
 
     df = df.Define("jetconstituents_antikt", "FCCAnalyses::JetClusteringUtils::get_constituents(_jet)")
     df = df.Define("jets_truth_antikt", "FCCAnalyses::jetTruthFinder(jetconstituents_antikt, ReconstructedParticles, Particle)")
-    df = df.Define("jets_truthv2_antikt_", "FCCAnalyses::jetTruthFinderV2(jet_antikt_p4, Particle)")
+    df = df.Define("jets_truthv2_antikt", "FCCAnalyses::jetTruthFinderV2(jet_antikt_p4, Particle)")
 
  # #tag = ""
     # tag = inclusive_Algs[exlcusive_alg]
@@ -365,8 +365,8 @@ class RDFanalysis:
         branchList += ["vis_M"]
         branchList += ["vis_E"]
 
-        for x in range(1, 9):
-            branchList.append("d_{}{}".format(x,x+1))
+        #for x in range(1, 9):
+           # branchList.append("d_{}{}".format(x,x+1))
         
         # leptons
         branchList += ["event_nel"]
