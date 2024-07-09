@@ -1,5 +1,6 @@
 #include "FCCAnalyses/JetClusteringUtils.h"
 #include "TLorentzVector.h"
+#include "fastjet/Selector.hh"
 
 namespace FCCAnalyses {
 namespace JetClusteringUtils {
@@ -7,6 +8,19 @@ namespace JetClusteringUtils {
 ROOT::VecOps::RVec<fastjet::PseudoJet>
 get_pseudoJets(const JetClustering::FCCAnalysesJet &jets) {
   return jets.jets;
+}
+
+##
+ROOT::VecOps::RVec<fastjet::PseudoJet> 
+SelectEMin(double Emin, const ROOT::VecOps::RVec<fastjet::PseudoJet>& in){
+  ROOT::VecOps::RVec<fastjet::PseudoJet> out;
+  Selector s = SelectorEMin(Emin)
+  for(size_t i = 0; i < in.size(); ++i){
+    if (s(in[i])){
+      out.push_back(in[i])
+    }
+  }
+  return out;
 }
 
 std::vector<std::vector<int>>

@@ -7,7 +7,6 @@
 
 #include "FastJet/JetClustering.h"
 #include "fastjet/JetDefinition.hh"
-#include "fastjet/Selector.hh"
 #include "TRandom3.h"
 
 /** Jet clustering utilities interface.
@@ -45,6 +44,11 @@ namespace FCCAnalyses {
 
     /** Get fastjet pseudoJet after reconstruction from FCCAnalyses jets*/
     ROOT::VecOps::RVec<fastjet::PseudoJet> get_pseudoJets(const JetClustering::FCCAnalysesJet& in);
+
+
+    ROOT::VecOps::RVec<fastjet::PseudoJet> SelectEMin(double Emin, const ROOT::VecOps::RVec<fastjet::PseudoJet>& in); 
+
+   // ROOT::VecOps::RVec<fastjet::PseudoJet> SelectorEMin(int n)(const ROOT::VecOps::RVec<fastjet::PseudoJet);
 
     /** Get fastjet constituents after reconstruction from FCCAnalyses jets*/
     std::vector<std::vector<int>> get_constituents(const JetClustering::FCCAnalysesJet& in);

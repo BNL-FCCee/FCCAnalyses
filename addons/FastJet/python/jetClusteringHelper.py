@@ -200,6 +200,7 @@ class InclusiveJetClusteringHelper:
         # get the jets out of the struct 
         self.definition[jet] = "JetClusteringUtils::get_pseudoJets({})".format(_jet)
 
+        self.definition[jet] = "SelectorEmin"
 
         # get the jets constituents out of the struct
         self.definition[_jetc] = "JetClusteringUtils::get_constituents({})".format(_jet)
