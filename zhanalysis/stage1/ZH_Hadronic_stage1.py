@@ -40,7 +40,7 @@ njets = 4 #number of jets in exclusive reclustering
 rad = 0.4 #radius in inclusive clustering
 #set algorithms
 alg = 0 #inclusive algorithm -- 0-antikt, 1-inclusive eekt  2-cambridge
-
+ecut = 10 #GeV energy cut
 outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/antikt"
 
 processList = {
@@ -191,7 +191,7 @@ def jet_sequence(df, rad, alg):
     tag = ""
 
     ## define jet clustering parameters
-    antiktClustering = InclusiveJetClusteringHelper(collections["PFParticles"],rad, alg, tag)
+    antiktClustering = InclusiveJetClusteringHelper(collections["PFParticles"],rad, alg, ecut, tag)
   
     ## runs inclusive antikt jet clustering 
     df = antiktClustering.define(df)
