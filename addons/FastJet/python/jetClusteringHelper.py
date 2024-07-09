@@ -182,8 +182,7 @@ class InclusiveJetClusteringHelper:
             part_px, part_py, part_pz, part_e
         )
 
-      
-        # un jet clustering with all reconstructed particles
+        #  jet clustering with all reconstructed particles
         #2=exclusive clustering when the event is clustered (in the exclusive sense) to exactly njets
         #{} njets indiciates number of jets for nJets mode
         #E ordering=1 -- sorted by energy
@@ -200,6 +199,7 @@ class InclusiveJetClusteringHelper:
         #jet and jet constituents are both obtained from _jet 
         # get the jets out of the struct 
         self.definition[jet] = "JetClusteringUtils::get_pseudoJets({})".format(_jet)
+
 
         # get the jets constituents out of the struct
         self.definition[_jetc] = "JetClusteringUtils::get_constituents({})".format(_jet)
