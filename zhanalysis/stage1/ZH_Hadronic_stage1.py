@@ -224,7 +224,7 @@ def jet_sequence(df, rad, alg):
     for jet_corr_var in jet_corr_vars: 
          df = df.Define("jet_{}_corr".format(jet_corr_var), "FCCAnalyses::TLVHelpers::get_{}(jets_tlv_corr)".format(jet_corr_var))
     
-    df = df.Define("all_invariant_masses_antikt", "JetConstituentsUtils::all_invariant_masses(jet_p4)")
+    df = df.Define("all_invariant_masses", "JetConstituentsUtils::all_invariant_masses(jet_p4)")
     df = df.Define("recoil_masses", "all_recoil_masses(jet_p4)")
     
     ## tagger inference
@@ -323,10 +323,10 @@ class RDFanalysis:
         branchList += ["event_njet"]
         
         # branchList += ["all_invariant_masses_ee_kt"]
-        branchList += ["all_invariant_masses_antikt"]
+        branchList += ["all_invariant_masses"]
 
-        branchList += ["antikt_recojetpair_isC"]
-        branchList += ["antikt_recojetpair_isB"]
+        branchList += ["recojetpair_isC"]
+        branchList += ["recojetpair_isB"]
 
         # branchList += ["recoil_masses_ee_kt"]
         branchList += ["recoil_masses"]
@@ -338,7 +338,7 @@ class RDFanalysis:
         
         branchList += ["jet_e_corr"]
         branchList += ["jet_px_corr"]
-        branchList += ["jet__py_corr"]
+        branchList += ["jet_py_corr"]
         branchList += ["jet_pz_corr"]
         
         # # not corrected pt, e
