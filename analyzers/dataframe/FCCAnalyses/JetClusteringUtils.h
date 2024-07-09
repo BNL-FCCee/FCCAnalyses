@@ -7,7 +7,7 @@
 
 #include "FastJet/JetClustering.h"
 #include "fastjet/JetDefinition.hh"
-
+#include "fastjet/Selector.hh"
 #include "TRandom3.h"
 
 /** Jet clustering utilities interface.
