@@ -118,12 +118,13 @@ class InclusiveJetClusteringHelper:
         #0 - anti-kt
         #1 - cambridge
         #2 - inclusive kt
-    def __init__(self, coll, rad, alg, tag=""):
+    def __init__(self, coll, rad, alg, ecut, tag=""):
 
         #input collection of particles
         self.input_coll = coll
         self.rad = rad
         self.alg = alg
+        self.ecut= ecut
         self.tag = tag
         if tag != "":
             self.tag = "_{}".format(tag)
@@ -198,9 +199,11 @@ class InclusiveJetClusteringHelper:
 
         #jet and jet constituents are both obtained from _jet 
         # get the jets out of the struct 
-        self.definition[jet] = "JetClusteringUtils::get_pseudoJets({})".format(_jet)
+       # self.definition[jet] = "JetClusteringUtils::get_pseudoJets({})".format(_jet)
 
-        self.definition[jet] = "SelectorEmin"
+        self.definition[jet] = "JetClusteringUtils::selectEmin({}, JetClusteringUtils::get_pseudoJets({}))".format(10, _jet)
+
+       #self.definition[jet] = "JetClusteringUtils::selectEmin({},{})".format(ecut, jet)
 
         # get the jets constituents out of the struct
         self.definition[_jetc] = "JetClusteringUtils::get_constituents({})".format(_jet)
