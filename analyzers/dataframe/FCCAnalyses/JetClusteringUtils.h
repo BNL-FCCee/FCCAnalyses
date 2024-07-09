@@ -46,7 +46,7 @@ namespace FCCAnalyses {
     ROOT::VecOps::RVec<fastjet::PseudoJet> get_pseudoJets(const JetClustering::FCCAnalysesJet& in);
 
 
-    ROOT::VecOps::RVec<fastjet::PseudoJet> SelectEMin(double Emin, const ROOT::VecOps::RVec<fastjet::PseudoJet>& in); 
+    ROOT::VecOps::RVec<fastjet::PseudoJet> selectEmin(double Emin, const ROOT::VecOps::RVec<fastjet::PseudoJet>& in); 
 
    // ROOT::VecOps::RVec<fastjet::PseudoJet> SelectorEMin(int n)(const ROOT::VecOps::RVec<fastjet::PseudoJet);
 
