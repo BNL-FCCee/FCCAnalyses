@@ -10,22 +10,23 @@ get_pseudoJets(const JetClustering::FCCAnalysesJet &jets) {
   return jets.jets;
 }
 
-##
-ROOT::VecOps::RVec<fastjet::PseudoJet> 
-SelectEMin(double Emin, const ROOT::VecOps::RVec<fastjet::PseudoJet>& in){
-  ROOT::VecOps::RVec<fastjet::PseudoJet> out;
-  Selector s = SelectorEMin(Emin)
-  for(size_t i = 0; i < in.size(); ++i){
-    if (s(in[i])){
-      out.push_back(in[i])
-    }
-  }
-  return out;
-}
 
 std::vector<std::vector<int>>
 get_constituents(const JetClustering::FCCAnalysesJet &jets) {
   return jets.constituents;
+}
+
+//function that returns RVec with pseudo jets greater than Emin GeV
+ROOT::VecOps::RVec<fastjet::PseudoJet> 
+selectEmin(double Emin, const ROOT::VecOps::RVec<fastjet::PseudoJet> &in){
+  ROOT::VecOps::RVec<fastjet::PseudoJet> out;
+  fastjet::Selector s = fastjet::SelectorEMin(Emin);
+  for(size_t i = 0; i < in.size(); ++i){
+    if (s(in[i])){
+      out.push_back(in[i]);
+    }
+  }
+  return out;
 }
 
 float get_exclusive_dmerge(const JetClustering::FCCAnalysesJet &in, int n) {
