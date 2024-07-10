@@ -29,6 +29,11 @@ selectEmin(double Emin, const ROOT::VecOps::RVec<fastjet::PseudoJet> &in){
   return out;
 }
 
+
+
+//function that returns standard Pseudo vector from RVec Pseudojet
+
+
 float get_exclusive_dmerge(const JetClustering::FCCAnalysesJet &in, int n) {
   float d = -1;
   if (n >= 1 && n <= Nmax_dmerge && in.exclusive_dmerge.size() > n - 1)

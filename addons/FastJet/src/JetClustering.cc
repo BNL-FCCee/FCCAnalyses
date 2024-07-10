@@ -50,12 +50,14 @@ namespace JetClustering {
   }
 
   clustering_antikt::clustering_antikt(
-      float arg_radius, int arg_exclusive, float arg_cut, int arg_sorted, int arg_recombination) {
+      //float arg_radius, int arg_exclusive, float arg_cut, int arg_sorted, int arg_recombination) {
+      float arg_radius, int arg_exclusive, float arg_cut, int arg_sorted, int arg_recombination, float Emin) {
     _radius = arg_radius;
     _exclusive = arg_exclusive;
     _cut = arg_cut;
     _sorted = arg_sorted;
     _recombination = arg_recombination;
+    _Emin = Emin; //minimum energy for pseudojets
 
     // initialize jet algorithm
     //fastjet::JetAlgorithm jetAlgorithm{fastjet::JetAlgorithm::undefined_jet_algorithm};
@@ -81,11 +83,21 @@ namespace JetClustering {
     //cluster jets
     std::vector<fastjet::PseudoJet> pjets = FCCAnalyses::JetClusteringUtils::build_jets(_cs, _exclusive, _cut, _sorted);
     //get dmerged elements
+
+    //define the selector
+    //_s = fastjet::SelectorEMin(_Emin);
+    //create vector with PseudoJet energy greater than _Emin
+    //std::vector<fastjet::PseudoJet> pjets_cut = _s(pjets);
+
+    std::vector<fastjet::PseudoJet> pjets_cut = fastjet::SelectorEMin(_Emin)(pjets);
+
     std::vector<float> dmerge = FCCAnalyses::JetClusteringUtils::exclusive_dmerge(_cs, 0);
     std::vector<float> dmerge_max = FCCAnalyses::JetClusteringUtils::exclusive_dmerge(_cs, 1);
 
     //transform to FCCAnalysesJet
-    FCCAnalysesJet result = FCCAnalyses::JetClusteringUtils::build_FCCAnalysesJet(pjets, dmerge, dmerge_max);
+    FCCAnalysesJet result = FCCAnalyses::JetClusteringUtils::build_FCCAnalysesJet(pjets_cut, dmerge, dmerge_max);
+
+
 
     return result;
   }
