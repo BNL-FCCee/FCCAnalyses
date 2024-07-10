@@ -31,16 +31,23 @@ from addons.ONNXRuntime.python.jetFlavourHelper import JetFlavourHelper
 from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelper
 
 # originally had YAML config here. Not strictly necessary. Check previous commits if you want an example.
-
 # batch = 1 # use HTCondor
 # EOSoutput = 0 # output to EOS
 # JobName = "ZHadronic_4JetReco" # job named used for output directory
 
-njets = 4 #number of jets in exclusive reclustering 
-rad = 0.4 #radius in inclusive clustering
-#set algorithms
-alg = 0 #inclusive algorithm -- 0-antikt, 1-inclusive eekt  2-cambridge
-ecut = 10 #GeV energy cut
+#User input variables:
+#number of jets in exclusive reclustering 
+njets = 4 
+
+#radius in inclusive clustering
+rad = 0.4 
+
+#set algorithms-- inclusive algorithms -- 0-antikt, 1-inclusive eekt  2-cambridge
+alg = 0 
+
+#energy cut to PseudoJets
+ecut = 10 
+
 outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/antikt"
 
 processList = {
