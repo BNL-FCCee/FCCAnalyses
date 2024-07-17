@@ -40,13 +40,16 @@ from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelp
 njets = 4 
 
 #radius in inclusive clustering
-rad = 0.4 
+rad = 1.6
 
 #set algorithms-- inclusive algorithms -- 0-antikt, 1-inclusive eekt  2-cambridge
 alg = 0 
 
 #energy cut to PseudoJets
-ecut = 10 
+ecut = 20
+
+#variables used for reference in other files
+vars = [njets, rad, alg, ecut]
 
 outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/antikt"
 
@@ -192,7 +195,7 @@ def jet_sequence(df, rad, alg):
 
 
     #array of algorithms
-    #algs = ["antikt", "incl_ee_kt", "cambridge", "ee_kt"]
+    #algs = ["anti-kt", "durham-kt"]
 
     ##First inclusive algorithm clustering --- Antikt
     tag = ""
