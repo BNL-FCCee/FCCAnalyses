@@ -1,116 +1,203 @@
 import ROOT 
 import numpy as np
 import math 
-#from zhanalysis.stage1.ZH_Hadronic_stage1 import vars
 
-   
 #returns a vector with cpair vector as first entry and bpair vector as second entry
-colors=[ROOT.kOrange, ROOT.kMagenta, ROOT.kBlue, ROOT.kRed, ROOT.kGreen]
+colors=[ROOT.kMagenta, ROOT.kRed, ROOT.kBlue, ROOT.kOrange, ROOT.kGreen, ROOT.kCyan]
 
-#files = ["ccH_Hbb_1620_10k.root"]
+reco_map={}
+
+#call files
+#files = ["ccH_Hbb_1620_10k.root", "ccH_Hbb_410_10k.root","chunk_1.root"]
 files = ["ccH_Hbb_1620_10k.root","chunk_1.root"]
+#set number of events
+nevents = 2500
+#set number of bins
+bins = 64
 
+## 0--indicates recojet_px etc. , 1-- indicates jet_px_corr etc.
+#algos = [0,0,1]
+algos = [0,1]
 #write labels associated with file in order 
-algs = ["anti-kt, r-1.6, ecut-20", "durham-kt","cambridge"]
+algs = ["anti-kt r=1.6 e-cut=20GeV", "anti-kt r=0.4 e-cut=10GeV","durham-kt with correction","cambridge"]
+algs = ["anti-kt r=1.6 e-cut=20GeV", "durham-kt with correction","cambridge"]
 
+
+for i in range(len(files)):
+    reco_map[files[i]]=algos[i]
+
+#initialize pair lists
 c_pairs =[]
 b_pairs = []
 
+#chooses the 4 jets with highest momentum 
+def get_4jets(event):
+    vecs=[]
+    vecs_p=[]
+
+    #convert jets_truth to NumPy array
+    jets_truth = np.array(event.jets_truth)
+
+    for i in range(event.event_njet):
+        vec = ROOT.TLorentzVector()
+        vec.SetPxPyPzE(event.recojet_px[i],event.recojet_py[i],event.recojet_pz[i],event.jet_e[i])
+
+        #create tlv and p vectors
+        vecs.append(vec)
+        vecs_p.append(vec.P())
+
+    #create array with vector momentums in order of highest to lowest momentum
+    ascend_p=sorted(vecs_p, reverse=True)
+
+    #create array that will have jet indices in order of highest to lowest momentum 
+    ascend_id = []
+    for p in ascend_p:
+        #finds index in vecs_p array where the value is p-- this index coressponds to index in jets_tuth
+        id = np.where(np.array(vecs_p)==p)[0][0]
+        ascend_id.append(id)
+
+    #indices of four jets with highest momentum
+    indi4 = []
+    for i in range(4):
+        indi4.append(ascend_id[i])
+
+    jets4 = jets_truth[indi4]  
+
+    return jets4
+
+def get_indices(event,flav)-> list:
+    if event.event_njet==4:
+        truth_list=event.jets_truth
+
+    if event.event_njet>4:
+        jets4 = get_4jets(event)
+        truth_list = jets4
+
+    c_idx=np.where(np.abs(truth_list)==4)[0]
+    b_idx=np.where(np.abs(truth_list)==5)[0]
+
+    if (len(c_idx)==2 and len(b_idx)==2):   
+        idx = [] 
+        if flav==0:
+            for c in c_idx:
+                idx.append(c)
+        if flav==1:
+            for b in b_idx:
+                idx.append(b)
+        return idx
+
+def create_vectors(alg,idx,event):
+    #set tlv values -- 
+    #initialize tlvs for c pair and b pair
+    vec1 = ROOT.TLorentzVector() 
+    vec2 = ROOT.TLorentzVector()
+    #for i, vec in enumerate(vecs):
+
+        # if alg==0:
+        #     #set tlv values-- Anti-kt Alg
+        #     vec.SetPxPyPzE(event.recojet_px[int(idx[i])],event.recojet_py[int(idx[i])],event.recojet_pz[int(idx[i])],event.jet_e[int(idx[i])])
+            
+        # if alg ==1:
+        #     #set tlv values-- Durham Alg
+        #     vec.SetPxPyPzE(event.jet_px_corr[int(idx[i])],event.jet_py_corr[int(idx[i])],event.jet_pz_corr[int(idx[i])],event.jet_e_corr[int(idx[i])])
+
+    if alg==0:
+        #set tlv values-- Anti-kt Alg
+        vec1.SetPxPyPzE(event.recojet_px[int(idx[0])],event.recojet_py[int(idx[0])],event.recojet_pz[int(idx[0])],event.jet_e[int(idx[0])])
+        vec2.SetPxPyPzE(event.recojet_px[int(idx[1])],event.recojet_py[int(idx[1])],event.recojet_pz[int(idx[1])],event.jet_e[int(idx[1])])
+    if alg ==1:
+        #set tlv values-- Durham Alg
+        vec1.SetPxPyPzE(event.jet_px_corr[int(idx[0])],event.jet_py_corr[int(idx[0])],event.jet_pz_corr[int(idx[0])],event.jet_e_corr[int(idx[0])])
+        vec2.SetPxPyPzE(event.jet_px_corr[int(idx[1])],event.jet_py_corr[int(idx[1])],event.jet_pz_corr[int(idx[1])],event.jet_e_corr[int(idx[1])])
+    vecs = [vec1, vec2]
+
+    return vecs
 
 #flav-- 0 is c  flav-- 1 is b
 def create_pair(file, flav):
 
     pairs = []
-    
+
+    #determine which reco jet variable to use
+    alg = reco_map[file]
+
     file =  ROOT.TFile(file, "READ")
     tree = file.Get("events")
-    print("finished reading")
-    for i, event in enumerate(tree):
-        if i >= 100:  # Stop after 10,000 events
-            break
-        if (event.event_njet==4):
-            #print(i)
-            c_idx=np.where(np.abs(event.jets_truth)==4)[0]
-           # print(c_idx)
-            b_idx=np.where(np.abs(event.jets_truth)==5)[0]
-           
-            if (len(c_idx)==2 and len(b_idx)==2):
-            
-                if flav==0:
-                    idx = c_idx
-                if flav==1:
-                    idx = b_idx
-                
-                #initialize tlvs for c pair and b pair
-                vec1 = ROOT.TLorentzVector() 
-                vec2 = ROOT.TLorentzVector()
 
-                #set tlv values
-                vec1.SetPxPyPzE(event.recojet_px[int(idx[0])],event.recojet_py[int(idx[0])],event.recojet_pz[int(idx[0])],event.jet_e[int(idx[0])])
-                vec2.SetPxPyPzE(event.recojet_px[int(idx[1])],event.recojet_py[int(idx[1])],event.recojet_pz[int(idx[1])],event.jet_e[int(idx[1])])
+    print("finished reading")
+
+    for i, event in enumerate(tree):
+        if i >= nevents:  # Stop after 10,000 events
+            break
+        if event.event_njet>=4:
+            idx=get_indices(event,flav)
+
+            if idx is not None:
+            
+                #create two vectors
+                vectors = create_vectors(alg,idx,event)
+                vec1=vectors[0]
+                vec2=vectors[1]
                 
                 #initialize sum of pair tlv 
                 sum = ROOT.TLorentzVector()
 
                 #compute tlv sum
                 sum = vec1 + vec2
-
+                
                 #get invariant mass of the sum 
                 mass=sum.M()
                 
-                # print(mass)
-                #add invariant mass to 
+                #add invariant mass to pairs list
                 pairs.append(mass)
+
+            
     return pairs
 
-
-#pairs is a vector of c or b pair vectors 
+#pairs is a list of c or b pair lists 
 #flav-- 0 is c  flav-- 1 is b
 def create_hist(pairs, flav):
 
-    maximum = pairs[0][0]
-    minimum = pairs[0][0]
-    bins = int(math.sqrt(int(len(pairs[0]))))
+    maximum = 160
+    minimum = 0
 
-    
     flavs = ["cc","bb"]
 
     hists = []
     for i, pp in enumerate(pairs):
-        maxi = max(pp)
-        if maxi>maximum:
-            maximum = maxi
-        mini = min(pp)
-        if mini<minimum:
-            minimum = mini
-        hist = ROOT.TH1F("hist"+str(i), flavs[flav]+" jet pair masses", bins, maximum, minimum)
-        hist.Scale(1.0 / hist.Integral())
+        
+        hist = ROOT.TH1F("hist"+str(i), flavs[flav]+" jet pair masses", bins, minimum, maximum)
+    
         for p in pp:
-            print(p)
             hist.Fill(p)
+
+        print(hist.GetEntries())
+        hist.Scale(1.0 / hist.Integral())
         hists.append(hist)
        
 
     canvas = ROOT.TCanvas("canvas", flavs[flav]+" jet pair masses", 800, 600)
-    legend = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
+    legend = ROOT.TLegend(0.4, 0.5, 0.1, 0.7)
     
     for index, hist in enumerate(hists):
         color = colors[index]
         hist.SetLineColor(color)
         legend.AddEntry(hist, algs[index], "l")
+        hist.Sumw2(ROOT.kFALSE)
         if index==0:
-            hist.Draw()
+            hist.Draw("HIST")
         else:
             hist.Draw("SAME")
-
+        print(algs[index])
+        print(hist.GetMean())
+    legend.SetBorderSize(0)
     legend.Draw()
     canvas.SaveAs("1620"+flavs[flav]+"mass.pdf")
-
-
 
 #Now run functions
 
 for file in files:
+   
    #create vector of c_pair vectors for each file
    f1= create_pair(file,0)
    f2= create_pair(file,1)
