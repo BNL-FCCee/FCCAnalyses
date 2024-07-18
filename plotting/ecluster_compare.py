@@ -11,7 +11,7 @@ reco_map={}
 #files = ["ccH_Hbb_1620_10k.root", "ccH_Hbb_410_10k.root","chunk_1.root"]
 files = ["ccH_Hbb_1620_10k.root","chunk_1.root"]
 #set number of events
-nevents = 2200
+nevents = 4500
 #set number of bins
 bins = 40
 
@@ -30,48 +30,45 @@ for i in range(len(files)):
 c_pairs =[]
 b_pairs = []
 
-#chooses the 4 jets with highest momentum 
+#chooses the 4 jets with highest energy 
 def get_4jets(event):
-    vecs=[]
-    vecs_p=[]
-
     #convert jets_truth to NumPy array
     jets_truth = np.array(event.jets_truth)
-
-    for i in range(event.event_njet):
-        vec = ROOT.TLorentzVector()
-        vec.SetPxPyPzE(event.recojet_px[i],event.recojet_py[i],event.recojet_pz[i],event.jet_e[i])
-
-        #create tlv and p vectors
-        vecs.append(vec)
-        vecs_p.append(vec.P())
+    jets_e = np.array(event.jet_e)
 
     #create array with vector momentums in order of highest to lowest momentum
-    ascend_p=sorted(vecs_p, reverse=True)
+    ascend_e=sorted(jets_e, reverse=True)
 
     #create array that will have jet indices in order of highest to lowest momentum 
     ascend_id = []
-    for p in ascend_p:
-        #finds index in vecs_p array where the value is p-- this index coressponds to index in jets_tuth
-        id = np.where(np.array(vecs_p)==p)[0][0]
+    for e in ascend_e:
+        #finds index in vecs_p array where the value is p-- this index coressponds to index in jets_truth
+        id = np.where(jets_e==e)[0][0]
         ascend_id.append(id)
 
     #indices of four jets with highest momentum
     indi4 = []
     for i in range(4):
         indi4.append(ascend_id[i])
+    
+    # print(jets_truth)
+    # print("get 4 jets used yay")
+    # print(indi4)
+    jetse4 = jets_truth[indi4]  
 
-    jets4 = jets_truth[indi4]  
-
-    return jets4
+    return jetse4
 
 def get_indices(event,flav)-> list:
     if event.event_njet==4:
-        truth_list=event.jets_truth
-
+        # print(event.jets_truth)
+        jet4truth = np.array(event.jets_truth)
+        truth_list=jet4truth
     if event.event_njet>4:
-        jets4 = get_4jets(event)
-        truth_list = jets4
+        jetse4 = get_4jets(event)
+        truth_list = jetse4
+    
+    truth_list = np.array(truth_list)
+    # print(truth_list)
 
     c_idx=np.where(np.abs(truth_list)==4)[0]
     b_idx=np.where(np.abs(truth_list)==5)[0]
@@ -127,30 +124,32 @@ def create_pair(file, flav):
     print("finished reading")
 
     for i, event in enumerate(tree):
-        if i >= nevents:  # Stop after 10,000 events
+        if i >= nevents:  # Stop after nevents
             break
-        if event.event_njet>=4:
-            idx=get_indices(event,flav)
+        if all(truth is not None for truth in event.jets_truth):
+            if event.event_njet>=4:
+                # print(i)
 
-            if idx is not None:
-            
-                #create two vectors
-                vectors = create_vectors(alg,idx,event)
-                vec1=vectors[0]
-                vec2=vectors[1]
-                
-                #initialize sum of pair tlv 
-                sum = ROOT.TLorentzVector()
+                idx=get_indices(event,flav)
 
-                #compute tlv sum
-                sum = vec1 + vec2
+                if idx is not None:
                 
-                #get invariant mass of the sum 
-                mass=sum.M()
-                
-                #add invariant mass to pairs list
-                pairs.append(mass)
+                    #create two vectors
+                    vectors = create_vectors(alg,idx,event)
+                    vec1=vectors[0]
+                    vec2=vectors[1]
+                    
+                    #initialize sum of pair tlv 
+                    sum = ROOT.TLorentzVector()
 
+                    #compute tlv sum
+                    sum = vec1 + vec2
+                    
+                    #get invariant mass of the sum 
+                    mass=sum.M()
+                    
+                    #add invariant mass to pairs list
+                    pairs.append(mass)
             
     return pairs
 
@@ -193,7 +192,7 @@ def create_hist(pairs, flav):
         print(hist.GetMean())
     legend.SetBorderSize(0)
     legend.Draw()
-    canvas.SaveAs("antikt_4jetsp/1620"+flavs[flav]+"mass.pdf")
+    canvas.SaveAs("antikt_4jetse/10k"+flavs[flav]+"mass.pdf")
 
 #Now run functions
 

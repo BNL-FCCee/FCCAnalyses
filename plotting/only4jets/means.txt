@@ -1,0 +1,20 @@
+2200 events
+60 bins
+
+cc jets  
+anti-kt r=1.6 e-cut=20GeV
+86.74043792375289
+durham-kt with correction
+92.05506586238958
+
+bb jets 
+anti-kt r=1.6 e-cut=20GeV
+113.6010053065613
+durham-kt with correction
+121.10204775163794
+
+
+
+
+
+

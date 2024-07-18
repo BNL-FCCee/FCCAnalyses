@@ -40,13 +40,13 @@ from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelp
 njets = 4 
 
 #radius in inclusive clustering
-rad = 1.6
+rad = 1.0
 
 #set algorithms-- inclusive algorithms -- 0-antikt, 1-inclusive eekt  2-cambridge
 alg = 0 
 
 #energy cut to PseudoJets
-ecut = 20
+ecut = 10
 
 #variables used for reference in other files
 vars = [njets, rad, alg, ecut]
