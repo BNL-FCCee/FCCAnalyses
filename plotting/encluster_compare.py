@@ -109,7 +109,10 @@ def create_pair(file, flav):
     for i, event in enumerate(tree):
         if i >= nevents:  # Stop after nevents
             break
-        if all(truth is not None for truth in event.jets_truth):
+
+        truth_list = np.array(event.jets_truth)
+        if not np.any(np.isnan(truth_list)):
+            
             if event.event_njet>=4:
                 # print(i)
 
