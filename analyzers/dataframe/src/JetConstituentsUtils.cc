@@ -1220,6 +1220,7 @@ namespace FCCAnalyses
     }
 
     // compute residues
+    // outputs the pseudo jets as 
     rv::RVec<TLorentzVector> compute_tlv_jets(const rv::RVec<fastjet::PseudoJet> &jets)
     {
       rv::RVec<TLorentzVector> out;

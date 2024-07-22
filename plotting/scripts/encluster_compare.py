@@ -9,18 +9,19 @@ reco_map={}
 
 #call files
 #files = ["ccH_Hbb_1620_10k.root", "ccH_Hbb_410_10k.root","chunk_1.root"]
-files = ["ccH_Hbb_1620_10k.root","chunk_1.root"]
+files = ["ccH_Hbb_1620_10k.root"]
 #set number of events
-nevents = 4000
+nevents = 10000
 #set number of bins
 bins = 35
 
 ## 0--indicates recojet_px etc. , 1-- indicates jet_px_corr etc.
 #algos = [0,0,1]
-algos = [0,1]
+algos = [1,0]
 #write labels associated with file in order 
 algs = ["anti-kt r=1.6 e-cut=20GeV", "anti-kt r=0.4 e-cut=10GeV","durham-kt with correction","cambridge"]
 algs = ["anti-kt r=1.6 e-cut=20GeV", "durham-kt with correction","cambridge"]
+algs = ["durham-kt with correction", "durham-kt with correction","cambridge"]
 
 
 for i in range(len(files)):
@@ -110,32 +111,33 @@ def create_pair(file, flav):
         if i >= nevents:  # Stop after nevents
             break
 
-        truth_list = np.array(event.jets_truth)
-        if not np.any(np.isnan(truth_list)):
+        # truth_list = np.array(event.jets_truth)
+        # #print(truth_list)
+        # if not np.any(np.isnan(truth_list)):
+
+        if event.event_njet>=4:
+            # print(i)
+
+            idx=get_indices(event,flav)
+
+            if idx is not None:
             
-            if event.event_njet>=4:
-                # print(i)
-
-                idx=get_indices(event,flav)
-
-                if idx is not None:
+                #create two vectors
+                vectors = create_vectors(alg,idx,event)
+                vec1=vectors[0]
+                vec2=vectors[1]
                 
-                    #create two vectors
-                    vectors = create_vectors(alg,idx,event)
-                    vec1=vectors[0]
-                    vec2=vectors[1]
-                    
-                    #initialize sum of pair tlv 
-                    sum = ROOT.TLorentzVector()
+                #initialize sum of pair tlv 
+                sum = ROOT.TLorentzVector()
 
-                    #compute tlv sum
-                    sum = vec1 + vec2
-                    
-                    #get invariant mass of the sum 
-                    mass=sum.M()
-                    
-                    #add invariant mass to pairs list
-                    pairs.append(mass)
+                #compute tlv sum
+                sum = vec1 + vec2
+                
+                #get invariant mass of the sum 
+                mass=sum.M()
+                
+                #add invariant mass to pairs list
+                pairs.append(mass)
             
     return pairs
 
@@ -178,7 +180,7 @@ def create_hist(pairs, flav):
         print(hist.GetMean())
     legend.SetBorderSize(0)
     legend.Draw()
-    canvas.SaveAs("antikt_4jetse/10k"+flavs[flav]+"mass.pdf")
+    canvas.SaveAs("162010k"+flavs[flav]+"mass.pdf")
 
 #Now run functions
 
@@ -190,6 +192,7 @@ for file in files:
    c_pairs.append(f1)
    #create vector of b_pair vectors for each file
    b_pairs.append(f2)
+   #file.Close()
 
 #create cc and bb histograms
 create_hist(c_pairs, 0)

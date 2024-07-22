@@ -118,12 +118,13 @@ class InclusiveJetClusteringHelper:
         #0 - anti-kt
         #1 - cambridge
         #2 - inclusive kt
-    def __init__(self, coll, rad, alg, ecut, tag=""):
+    def __init__(self, coll, rad, alg, sort, ecut, tag=""):
 
         #input collection of particles
         self.input_coll = coll
         self.rad = rad
         self.alg = alg
+        self.sort = sort
         self.ecut= ecut
         self.tag = tag
         if tag != "":
@@ -195,7 +196,7 @@ class InclusiveJetClusteringHelper:
         #algorithm is determined by user entry of 0, 1, 2 
         #0 - antikt, 1 - inclusive kt, 2 - Cambridge
         #radius for distance measure given by user entry
-        self.definition[_jet] = "JetClustering::clustering_{}({}, 0, 0, 0, 0, {})({})".format(inclusive_Algs[alg], rad, ecut, pjetc)
+        self.definition[_jet] = "JetClustering::clustering_{}({}, 0, 0, 0, {}, {})({})".format(inclusive_Algs[alg], rad, sort, ecut, pjetc)
 
         #jet and jet constituents are both obtained from _jet 
         # get the jets out of the struct 

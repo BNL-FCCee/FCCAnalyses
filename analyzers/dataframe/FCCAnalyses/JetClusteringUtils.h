@@ -8,7 +8,7 @@
 #include "FastJet/JetClustering.h"
 #include "fastjet/JetDefinition.hh"
 #include "TRandom3.h"
-
+#include "fastjet/PseudoJet.hh"
 /** Jet clustering utilities interface.
 This represents a set functions and utilities to perfom jet clustering from a list of.
 */
@@ -47,6 +47,10 @@ namespace FCCAnalyses {
 
     //returns RVec with pseudo jets greater than Emin GeV
     ROOT::VecOps::RVec<fastjet::PseudoJet> selectEmin(double Emin, const ROOT::VecOps::RVec<fastjet::PseudoJet>& in); 
+
+    //function to perform energy correction on antikt pjets for energy correction
+
+    std::vector<fastjet::PseudoJet> get_corr_antikt(std::vector<fastjet::PseudoJet> in);
 
     /** Get fastjet constituents after reconstruction from FCCAnalyses jets*/
     std::vector<std::vector<int>> get_constituents(const JetClustering::FCCAnalysesJet& in);

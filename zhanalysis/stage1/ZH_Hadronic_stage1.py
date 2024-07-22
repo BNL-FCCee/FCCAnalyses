@@ -40,16 +40,19 @@ from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelp
 njets = 4 
 
 #radius in inclusive clustering
-rad = 1.0
+rad = 0.6
 
 #set algorithms-- inclusive algorithms -- 0-antikt, 1-inclusive eekt  2-cambridge
 alg = 0 
+
+#set sorted -- for inclusive-- 0-sorted by pt, 1-sorted by E
+sort = 1
 
 #energy cut to PseudoJets
 ecut = 10
 
 #variables used for reference in other files
-vars = [njets, rad, alg, ecut]
+vars = [njets, rad, alg, sort, ecut]
 
 outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/antikt"
 
@@ -186,7 +189,7 @@ def analysis_sequence(df):
 #def jet_sequence(df, njets, exclusive):
 #def jet_sequence(df, njets, rad, alg):
 
-def jet_sequence(df, rad, alg):
+def jet_sequence(df,rad, alg, sort, ecut):
 
     # global ee_ktClustering
     # global ee_ktFlavourHelper
@@ -201,9 +204,11 @@ def jet_sequence(df, rad, alg):
     tag = ""
 
     ## define jet clustering parameters
-    antiktClustering = InclusiveJetClusteringHelper(collections["PFParticles"],rad, alg, ecut, tag)
+    antiktClustering = InclusiveJetClusteringHelper(collections["PFParticles"],rad, alg, sort, ecut, tag)
   
     ## runs inclusive antikt jet clustering 
+    #extract all jet observables from pseudojets
+
     df = antiktClustering.define(df)
 
     ## define jet flavour tagging parameters
@@ -215,6 +220,8 @@ def jet_sequence(df, rad, alg):
     )
 
     ## define observables for tagger
+    #antiktClustering.jets refers to the pseudojets from get_pseudojets from the clustering algorithm
+    #converting the pseudojets to TLorentz vectors 
     df = antiktFlavourHelper.define(df)
     df = df.Define("jet_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(antiktClustering.jets))
 
@@ -310,7 +317,7 @@ class RDFanalysis:
     # Mandatory: analysers funtion to define the analysers to process, please make sure you return the last dataframe, in this example it is df2
     def analysers(df):
         df = analysis_sequence(df)
-        df = jet_sequence(df, rad, alg)
+        df = jet_sequence(df, rad, alg, sort, ecut)
         #df = jet_sequence(df, njets, exclusive) # again, was playing with exclusive parameter here. 
         # Don't remember if you need to pass it here.
         

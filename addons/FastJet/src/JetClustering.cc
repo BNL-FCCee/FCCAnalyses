@@ -40,8 +40,11 @@ namespace JetClustering {
     //cluster jets
     std::vector<fastjet::PseudoJet> pjets = FCCAnalyses::JetClusteringUtils::build_jets(_cs, _exclusive, _cut, _sorted);
     //get dmerged elements
+
+
     std::vector<float> dmerge = FCCAnalyses::JetClusteringUtils::exclusive_dmerge(_cs, 0);
     std::vector<float> dmerge_max = FCCAnalyses::JetClusteringUtils::exclusive_dmerge(_cs, 1);
+
 
     //transform to FCCAnalysesJet
     FCCAnalysesJet result = FCCAnalyses::JetClusteringUtils::build_FCCAnalysesJet(pjets, dmerge, dmerge_max);
@@ -84,21 +87,17 @@ namespace JetClustering {
     std::vector<fastjet::PseudoJet> pjets = FCCAnalyses::JetClusteringUtils::build_jets(_cs, _exclusive, _cut, _sorted);
     //get dmerged elements
 
+    //perform energy correction on jets
+    std::vector<fastjet::PseudoJet> pjets_corr = FCCAnalyses::JetClusteringUtils::get_corr_antikt(pjets);
 
-    //define the selector
-    //_s = fastjet::SelectorEMin(_Emin);
-    //create vector with PseudoJet energy greater than _Emin
-    //std::vector<fastjet::PseudoJet> pjets_cut = _s(pjets);
-
-    std::vector<fastjet::PseudoJet> pjets_cut = fastjet::SelectorEMin(_Emin)(pjets);
+    //apply energy cut
+    std::vector<fastjet::PseudoJet> pjets_cut = fastjet::SelectorEMin(_Emin)(pjets_corr);
 
     std::vector<float> dmerge = FCCAnalyses::JetClusteringUtils::exclusive_dmerge(_cs, 0);
     std::vector<float> dmerge_max = FCCAnalyses::JetClusteringUtils::exclusive_dmerge(_cs, 1);
 
     //transform to FCCAnalysesJet
     FCCAnalysesJet result = FCCAnalyses::JetClusteringUtils::build_FCCAnalysesJet(pjets_cut, dmerge, dmerge_max);
-
-
 
     return result;
   }
@@ -215,6 +214,8 @@ namespace JetClustering {
     //transform to FCCAnalysesJet
     return FCCAnalyses::JetClusteringUtils::build_FCCAnalysesJet(pjets, dmerge, dmerge_max);
   }
+
+
 
   clustering_genkt::clustering_genkt(
       float arg_radius, int arg_exclusive, float arg_cut, int arg_sorted, int arg_recombination, float arg_exponent) {
