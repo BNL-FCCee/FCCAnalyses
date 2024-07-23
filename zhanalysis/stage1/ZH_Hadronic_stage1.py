@@ -54,7 +54,7 @@ ecut = 10
 #variables used for reference in other files
 vars = [njets, rad, alg, sort, ecut]
 
-outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/plotting"
+outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/plotting/RootFiles"
 
 processList = {
 

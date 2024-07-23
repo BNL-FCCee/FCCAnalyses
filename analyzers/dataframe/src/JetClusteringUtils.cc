@@ -30,25 +30,28 @@ selectEmin(double Emin, const ROOT::VecOps::RVec<fastjet::PseudoJet> &in){
 }
 
 //function to perform energy correction on pjets
-
 std::vector<fastjet::PseudoJet> get_antikt_jets(std::vector<fastjet::PseudoJet> in){
+
   if(in.size()<=4){
     return in;
   }
-  else if (in.size()>4){
-    std::vector<fastjet::PseudoJet> jets(in.begin(), in.begin() + 4);
 
-    for (size_t i=4;i<in.size();i++){
-      const auto &p = in[i];
-      std::vector<double> distances(4);
-      for(unsigned j=0;j<jets.size();j++){
-        distances[j] = cos_theta(p, jets[j]);
-        unsigned imin = std::min_element(distances.begin(), distances.end()) - distances.begin();
-        jets[imin]= join(jets[imin], p);
-        }
+  std::vector<fastjet::PseudoJet> jets(in.begin(), in.begin() + 4);
+  std::set<size_t> imin_used; 
+
+  for (size_t i=4;i<in.size();i++){
+    const auto &p = in[i];
+    std::vector<double> distances(4);
+    for(unsigned j=0;j<jets.size();j++){
+      if(imin_used.count(j) == 0){
+      distances[j] = cos_theta(p, jets[j]); 
+      }
     }
-    return jets;
+    unsigned imin = std::min_element(distances.begin(), distances.end()) - distances.begin();
+    jets[imin]= join(jets[imin], p);
+    imin_used.insert(imin);
   }
+    return jets;
 }
 
 
