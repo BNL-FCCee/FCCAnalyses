@@ -196,8 +196,8 @@ class InclusiveJetClusteringHelper:
         #algorithm is determined by user entry of 0, 1, 2 
         #0 - antikt, 1 - inclusive kt, 2 - Cambridge
         #radius for distance measure given by user entry
-        self.definition[_jet] = "JetClustering::clustering_{}({}, 0, 0, 0, {}, {})({})".format(inclusive_Algs[alg], rad, sort, ecut, pjetc)
-
+        self.definition[_jet] = "JetClustering::clustering_{}({}, 0, 0, {}, 0, {})({})".format(inclusive_Algs[alg], rad, sort, ecut, pjetc)
+        print("progress")
         #jet and jet constituents are both obtained from _jet 
         # get the jets out of the struct 
         

@@ -31,32 +31,29 @@ selectEmin(double Emin, const ROOT::VecOps::RVec<fastjet::PseudoJet> &in){
 
 //function to perform energy correction on pjets
 
-std::vector<fastjet::PseudoJet> get_corr_antikt(std::vector<fastjet::PseudoJet> in){
-  std::vector<fastjet::PseudoJet> pjets_corr;
-  if(in.size()==4){
-    for(size_t i = 0; i < in.size(); ++i){
-      pjets_corr[i]=in[i];
-    }
+std::vector<fastjet::PseudoJet> get_antikt_jets(std::vector<fastjet::PseudoJet> in){
+  if(in.size()<=4){
+    return in;
   }
   else if (in.size()>4){
     std::vector<fastjet::PseudoJet> jets(in.begin(), in.begin() + 4);
 
-    for (unsigned i=4;i<in.size();i++){
+    for (size_t i=4;i<in.size();i++){
+      const auto &p = in[i];
       std::vector<double> distances(4);
-
       for(unsigned j=0;j<jets.size();j++){
-        distances[j] = cos_theta(in[i], jets[j]);
+        distances[j] = cos_theta(p, jets[j]);
         unsigned imin = std::min_element(distances.begin(), distances.end()) - distances.begin();
-        jets[imin]= join(jets[imin], in[i]);
+        jets[imin]= join(jets[imin], p);
         //ExternalRecombiner::recombine(jets[imin], in[i], jets[imin]);
         }
 
-      for(size_t i = 0; i < in.size(); ++i){
-        pjets_corr[i]=jets[i];
-        }
+      // for(size_t i = 0; i < in.size(); ++i){
+      //  pjets_corr.push_back(jets[i]);
+      //   }
     }
+    return jets;
   }
-  return pjets_corr;
 }
 
 

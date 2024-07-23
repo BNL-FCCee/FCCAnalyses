@@ -50,7 +50,7 @@ namespace FCCAnalyses {
 
     //function to perform energy correction on antikt pjets for energy correction
 
-    std::vector<fastjet::PseudoJet> get_corr_antikt(std::vector<fastjet::PseudoJet> in);
+    std::vector<fastjet::PseudoJet> get_antikt_jets(std::vector<fastjet::PseudoJet> in);
 
     /** Get fastjet constituents after reconstruction from FCCAnalyses jets*/
     std::vector<std::vector<int>> get_constituents(const JetClustering::FCCAnalysesJet& in);
