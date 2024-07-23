@@ -40,7 +40,7 @@ from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelp
 njets = 4 
 
 #radius in inclusive clustering
-rad = 0.6
+rad = 0.4
 
 #set algorithms-- inclusive algorithms -- 0-antikt, 1-inclusive eekt  2-cambridge
 alg = 0 
@@ -49,12 +49,12 @@ alg = 0
 sort = 1
 
 #energy cut to PseudoJets
-ecut = 10
+ecut = 15
 
 #variables used for reference in other files
 vars = [njets, rad, alg, sort, ecut]
 
-outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/plotting"
+outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/plotting"
 
 processList = {
 

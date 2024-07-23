@@ -9,7 +9,7 @@ captions = ["anti-kt","durham-kt-corr"]
 alg=0
 
 algs = [0,1]
-files = ["ccH_Hbb_1620_10k.root","chunk_1.root"]
+files = ["antiktcorr10000.root", "ccH_Hbb_1620_10k.root","chunk_1.root"]
 
 key = "antiuproot"
 

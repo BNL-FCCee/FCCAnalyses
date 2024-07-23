@@ -45,12 +45,7 @@ std::vector<fastjet::PseudoJet> get_antikt_jets(std::vector<fastjet::PseudoJet> 
         distances[j] = cos_theta(p, jets[j]);
         unsigned imin = std::min_element(distances.begin(), distances.end()) - distances.begin();
         jets[imin]= join(jets[imin], p);
-        //ExternalRecombiner::recombine(jets[imin], in[i], jets[imin]);
         }
-
-      // for(size_t i = 0; i < in.size(); ++i){
-      //  pjets_corr.push_back(jets[i]);
-      //   }
     }
     return jets;
   }
