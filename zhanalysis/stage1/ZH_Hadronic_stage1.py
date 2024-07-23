@@ -49,7 +49,7 @@ alg = 0
 sort = 1
 
 #energy cut to PseudoJets
-ecut = 15
+ecut = 10
 
 #variables used for reference in other files
 vars = [njets, rad, alg, sort, ecut]
