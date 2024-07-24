@@ -4,14 +4,14 @@ import numpy as np
 import awkward as ak 
 
 
-colors=[ROOT.kMagenta, ROOT.kBlue, ROOT.kRed, ROOT.kOrange, ROOT.kGreen, ROOT.kCyan]
-captions = ["0.4 anti-kt with E-Corr","durham-kt-corr"]
-alg=1
+colors=[ROOT.kBlue, ROOT.kRed, ROOT.kOrange, ROOT.kGreen, ROOT.kCyan,ROOT.kMagenta]
+captions = ["0.65 anti-kt with durham E-Corr","durham-kt-corr"]
+alg=0
 
 algs = [0,1]
-files = ["antiktcorrE10000new.root", "ccH_Hbb_1620_10k.root","chunk_1.root"]
+files = ["antikt065corr.root", "antiktcorrE10000new.root","chunk_1.root"]
 
-key = "durE10000"
+key = "antidcorr065"
 
 #set starting event
 event_start = 0
@@ -25,7 +25,7 @@ p_masses=[]
 
 def get_masses(px,py,pz,e):
     p_mass=[]
-    for i in range(nevents):
+    for i in range(len(px)):
         vecs=[]
 
         vecs.append(ROOT.TLorentzVector())
@@ -48,7 +48,7 @@ def get_masses(px,py,pz,e):
     return p_mass
 
 def main(file):
-    file = uproot.open(files[2])
+    file = uproot.open(files[0])
     tree = file['events']
     #array of the branches
     print("i read it hehe")
@@ -136,9 +136,11 @@ def create_hist(p_mass, flav):
     legend.Draw()
     canvas.SaveAs("../hists/"+key+flavs[flav]+"mass.pdf")
 
-main(files[alg])
+
 
 #print(len(p_masses))
+
+main(files[alg])
 
 for i, p_mass in enumerate(p_masses):
      create_hist(p_mass, i)

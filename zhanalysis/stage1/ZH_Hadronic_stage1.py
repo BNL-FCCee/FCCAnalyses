@@ -40,7 +40,7 @@ from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelp
 njets = 4 
 
 #radius in inclusive clustering
-rad = 0.4
+rad = 0.7
 
 #set algorithms-- inclusive algorithms -- 0-antikt, 1-inclusive eekt  2-cambridge
 alg = 0 
@@ -255,54 +255,54 @@ def jet_sequence(df,rad, alg, sort, ecut):
     df = df.Define("jets_truth", "FCCAnalyses::jetTruthFinder(jetconstituents, ReconstructedParticles, Particle)")
     df = df.Define("jets_truthv2", "FCCAnalyses::jetTruthFinderV2(jet_p4, Particle)")
 
-    tag = ""
+    # tag = ""
     
     ## define jet clustering parameters
    
-    #create instance of ExclusiveJetClusteringHelper class
-    ee_ktClustering = ExclusiveJetClusteringHelper(collections["PFParticles"], njets, tag)
+    # #create instance of ExclusiveJetClusteringHelper class
+    # ee_ktClustering = ExclusiveJetClusteringHelper(collections["PFParticles"], njets, tag)
 
-    ## runs exclusive Durham jet clustering 
-    df = ee_ktClustering.define(df)
+    # ## runs exclusive Durham jet clustering 
+    # df = ee_ktClustering.define(df)
 
-    ## define jet flavour tagging parameters
-    ee_ktFlavourHelper = JetFlavourHelper(
-        collections,
-        ee_ktClustering.jets,
-        ee_ktClustering.constituents,
-        tag,
-    )
+    # ## define jet flavour tagging parameters
+    # ee_ktFlavourHelper = JetFlavourHelper(
+    #     collections,
+    #     ee_ktClustering.jets,
+    #     ee_ktClustering.constituents,
+    #     tag,
+    # )
 
-    ## define observables for tagger
-    df = ee_ktFlavourHelper.define(df)
-    df = df.Define("jet_ee_kt_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(ee_ktClustering.jets))
+    # ## define observables for tagger
+    # df = ee_ktFlavourHelper.define(df)
+    # df = df.Define("jet_ee_kt_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(ee_ktClustering.jets))
    
-    # apply energy correction
-    for jet_reco_var in jet_reco_vars:
-        df=(df.Define("recojet_ee_kt_{}".format(jet_reco_var), "JetClusteringUtils::get_{}(jet)".format(jet_reco_var)))
+    # # apply energy correction
+    # for jet_reco_var in jet_reco_vars:
+    #     df=(df.Define("recojet_ee_kt_{}".format(jet_reco_var), "JetClusteringUtils::get_{}(jet)".format(jet_reco_var)))
     
-    # phi has slightly different naming
-    df=(df.Define("recojet_ee_kt_phi", "JetClusteringUtils::get_phi_std(jet)"))
+    # # phi has slightly different naming
+    # df=(df.Define("recojet_ee_kt_phi", "JetClusteringUtils::get_phi_std(jet)"))
  
-    ###
-    df = df.Define("jets_ee_kt_tlv_corr", "FCCAnalyses::energyReconstructFourJet(recojet{}_px, recojet{}_py, recojet{}_pz, recojet{}_e)".format("_ee_kt"))
+    # ###
+    # df = df.Define("jets_ee_kt_tlv_corr", "FCCAnalyses::energyReconstructFourJet(recojet{}_px, recojet{}_py, recojet{}_pz, recojet{}_e)".format("_ee_kt"))
 
-    for jet_corr_var in jet_corr_vars: 
-        df = df.Define("jet_ee_kt_{}_corr".format(jet_corr_var), "FCCAnalyses::TLVHelpers::get_{}(jets_tlv_corr)".format(jet_corr_var))
+    # for jet_corr_var in jet_corr_vars: 
+    #     df = df.Define("jet_ee_kt_{}_corr".format(jet_corr_var), "FCCAnalyses::TLVHelpers::get_{}(jets_tlv_corr)".format(jet_corr_var))
     
-    df = df.Define("all_invariant_masses_ee_kt", "JetConstituentsUtils::all_invariant_masses(jet{}_p4)".format(tag))
-    df = df.Define("recoil_masses_ee_kt", "all_recoil_masses(jet_ee_kt_p4)")
+    # df = df.Define("all_invariant_masses_ee_kt", "JetConstituentsUtils::all_invariant_masses(jet{}_p4)".format(tag))
+    # df = df.Define("recoil_masses_ee_kt", "all_recoil_masses(jet_ee_kt_p4)")
     
-    ## tagger inference
-    df = ee_ktFlavourHelper.inference(weaver_preproc, weaver_model, df) 
+    # ## tagger inference
+    # df = ee_ktFlavourHelper.inference(weaver_preproc, weaver_model, df) 
 
-    ## define variables using tagger inference outputs
-    df = df.Define("recojetpair_isC", "SumFlavorScores(recojet_isC)") 
-    df = df.Define("recojetpair_isB", "SumFlavorScores(recojet_isB)") 
+    # ## define variables using tagger inference outputs
+    # df = df.Define("recojetpair_isC", "SumFlavorScores(recojet_isC)") 
+    # df = df.Define("recojetpair_isB", "SumFlavorScores(recojet_isB)") 
 
-    df = df.Define("jetconstituents", "FCCAnalyses::JetClusteringUtils::get_constituents(_jet)")
-    df = df.Define("jets_truth", "FCCAnalyses::jetTruthFinder(jetconstituents, ReconstructedParticles, Particle)")
-    df = df.Define("jets_truthv2", "FCCAnalyses::jetTruthFinderV2(jet_p4, Particle)")
+    # df = df.Define("jetconstituents", "FCCAnalyses::JetClusteringUtils::get_constituents(_jet)")
+    # df = df.Define("jets_truth", "FCCAnalyses::jetTruthFinder(jetconstituents, ReconstructedParticles, Particle)")
+    # df = df.Define("jets_truthv2", "FCCAnalyses::jetTruthFinderV2(jet_p4, Particle)")
 
 
     return df
