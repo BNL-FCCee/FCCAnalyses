@@ -5,11 +5,12 @@ import awkward as ak
 
 
 colors=[ROOT.kBlue, ROOT.kRed, ROOT.kOrange, ROOT.kGreen, ROOT.kCyan,ROOT.kMagenta]
+flavs = ["cc","bb"]
 captions = ["0.65 anti-kt with durham E-Corr","durham-kt-corr"]
 alg=0
 
-algs = [0,1]
-files = ["antikt065corr.root", "antiktcorrE10000new.root","chunk_1.root"]
+algs = [0,1,1,1,1]
+files = ["04nocorr.root","04corr30000.root", "06corr.root","065corr.root", "07corr.root","chunk_1.root"]
 
 key = "antidcorr065"
 
@@ -21,7 +22,6 @@ nevents = 10000
 bins = 35
 ## 0--anti-kt 1--Durham
 
-p_masses=[]
 
 def get_masses(px,py,pz,e):
     p_mass=[]
@@ -48,6 +48,7 @@ def get_masses(px,py,pz,e):
     return p_mass
 
 def main(file):
+    p_masses=[]
     file = uproot.open(files[0])
     tree = file['events']
     #array of the branches
@@ -73,15 +74,20 @@ def main(file):
     mask_c = np.abs(branches["jets_truth"][jets_mask][mask])==4
     mask_b = np.abs(branches["jets_truth"][jets_mask][mask])==5
 
+    
     jet_px_c=(branches["jet_px_corr"][jets_mask][mask][mask_c])
     jet_py_c=(branches["jet_py_corr"][jets_mask][mask][mask_c])
     jet_pz_c=(branches["jet_pz_corr"][jets_mask][mask][mask_c])
     jet_e_c=(branches["jet_e_corr"][jets_mask][mask][mask_c])
+   
+    c_masses = get_masses(jet_px_c,jet_py_c,jet_pz_c,jet_e_c)
 
     jet_px_b=(branches["jet_px_corr"][jets_mask][mask][mask_b])
     jet_py_b=(branches["jet_py_corr"][jets_mask][mask][mask_b])
     jet_pz_b=(branches["jet_pz_corr"][jets_mask][mask][mask_b])
     jet_e_b=(branches["jet_e_corr"][jets_mask][mask][mask_b])
+   
+    b_masses = get_masses(jet_px_b,jet_py_b,jet_pz_b,jet_e_b)
 
     # jet_px_c=(branches["recojet_px"][jets_mask][mask][mask_c])
     # jet_py_c=(branches["recojet_py"][jets_mask][mask][mask_c])
@@ -93,20 +99,29 @@ def main(file):
     # jet_pz_b=(branches["recojet_pz"][jets_mask][mask][mask_b])
     # jet_e_b=(branches["recojet_e"][jets_mask][mask][mask_b])
 
-    p_masses.append(get_masses(jet_px_c,jet_py_c,jet_pz_c,jet_e_c))
-    p_masses.append(get_masses(jet_px_b,jet_py_b,jet_pz_b,jet_e_b))
 
-    #print(p_masses[0][:50])
-    #print(p_masses[1][:50])
+    p_masses.append(c_masses)
+    p_masses.append(b_masses)
 
-def create_hist(p_mass, flav):
+    
+#first make all hists for the 
+def make_hist(masses,av):
+    maximum = 200
+    minimum = 0
+    hist = ROOT.TH1F("hist", "jet pair masses", bins, minimum, maximum)
+    for m in masses: 
+        hist.Fill(m)
+
+
+
+def create_plot(p_mass, flav):
 
     maximum = 200
     minimum = 0
 
-    flavs = ["cc","bb"]
     # hists = []
-    hist = ROOT.TH1F("hist", flavs[flav]+" jet pair masses", bins, minimum, maximum)
+    hist = ROOT.TH1F("hist","jet pair masses", bins, minimum, maximum)
+
 
     for pp in p_mass:
         # print(pp)
@@ -130,6 +145,7 @@ def create_hist(p_mass, flav):
     #     hist.Draw("HIST")
     # else:
     #     hist.Draw("SAME")
+    
     mean = str(hist.GetMean())
     legend.AddEntry(hist, captions[alg]+mean, "l")
     legend.SetBorderSize(0)
@@ -140,12 +156,14 @@ def create_hist(p_mass, flav):
 
 #print(len(p_masses))
 
-main(files[alg])
+for file in files: 
 
-for i, p_mass in enumerate(p_masses):
-     create_hist(p_mass, i)
+    main(files[alg])
+
+    for i, p_mass in enumerate(p_masses):
+        create_hist(p_mass, i)
+        
     
-   
 
 
 

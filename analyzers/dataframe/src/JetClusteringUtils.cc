@@ -29,25 +29,27 @@ selectEmin(double Emin, const ROOT::VecOps::RVec<fastjet::PseudoJet> &in){
   return out;
 }
 
-//function to perform energy correction on pjets
+//function to perform energy recovery on pjets
 std::vector<fastjet::PseudoJet> get_antikt_jets(std::vector<fastjet::PseudoJet> in){
 
   if(in.size()<=4){
     return in;
   }
-
+//create jets vector with 4 most energetic jets
   std::vector<fastjet::PseudoJet> jets(in.begin(), in.begin() + 4);
   std::set<size_t> imin_used; 
-
   for (size_t i=4;i<in.size();i++){
     const auto &p = in[i];
     std::vector<double> distances(4);
     for(unsigned j=0;j<jets.size();j++){
       if(imin_used.count(j) == 0){
+      //calculate distance measures
       distances[j] = cos_theta(p, jets[j]); 
       }
     }
+    //find minimum distance measure index
     unsigned imin = std::min_element(distances.begin(), distances.end()) - distances.begin();
+    //merge high energy jet with index imin with extra jet  
     jets[imin]= join(jets[imin], p);
     imin_used.insert(imin);
   }

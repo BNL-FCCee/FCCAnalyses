@@ -203,7 +203,7 @@ def cluster_sequence(alg,collection,tag):
 #def jet_sequence(df, njets, exclusive):
 #def jet_sequence(df, njets, rad, alg):
 
-def jet_sequence(df,rad, alg, sort, ecut):
+def jet_sequence(df):
 
     # global ee_ktClustering
     # global ee_ktFlavourHelper

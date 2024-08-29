@@ -85,14 +85,14 @@ namespace JetClustering {
 
     //cluster jets
     std::vector<fastjet::PseudoJet> pjets = FCCAnalyses::JetClusteringUtils::build_jets(_cs, _exclusive, _cut, _sorted);
-    //get dmerged elements
 
-    //perform energy correction on jets
+    //energy recovery on jets
     std::vector<fastjet::PseudoJet> pjets_corr = FCCAnalyses::JetClusteringUtils::get_antikt_jets(pjets);
 
     //apply energy cut
     std::vector<fastjet::PseudoJet> pjets_cut = fastjet::SelectorEMin(_Emin)(pjets_corr);
 
+    //get dmerged elements
     std::vector<float> dmerge = FCCAnalyses::JetClusteringUtils::exclusive_dmerge(_cs, 0);
     std::vector<float> dmerge_max = FCCAnalyses::JetClusteringUtils::exclusive_dmerge(_cs, 1);
 

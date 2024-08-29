@@ -40,7 +40,7 @@ from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelp
 njets = 4 
 
 #radius in inclusive clustering
-rad = 0.7
+rad = 1.05
 
 #set algorithms-- inclusive algorithms -- 0-antikt, 1-inclusive eekt  2-cambridge
 alg = 0 
@@ -54,7 +54,7 @@ ecut = 10
 #variables used for reference in other files
 vars = [njets, rad, alg, sort, ecut]
 
-outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/plotting/RootFiles"
+outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/antikt/root"
 
 processList = {
 
@@ -255,6 +255,14 @@ def jet_sequence(df,rad, alg, sort, ecut):
     df = df.Define("jets_truth", "FCCAnalyses::jetTruthFinder(jetconstituents, ReconstructedParticles, Particle)")
     df = df.Define("jets_truthv2", "FCCAnalyses::jetTruthFinderV2(jet_p4, Particle)")
 
+    #MC Higgs data
+
+    df = df.Define("truth_H","FCCAnalyses::MCParticle::sel_pdgID(25,true)(Particle)")
+    higgs_vars = ["e","pt","px","py","pz","phi","mass","eta"]
+    for higgs_var in higgs_vars:
+        df = df.Define("truth_H_{}".format(higgs_var), "FCCAnalyses::MCParticle::get_{}(truth_H)".format(higgs_var))
+
+
     # tag = ""
     
     ## define jet clustering parameters
@@ -332,8 +340,6 @@ class RDFanalysis:
         branches_jet = list(variables_jet.keys())
         branchList = branches_jet 
 
-        #branchList += ee_ktFlavourHelper.outputBranches()
-
         branchList += antiktFlavourHelper.outputBranches()
 
         branchList += ["event_njet"]
@@ -347,21 +353,11 @@ class RDFanalysis:
         # branchList += ["recoil_masses_ee_kt"]
         branchList += ["recoil_masses"]
 
-        # branchList += ["jet_ee_kt_e_corr"]
-        # branchList += ["jet_ee_kt_px_corr"]
-        # branchList += ["jet_ee_kt_py_corr"]
-        # branchList += ["jet_ee_kt_pz_corr"]
-        
         branchList += ["jet_e_corr"]
         branchList += ["jet_px_corr"]
         branchList += ["jet_py_corr"]
         branchList += ["jet_pz_corr"]
         
-        # # not corrected pt, e
-        # branchList += ["recojet_ee_kt_e"]
-        # branchList += ["recojet_ee_kt_px"]
-        # branchList += ["recojet_ee_kt_py"]
-        # branchList += ["recojet_ee_kt_pz"]
         
         # not corrected pt, e
         branchList += ["recojet_e"]
@@ -369,22 +365,28 @@ class RDFanalysis:
         branchList += ["recojet_py"]
         branchList += ["recojet_pz"]
         
-        # truth info
-        # branchList += ["jets_truth_ee_kt"]
-        # branchList += ["jets_truthv2_ee_kt"]
-
+    
          # truth info
         branchList += ["jets_truth"]
         branchList += ["jets_truthv2"]
         
+        # truth Higgs
+        branchList += ["truth_H_e"]
+        branchList += ["truth_H_pt"]
+        branchList += ["truth_H_px"]
+        branchList += ["truth_H_py"]
+        branchList += ["truth_H_pz"]
+        branchList += ["truth_H_phi"]
+        branchList += ["truth_H_mass"]
+        branchList += ["truth_H_eta"]
+
+
         # vis kinematics
         branchList += ["vis_theta"]
         branchList += ["vis_M"]
         branchList += ["vis_E"]
 
-        #for x in range(1, 9):
-           # branchList.append("d_{}{}".format(x,x+1))
-        
+      
         # leptons
         branchList += ["event_nel"]
         branchList += ["event_nmu"]
