@@ -11,16 +11,16 @@ histogramStorage.Close()
 
 #files = ["chunk_1.root","04corr30000.root", "06corr.root","06ptcorr.root","065corr.root", "07corr.root","09ecorr.root","1ecorr.root"]
 
-files = ["chunk_1.root","105ecorr.root"]
+files = ["chunk_1.root","1ecorr.root"]
 
-colors= [ROOT.kBlack, ROOT.kViolet+2]
+colors= [ROOT.kBlack, ROOT.kViolet+2,ROOT.kAzure+6]
 
 flavs = ["cc","bb"]
 
-rad=[1.05]
+rad=[1.0]
 key=str(rad[0])
        
-type =0
+type = [0,0,1]
 
 event_start = 0
 #set number of events
@@ -136,7 +136,7 @@ def create_plot(hists,flav,labels,key,lines):
 
 
 def main(fi):    
-    lines = [2,1]
+    lines = [2,1,1]
     cchists= []
     bbhists= []
     pphists=[cchists,bbhists]

@@ -13,14 +13,14 @@ histogramStorage.Close()
 
 #files = ["chunk_1.root","1ecorr.root"]
 
-file = "065corr.root"
+file = "04corr.root"
 
 
 colors= [ROOT.kBlack, ROOT.kViolet+2]
 
 flavs = ["cc","bb"]
 
-rad=0.65
+rad=0.4
 
 key=" "+str(rad)+" "   
 

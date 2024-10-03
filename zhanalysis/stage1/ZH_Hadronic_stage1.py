@@ -240,7 +240,7 @@ def jet_sequence(df,rad, alg, sort, ecut):
     jet_corr_vars = ["e", "px", "py", "pz"]
     for jet_corr_var in jet_corr_vars: 
          df = df.Define("jet_{}_corr".format(jet_corr_var), "FCCAnalyses::TLVHelpers::get_{}(jets_tlv_corr)".format(jet_corr_var))
-    
+
     df = df.Define("all_invariant_masses", "JetConstituentsUtils::all_invariant_masses(jet_p4)")
     df = df.Define("recoil_masses", "all_recoil_masses(jet_p4)")
     
