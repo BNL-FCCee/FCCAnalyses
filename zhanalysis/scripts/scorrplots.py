@@ -6,7 +6,8 @@ import awkward as ak
 #srad = same radius
 #scorr = same corrections
 
-files = ["chunk_1.root","04corr30000.root", "06corr.root","065corr.root", "07corr.root"]
+# files = ["chunk_1.root","04corr30000.root", "06corr.root","065corr.root", "07corr.root"]
+files = ["chunk_1.root","04corr30000.root","1ecorr.root"]
 
 colors= [ROOT.kAzure+6, ROOT.kPink+9, ROOT.kGreen+2,
         ROOT.kOrange+3, ROOT.kMagenta+2,ROOT.kCyan+2,

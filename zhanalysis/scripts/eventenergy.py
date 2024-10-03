@@ -3,10 +3,10 @@ import ROOT
 import numpy as np
 import awkward as ak 
 
-rad = "04"
-root_file = "04corr30000.root"
+rad = "1.0"
+#root_file = "04corr30000.root"
 #root_file = "chunk_1.root"
-#root_file = "1ecorr.root"
+root_file = "1ecorr.root"
 
 
 vars = ["jet_e_corr","recojet_e"]
@@ -64,7 +64,7 @@ def make_hist(data,i,kind,max,min):
     minimum = min
     label = types[kind]
     bins = 40
-    hist = ROOT.TH1F("hist"+str(i),rad+ "Event " + label + " energy before vs. after c.o.m correction" , bins, minimum, maximum)
+    hist = ROOT.TH1F("hist"+str(i),"zoom"+rad + " event " + label + " energy before vs. after c.o.m correction" , bins, minimum, maximum)
     for d in data:
         hist.Fill(d)
     hist.Scale(1.0 / hist.Integral())  
@@ -103,10 +103,10 @@ def total_energy_hists(sums_list,kind,maxi,mini):
     legend.SetBorderSize(0)
     legend.Draw()
 
-    canvas.SaveAs("../hists/"+str(rad) +"compare_"+label+"energies"+".pdf")
+    canvas.SaveAs("../hists/"+"zoom"+str(rad) +"compare_"+label+"energies"+".pdf")
 
 
 sums = [get_energies(get_total_event_e(vars[0])),get_energies(get_total_event_e(vars[1]))]
 
-total_energy_hists(sums,0,270,100)
+total_energy_hists(sums,0,270,160)
 
