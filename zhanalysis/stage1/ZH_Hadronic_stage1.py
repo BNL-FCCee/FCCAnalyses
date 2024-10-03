@@ -40,7 +40,7 @@ from addons.FastJet.python.jetClusteringHelper import InclusiveJetClusteringHelp
 njets = 4 
 
 #radius in inclusive clustering
-rad = 1.05
+rad = 1.0
 
 #set algorithms-- inclusive algorithms -- 0-antikt, 1-inclusive eekt  2-cambridge
 alg = 0 
