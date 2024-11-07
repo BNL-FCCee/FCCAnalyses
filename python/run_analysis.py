@@ -351,6 +351,7 @@ def send_to_batch(rdf_module, chunk_list, process, log_dir, anapath: str):
     Send jobs to HTCondor batch system.
     '''
     local_dir = os.environ['LOCAL_DIR']
+    print("anna debugging in Run Analysis:",local_dir)
     # Making sure the FCCAnalyses libraries are compiled and installed
     try:
         subprocess.check_output(['make', 'install'],
