@@ -1,3 +1,4 @@
+source /cvmfs/sw.hsf.org/key4hep/setup.sh -r 2024-03-10
 if [ "${0}" != "${BASH_SOURCE}" ]; then
   # Determinig the location of this setup script
   export LOCAL_DIR=$(cd $(dirname "${BASH_SOURCE}") && pwd)

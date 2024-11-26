@@ -2,6 +2,7 @@
 January 2023
 Abraham Tishelman-Charny
 
+Parts adapted from George Iakovidis 
 The purpose of this python module is to perform initial selections and variable definitions for processing FCC files.
 """
 
@@ -9,19 +10,21 @@ import os
 import urllib.request
 import yaml 
 import sys
-
-sys.path.append("/usatlas/u/ivelisce/FCC_at_BNL/FCCAnalyses/")
-
 from examples.FCCee.weaver.config import collections
 from CustomDefinitions import CustomDefinitions
+sys.path.append("/eos/home-p/pusharma/FCC_analysis/FCCAnalyses/")
+
+import ROOT
+ROOT.gInterpreter.Declare(CustomDefinitions)
 
 # originally had YAML config here. Not strictly necessary. Check previous commits if you want an example.
 
 batch = 1 # use HTCondor
 EOSoutput = 0 # output to EOS
-JobName = "ZHadronic_4JetReco" # job named used for output directory
-njets = 4 # number of jets in exclusive reclustering
-outputDir   = f"/usatlas/atlas01/atlasdisk/users/ivelisce/{JobName}/stage1/"
+JobName = "ZHadronic_6JetReco" # job named used for output directory
+njets = 6 # number of jets in exclusive reclustering
+outputDir   = f"/eos/home-p/pusharma/FCC_analysis/outputs/{JobName}/stage1/"
+
 #exclusive = 1 # to be implemented: type of reclustering to e.g. inclusive vs. exclusive
 
 # originally was using the flag definitions below. Should follow the path of the `exclusive` flag to see what it actually means.
@@ -49,55 +52,61 @@ print("name:",JobName)
 print("njets:",njets)
 
 processList = {
+    # # Hadronic ZH
+    #For CHECK
+    # "wzp6_ee_bbH_Hbb_ecm240" : {'chunks' : 1},
 
-    # Hadronic ZH
-    "wzp6_ee_bbH_Hbb_ecm240" : {'chunks' : 2},
-    
-    #"""
-    "wzp6_ee_bbH_Hcc_ecm240" : {'chunks' : 2},
-    "wzp6_ee_bbH_Hgg_ecm240" : {'chunks' : 2},
-    "wzp6_ee_bbH_Hss_ecm240" : {'chunks' : 2},
-    "wzp6_ee_bbH_Htautau_ecm240" : {'chunks' : 2},
-    "wzp6_ee_bbH_HWW_ecm240" : {'chunks' : 2},
-    "wzp6_ee_bbH_HZa_ecm240" : {'chunks' : 2},
-    "wzp6_ee_bbH_HZZ_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ccH_Hbb_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ccH_Hcc_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ccH_Hgg_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ccH_Hss_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ccH_Htautau_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ccH_HWW_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ccH_HZa_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ccH_HZZ_ecm240" : {'chunks' : 2},
-    "wzp6_ee_nunuH_ecm240" : {'chunks' : 2},
-    "wzp6_ee_qqH_Hbb_ecm240" : {'chunks' : 2},
-    "wzp6_ee_qqH_Hcc_ecm240" : {'chunks' : 2},
-    "wzp6_ee_qqH_Hgg_ecm240" : {'chunks' : 2},
-    "wzp6_ee_qqH_Hss_ecm240" : {'chunks' : 2},
-    "wzp6_ee_qqH_Htautau_ecm240" : {'chunks' : 2},
-    "wzp6_ee_qqH_HWW_ecm240" : {'chunks' : 2},
-    "wzp6_ee_qqH_HZa_ecm240" : {'chunks' : 2},
-    "wzp6_ee_qqH_HZZ_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ssH_Hbb_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ssH_Hcc_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ssH_Hgg_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ssH_Hss_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ssH_Htautau_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ssH_HWW_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ssH_HZa_ecm240" : {'chunks' : 2},
-    "wzp6_ee_ssH_HZZ_ecm240" : {'chunks' : 2},
-    #"""    
+
+
+     "wzp6_ee_bbH_Hbb_ecm240" : {'chunks' : 2},    
+     "wzp6_ee_bbH_Hcc_ecm240" : {'chunks' : 2},
+     "wzp6_ee_bbH_Hgg_ecm240" : {'chunks' : 2},
+     "wzp6_ee_bbH_Hss_ecm240" : {'chunks' : 2},
+     "wzp6_ee_bbH_Htautau_ecm240" : {'chunks' : 2},
+     "wzp6_ee_bbH_HWW_ecm240" : {'chunks' : 2},
+     "wzp6_ee_bbH_HZa_ecm240" : {'chunks' : 2},
+     "wzp6_ee_bbH_HZZ_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ccH_Hbb_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ccH_Hcc_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ccH_Hgg_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ccH_Hss_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ccH_Htautau_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ccH_HWW_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ccH_HZa_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ccH_HZZ_ecm240" : {'chunks' : 2},
+     "wzp6_ee_nunuH_ecm240" : {'chunks' : 2},
+     "wzp6_ee_qqH_Hbb_ecm240" : {'chunks' : 2},
+     "wzp6_ee_qqH_Hcc_ecm240" : {'chunks' : 2},
+     "wzp6_ee_qqH_Hgg_ecm240" : {'chunks' : 2},
+     "wzp6_ee_qqH_Hss_ecm240" : {'chunks' : 2},
+     "wzp6_ee_qqH_Htautau_ecm240" : {'chunks' : 2},
+     "wzp6_ee_qqH_HWW_ecm240" : {'chunks' : 2},
+     "wzp6_ee_qqH_HZa_ecm240" : {'chunks' : 2},
+     "wzp6_ee_qqH_HZZ_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ssH_Hbb_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ssH_Hcc_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ssH_Hgg_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ssH_Hss_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ssH_Htautau_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ssH_HWW_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ssH_HZa_ecm240" : {'chunks' : 2},
+     "wzp6_ee_ssH_HZZ_ecm240" : {'chunks' : 2},   
+     
+     
+     
+     
+    #  'p8_ee_WW_ecm240' : {'chunks':3740},
+    #  'p8_ee_ZZ_ecm240' : {'chunks':562},
+    #  'p8_ee_Zqq_ecm240' : {'chunks':1007}
+
 
     # backgrounds. Option: 'fraction' : frac_value
     #'p8_ee_WW_ecm240' : {'chunks':3740, 'fraction' : 0.0001},
     
-    'p8_ee_WW_ecm240' : {'chunks':1000},
-    'p8_ee_ZZ_ecm240' : {'chunks':250},
-    'p8_ee_Zqq_ecm240' : {'chunks':250}
+#     'p8_ee_WW_ecm240' : {'chunks':1000},
+#     'p8_ee_ZZ_ecm240' : {'chunks':250},
+#     'p8_ee_Zqq_ecm240' : {'chunks':250}
     
-    #'p8_ee_WW_ecm240' : {'chunks':3740},
-    #'p8_ee_ZZ_ecm240' : {'chunks':562},
-    #'p8_ee_Zqq_ecm240' : {'chunks':1007}
 }
 
 #Mandatory: Production tag when running over EDM4Hep centrally produced events, this points to the yaml files for getting sample statistics
@@ -112,17 +121,17 @@ if(EOSoutput):
     eosType = "eosuser" # specify as necessary
 
 runBatch    = batch
-batchQueue = "testmatch" 
+batchQueue = "nextweek" 
 
 # Define any functionality which is not implemented in FCCAnalyses
 
 import ROOT
-ROOT.gInterpreter.Declare(CustomDefinitions)
 
 # ____________________________________________________________
 def get_file_path(url, filename):
     print("Looking for file:",filename)
     if os.path.exists(filename):
+        print("File exists")
         return os.path.abspath(filename)
     else:
         urllib.request.urlretrieve(url, os.path.basename(url))
@@ -133,7 +142,9 @@ def get_file_path(url, filename):
 ## input file needed for unit test in CI
 testFile = "https://fccsw.web.cern.ch/fccsw/testsamples/wzp6_ee_nunuH_Hss_ecm240.root"
 
-## latest particle transformer model, trainied on 9M jets in winter2023 samples - need to separate train/test samples?
+
+url_model_dir = "https://fccsw.web.cern.ch/fccsw/testsamples/jet_flavour_tagging/winter2023/wc_pt_13_01_2022/"
+
 model_name = "fccee_flavtagging_edm4hep_wc"
 
 ## model files needed for unit testing in CI
@@ -142,23 +153,21 @@ url_preproc = "{}/{}.json".format(url_model_dir, model_name)
 url_model = "{}/{}.onnx".format(url_model_dir, model_name)
 
 ## model files locally stored on /eos
-if(batch):
-    model_dir = "/usatlas/u/ivelisce/FCC_at_BNL/FCCAnalyses/"
-else: model_dir = "./"
-#model_dir = "/eos/experiment/fcc/ee/jet_flavour_tagging/winter2023/wc_pt_7classes_12_04_2023/"
-local_preproc = "{}/{}.json".format(model_dir, model_name)
-local_model = "{}/{}.onnx".format(model_dir, model_name)
+
+model_dir = "/eos/user/p/pusharma/FCC_analysis/FCCAnalyses/"
+local_preproc = "{}/{}.json".format(model_dir,model_name)
+local_model = "{}/{}.onnx".format(model_dir,model_name)
+
+weaver_preproc = local_preproc
+weaver_model = local_model
 
 
-## get local file, else download from url
-weaver_preproc = get_file_path(url_preproc, local_preproc)
-weaver_model = get_file_path(url_model, local_model)
 
 from examples.FCCee.weaver.config import (
     variables_pfcand,
     variables_jet,
 )
-
+print('Current dir: ',os.getcwd())
 from addons.ONNXRuntime.python.jetFlavourHelper import JetFlavourHelper
 from addons.FastJet.python.jetClusteringHelper import ExclusiveJetClusteringHelper
 
@@ -188,7 +197,6 @@ def analysis_sequence(df):
         )
         .Define("event_nmu", "muons.size()")
         .Define("muons_p", "ReconstructedParticle::get_p(muons)[0]")
-        
         #Get kinematics variables needed for selection later
         .Define("P4_vis", "ReconstructedParticle::get_P4vis({})".format(collections["PFParticles"]))
         .Define("vis_M", "P4_vis.M()")
@@ -207,7 +215,6 @@ def analysis_sequence(df):
         .Define("RecoMissingEnergy_theta", "ReconstructedParticle::get_theta(MissingET)")
         .Define("RecoMissingEnergy_phi", "ReconstructedParticle::get_phi(MissingET)") #angle of RecoMissingEnergy
     )
-
     for x in range(1, 9):
         df = (df.Define("d_{}{}".format(x,x+1), "JetClusteringUtils::get_exclusive_dmerge(_jet, {})".format(x))) #dmerge from x+1 to x
 
@@ -221,6 +228,7 @@ def jet_sequence(df, njets):
     global jetFlavourHelper
 
     tag = ""
+    tagVar="Base"
 
     ## define jet clustering parameters
     # This is where you can try passing the "exclusive" parameter, and you will have to follow it to the ExclusiveJetClusteringHelper definition, which then goes to something else...
@@ -235,8 +243,9 @@ def jet_sequence(df, njets):
         collections,
         jetClusteringHelper.jets,
         jetClusteringHelper.constituents,
-        tag,
+        tag
     )
+
 
     ## define observables for tagger
     df = jetFlavourHelper.define(df)
@@ -259,17 +268,17 @@ def jet_sequence(df, njets):
     df = df.Define("all_invariant_masses", "JetConstituentsUtils::all_invariant_masses(jet_p4)")
     df = df.Define("recoil_masses", "all_recoil_masses(jet_p4)")
     
-    ## tagger inference
-    df = jetFlavourHelper.inference(weaver_preproc, weaver_model, df) 
+    # df = jetFlavourHelper.inference(baseline_noTOF_weaver_preproc,baseline_noTOF_weaver_model, df,tagVar="baseline_noTOF",Setup_weaverTrue=True)
 
-    ## define variables using tagger inference outputs
-    df = df.Define("recojetpair_isC", "SumFlavorScores(recojet_isC)") 
-    df = df.Define("recojetpair_isB", "SumFlavorScores(recojet_isB)") 
+    ## tagger inference\\    ## define variables using tagger inference outputs
+    df = jetFlavourHelper.inference(weaver_preproc, weaver_model, df) 
+   
+ 
+    
 
     df = df.Define("jetconstituents", "FCCAnalyses::JetClusteringUtils::get_constituents(_jet)")
     df = df.Define("jets_truth", "FCCAnalyses::jetTruthFinder(jetconstituents, ReconstructedParticles, Particle)")
-    df = df.Define("jets_truthv2", "FCCAnalyses::jetTruthFinderV2(jet_p4, Particle)")
-
+    # df = df.Define("jets_truthv2", "FCCAnalyses::jetTruthFinderV2(jet_p4, Particle)")
     return df
 
 # Mandatory: RDFanalysis class where the use defines the operations on the TTree
@@ -277,10 +286,10 @@ class RDFanalysis:
     # __________________________________________________________
     # Mandatory: analysers funtion to define the analysers to process, please make sure you return the last dataframe, in this example it is df2
     def analysers(df):
-        df = jet_sequence(df, njets)
-        #df = jet_sequence(df, njets, exclusive) # again, was playing with exclusive parameter here. Don't remember if you need to pass it here.
+        df = jet_sequence(df, njets)        #df = jet_sequence(df, njets, exclusive) # again, was playing with exclusive parameter here. Don't remember if you need to pass it here.
         df = analysis_sequence(df)
-
+        # Get list of column names
+        column_names = df.GetColumnNames()
         return df
 
     # __________________________________________________________
@@ -292,28 +301,24 @@ class RDFanalysis:
         branches_jet = list(variables_jet.keys())
         branchList = branches_jet 
         branchList += jetFlavourHelper.outputBranches()
-
         branchList += ["event_njet"]
         
-        branchList += ["all_invariant_masses"]
-       	branchList += ["recojetpair_isC"]
-        branchList += ["recojetpair_isB"]
-        branchList += ["recoil_masses"]
+        # branchList += ["all_invariant_masses"]
+        # branchList += ["recoil_masses"]
 
         branchList += ["jet_e_corr"]
         branchList += ["jet_px_corr"]
         branchList += ["jet_py_corr"]
         branchList += ["jet_pz_corr"]
-        
         # not corrected pt, e
-        branchList += ["recojet_e"]
-        branchList += ["recojet_px"]
-        branchList += ["recojet_py"]
-        branchList += ["recojet_pz"]
+        # branchList += ["recojet_e"]
+        # branchList += ["recojet_px"]
+        # branchList += ["recojet_py"]
+        # branchList += ["recojet_pz"]
         
         # truth info
         branchList += ["jets_truth"]
-        branchList += ["jets_truthv2"]
+        # branchList += ["jets_truthv2"]
         
         # vis kinematics
         branchList += ["vis_theta"]
@@ -335,5 +340,4 @@ class RDFanalysis:
             branchList += [f"RecoMissingEnergy_{MET_var}"]
 
         branchList = sorted(list(set(branchList))) # remove duplicates, sort
-
         return branchList

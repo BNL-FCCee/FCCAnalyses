@@ -27,7 +27,6 @@ Vec_i jetTruthFinderV2(ROOT::VecOps::RVec<TLorentzVector> jets_tlv, Vec_mc mc) {
     for(size_t iJet = 0; iJet < jets_tlv.size(); ++iJet) {
         Vec_d dr;
         for(size_t iGen = 0; iGen < genQuarks.size(); ++iGen) {
-            std::cout << "quark pt" << genQuarks[iGen].Pt()<<std::endl;
             if(std::find(usedIdx.begin(), usedIdx.end(), iGen) != usedIdx.end()) {
                 dr.push_back(1e99); // set infinite dr, skip
                 continue;}

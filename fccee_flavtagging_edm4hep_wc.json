@@ -1,12 +1,10 @@
 {
   "output_names": [
     "recojet_isG",
-    "recojet_isU",
+    "recojet_isQ",
     "recojet_isS",
     "recojet_isC",
-    "recojet_isB",
-    "recojet_isTAU",
-    "recojet_isD"
+    "recojet_isB"
   ],
   "input_names": [
     "pf_points",
@@ -21,16 +19,16 @@
     ],
     "var_infos": {
       "pfcand_thetarel": {
-        "median": 0.34896841645240784,
-        "norm_factor": 1.623847928023531,
+        "median": 0.3606320321559906,
+        "norm_factor": 1.6306203960800496,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
         "pad": 0
       },
       "pfcand_phirel": {
-        "median": 0.00031830096850171685,
-        "norm_factor": 0.4692355255199169,
+        "median": 0.0002556022081989795,
+        "norm_factor": 0.46948837373539853,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -74,29 +72,28 @@
       "pfcand_btagSip3dVal",
       "pfcand_btagSip3dSig",
       "pfcand_btagJetDistVal",
-      "pfcand_btagJetDistSig",
-      "pfcand_type"
+      "pfcand_btagJetDistSig"
     ],
     "var_infos": {
       "pfcand_erel_log": {
-        "median": -1.8002910614013672,
-        "norm_factor": 1.5911575382168794,
+        "median": -1.8151949644088745,
+        "norm_factor": 1.6230400937923801,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
         "pad": 0
       },
       "pfcand_thetarel": {
-        "median": 0.34896841645240784,
-        "norm_factor": 1.623847928023531,
+        "median": 0.3606320321559906,
+        "norm_factor": 1.6306203960800496,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
         "pad": 0
       },
       "pfcand_phirel": {
-        "median": 0.00031830096850171685,
-        "norm_factor": 0.4692355255199169,
+        "median": 0.0002556022081989795,
+        "norm_factor": 0.46948837373539853,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -104,7 +101,7 @@
       },
       "pfcand_dptdpt": {
         "median": -9.0,
-        "norm_factor": 0.11111111111111001,
+        "norm_factor": 0.11111111111110991,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -112,7 +109,7 @@
       },
       "pfcand_detadeta": {
         "median": -9.0,
-        "norm_factor": 0.11111111039722958,
+        "norm_factor": 0.11111111034557275,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -120,7 +117,7 @@
       },
       "pfcand_dphidphi": {
         "median": -9.0,
-        "norm_factor": 0.11111107873678364,
+        "norm_factor": 0.11111107770056672,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -128,7 +125,7 @@
       },
       "pfcand_dxydxy": {
         "median": -9.0,
-        "norm_factor": 0.11110580581124187,
+        "norm_factor": 0.1111054124522878,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -136,7 +133,7 @@
       },
       "pfcand_dzdz": {
         "median": -9.0,
-        "norm_factor": 0.11111063977819315,
+        "norm_factor": 0.1111105908437637,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -144,7 +141,7 @@
       },
       "pfcand_dxydz": {
         "median": -9.0,
-        "norm_factor": 0.11111103621962409,
+        "norm_factor": 0.11111102914593461,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -152,7 +149,7 @@
       },
       "pfcand_dphidxy": {
         "median": -9.0,
-        "norm_factor": 0.11111118663623733,
+        "norm_factor": 0.11111119697916892,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -160,7 +157,7 @@
       },
       "pfcand_dlambdadz": {
         "median": -9.0,
-        "norm_factor": 0.11111111196002012,
+        "norm_factor": 0.11111111196585105,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -168,7 +165,7 @@
       },
       "pfcand_dxyc": {
         "median": -9.0,
-        "norm_factor": 0.1111111110812715,
+        "norm_factor": 0.11111111107993017,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -176,7 +173,7 @@
       },
       "pfcand_dxyctgtheta": {
         "median": -9.0,
-        "norm_factor": 0.11111111114037472,
+        "norm_factor": 0.11111111115695796,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -184,7 +181,7 @@
       },
       "pfcand_phic": {
         "median": -9.0,
-        "norm_factor": 0.11111111111115293,
+        "norm_factor": 0.11111111111116635,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -192,7 +189,7 @@
       },
       "pfcand_phidz": {
         "median": -9.0,
-        "norm_factor": 0.11111111110696342,
+        "norm_factor": 0.11111111111495718,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -200,7 +197,7 @@
       },
       "pfcand_phictgtheta": {
         "median": -9.0,
-        "norm_factor": 0.11111111049504692,
+        "norm_factor": 0.11111111043836697,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -208,7 +205,7 @@
       },
       "pfcand_cdz": {
         "median": -9.0,
-        "norm_factor": 0.11111111111018916,
+        "norm_factor": 0.11111111111012681,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -216,15 +213,15 @@
       },
       "pfcand_cctgtheta": {
         "median": -9.0,
-        "norm_factor": 0.11111111111112591,
+        "norm_factor": 0.1111111111111261,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
         "pad": 0
       },
       "pfcand_mtof": {
-        "median": 0.07032066211104393,
-        "norm_factor": 5.0446882868657825,
+        "median": 0.07332593947649002,
+        "norm_factor": 5.140589694831398,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -232,7 +229,7 @@
       },
       "pfcand_dndx": {
         "median": 0.0,
-        "norm_factor": 0.7165380157879775,
+        "norm_factor": 0.72003525410647,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -288,7 +285,7 @@
       },
       "pfcand_dxy": {
         "median": -9.0,
-        "norm_factor": 0.11104036349544703,
+        "norm_factor": 0.11103669093395387,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -296,7 +293,7 @@
       },
       "pfcand_dz": {
         "median": -9.0,
-        "norm_factor": 0.1110838280661911,
+        "norm_factor": 0.11108313245378311,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -304,7 +301,7 @@
       },
       "pfcand_btagSip2dVal": {
         "median": -9.0,
-        "norm_factor": 0.11100882796219,
+        "norm_factor": 0.11100134875917528,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -312,7 +309,7 @@
       },
       "pfcand_btagSip2dSig": {
         "median": -9.0,
-        "norm_factor": 0.10339552523584994,
+        "norm_factor": 0.10324104907259508,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -320,7 +317,7 @@
       },
       "pfcand_btagSip3dVal": {
         "median": -9.0,
-        "norm_factor": 0.11100379369461871,
+        "norm_factor": 0.11099737353525808,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -328,7 +325,7 @@
       },
       "pfcand_btagSip3dSig": {
         "median": -9.0,
-        "norm_factor": 0.10327416627313275,
+        "norm_factor": 0.10317010115501339,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -336,7 +333,7 @@
       },
       "pfcand_btagJetDistVal": {
         "median": -9.0,
-        "norm_factor": 0.11106689226469424,
+        "norm_factor": 0.11106430427459978,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
@@ -344,15 +341,7 @@
       },
       "pfcand_btagJetDistSig": {
         "median": -9.0,
-        "norm_factor": 0.10776558597370688,
-        "replace_inf_value": 0,
-        "lower_bound": -5,
-        "upper_bound": 5,
-        "pad": 0
-      },
-      "pfcand_type": {
-        "median": 22.0,
-        "norm_factor": 0.045454545454545456,
+        "norm_factor": 0.10770140600206164,
         "replace_inf_value": 0,
         "lower_bound": -5,
         "upper_bound": 5,
