@@ -12,7 +12,7 @@ import yaml
 import sys
 from examples.FCCee.weaver.config import collections
 from CustomDefinitions import CustomDefinitions
-sys.path.append("/eos/home-p/pusharma/FCC_analysis/FCCAnalyses/")
+sys.path.append("/afs/cern.ch/work/p/pusharma/public/FCC_studies/ZH_6Jets_FullHadronic/FCCAnalyses/")
 
 import ROOT
 ROOT.gInterpreter.Declare(CustomDefinitions)
@@ -20,8 +20,9 @@ ROOT.gInterpreter.Declare(CustomDefinitions)
 # originally had YAML config here. Not strictly necessary. Check previous commits if you want an example.
 
 batch = 1 # use HTCondor
-EOSoutput = 0 # output to EOS
-JobName = "ZHadronic_6JetReco" # job named used for output directory
+EOSoutput = 1 # output to EOS
+version_number=1
+JobName = f"ZHadronic_6JetReco_v{version_number}" # job named used for output directory
 njets = 6 # number of jets in exclusive reclustering
 outputDir   = f"/eos/home-p/pusharma/FCC_analysis/outputs/{JobName}/stage1/"
 
@@ -95,9 +96,9 @@ processList = {
      
      
      
-    #  'p8_ee_WW_ecm240' : {'chunks':3740},
-    #  'p8_ee_ZZ_ecm240' : {'chunks':562},
-    #  'p8_ee_Zqq_ecm240' : {'chunks':1007}
+     'p8_ee_WW_ecm240' : {'chunks':3740},
+     'p8_ee_ZZ_ecm240' : {'chunks':562},
+     'p8_ee_Zqq_ecm240' : {'chunks':1007}
 
 
     # backgrounds. Option: 'fraction' : frac_value
@@ -117,8 +118,8 @@ if(EOSoutput):
     # example output directory on EOS - note that by default this includes copying the output file from one location to another
     #outputDirEos = f"/eos/user/a/atishelm/ntuples/FCC/{JobName}/stage1/" # if you define outputDirEos, this process creates the file locally and copies it to eos.
     #outputDir = f"/eos/user/a/atishelm/ntuples/FCC/ZH_Hadronic_4JetReco/"
-
-    eosType = "eosuser" # specify as necessary
+    outputDir   = f"/eos/user/p/pusharma/FCC_analysis/outputs/{JobName}/stage1/"
+    eosType = "pusharma" # specify as necessary
 
 runBatch    = batch
 batchQueue = "nextweek" 
@@ -154,7 +155,7 @@ url_model = "{}/{}.onnx".format(url_model_dir, model_name)
 
 ## model files locally stored on /eos
 
-model_dir = "/eos/user/p/pusharma/FCC_analysis/FCCAnalyses/"
+model_dir = "/afs/cern.ch/work/p/pusharma/public/FCC_studies/ZH_6Jets_FullHadronic/FCCAnalyses/"
 local_preproc = "{}/{}.json".format(model_dir,model_name)
 local_model = "{}/{}.onnx".format(model_dir,model_name)
 
