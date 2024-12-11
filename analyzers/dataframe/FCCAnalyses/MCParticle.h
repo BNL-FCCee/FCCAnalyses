@@ -219,7 +219,7 @@ namespace MCParticle{
 
 
   /// get_truth_H_decay(ROOT::VecOps::RVec<edm4hep::MCParticleData> in, ROOT::VecOps::RVec<int> ind)
-ROOT::VecOps::RVec<edm4hep::MCParticleData> get_truth_H_decay(ROOT::VecOps::RVec<edm4hep::MCParticleData> in, ROOT::VecOps::RVec<int> ind);
+  ROOT::VecOps::RVec<edm4hep::MCParticleData> get_truth_H_decay(ROOT::VecOps::RVec<edm4hep::MCParticleData> in, ROOT::VecOps::RVec<int> ind);
 
 
   /// obsolete: should use get_list_of_stable_particles_from_decay instead
