@@ -217,6 +217,11 @@ namespace MCParticle{
   /// returns one MCParticle selected by its index in the particle block
   edm4hep::MCParticleData sel_byIndex( int idx, ROOT::VecOps::RVec<edm4hep::MCParticleData> in);
 
+
+  /// returns MCParticle vector with entries selected by their indices in the particle block 
+  edm4hep::MCParticleData sel_byIndices( std::vector<int> indices, ROOT::VecOps::RVec<edm4hep::MCParticleData> in);
+
+
   /// obsolete: should use get_list_of_stable_particles_from_decay instead
   std::vector<int> list_of_stable_particles_from_decay( int i, ROOT::VecOps::RVec<edm4hep::MCParticleData> in, ROOT::VecOps::RVec<int> ind) ;
   /// obsolete: should use get_list_of_particles_from_decay instead
