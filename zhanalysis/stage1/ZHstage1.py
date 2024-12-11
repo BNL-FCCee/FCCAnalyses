@@ -286,8 +286,8 @@ def jet_sequence(df,rad, alg, sort, ecut):
     df = df.Define("truth_H","FCCAnalyses::MCParticle::sel_pdgID(25,true)(Particle)")
 
     df = df.Define("H_idx", "FCCAnalyses::MCParticle::get_indices(25, {5,-5}, false, false, false, false)")
-    df = df.Define("H_decay", "FCCAnalyses::MCParticle::get_list_of_stable_particles_from_decay(H_idx, Particle, Particle1)")
-    
+    df = df.Define("H_decay_idx", "FCCAnalyses::MCParticle::get_list_of_stable_particles_from_decay(H_idx, Particle, Particle1)")
+    df = df.Define("H_decay", "FCCAnalyses::MCParticle::sel_byIndices(H_decay_indices, Particle)")
 
     #Truth C quark collection 
     df = df.Define("truth_C","FCCAnalyses::MCParticle::sel_pdgID(4,true)(Particle)")
@@ -312,6 +312,8 @@ def jet_sequence(df,rad, alg, sort, ecut):
         df = df.Define("truth_B_{}".format(p_var), "FCCAnalyses::MCParticle::get_{}(truth_B)".format(p_var))
 
         df = df.Define("truth_Z_{}".format(p_var), "FCCAnalyses::MCParticle::get_{}(truth_B)".format(p_var))
+
+        df = df.Define("H_decay_{}".format(p_var), "FCCAnalyses::MCParticle::get_{}(H_decay)".format(p_var))
 
 
     #Retrieve H energy from tlv
@@ -377,14 +379,20 @@ class RDFanalysis:
          # truth info
         branchList += ["jets_truth"]
         branchList += ["jets_truthv2"]
-        branchList += ["ZH_Decay"]
 
         truth_vars = ["e","p","pt","px","py","pz","phi","mass","eta" ]
         for truth_var in truth_vars:
             branchList += [f"truth_H_{truth_var}"]
             branchList += [f"truth_C_{truth_var}"]
             branchList += [f"truth_B_{truth_var}"]
+            branchList += [f"truth_Z_{truth_var}"]
+            branchList += [f"H_decay_{truth_var}"]
         
+        #H truth Info
+
+        branchList += ["H_idx"]
+     
+
         branchList += ["truth_H_e_tlv"]
 
         branchList += ["truth_C_tlv"]

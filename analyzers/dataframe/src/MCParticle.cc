@@ -479,10 +479,10 @@ edm4hep::MCParticleData sel_byIndex( int idx, ROOT::VecOps::RVec<edm4hep::MCPart
 }
 
 // returns MCParticle vector with entries selected by their indices in the particle block 
-edm4hep::MCParticleData sel_byIndices( std::vector<int> indices, ROOT::VecOps::RVec<edm4hep::MCParticleData> in) {
+ROOT::VecOps::RVec<edm4hep::MCParticleData> sel_byIndices( std::vector<int> indices, ROOT::VecOps::RVec<edm4hep::MCParticleData> in) {
   ROOT::VecOps::RVec<edm4hep::MCParticleData> result;
-  if (size_t i = 0; i < indices.size(); ++i) {
-      result.pushback(sel_byIndex(indices.at(i), in))
+  for (size_t i = 0; i < indices.size(); ++i) {
+      result.push_back(sel_byIndex(indices.at(i), in));
   }
   return result;
 }
