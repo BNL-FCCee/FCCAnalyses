@@ -478,14 +478,27 @@ edm4hep::MCParticleData sel_byIndex( int idx, ROOT::VecOps::RVec<edm4hep::MCPart
     return dummy;
 }
 
-// returns MCParticle vector with entries selected by their indices in the particle block 
-ROOT::VecOps::RVec<edm4hep::MCParticleData> sel_byIndices( std::vector<int> indices, ROOT::VecOps::RVec<edm4hep::MCParticleData> in) {
-  ROOT::VecOps::RVec<edm4hep::MCParticleData> result;
-  for (size_t i = 0; i < indices.size(); ++i) {
-      result.push_back(sel_byIndex(indices.at(i), in));
-  }
+// get_truth_H_decay(ROOT::VecOps::RVec<edm4hep::MCParticleData> in, ROOT::VecOps::RVec<int> ind)
+ROOT::VecOps::RVec<edm4hep::MCParticleData> get_truth_H_decay(ROOT::VecOps::RVec<edm4hep::MCParticleData> in, ROOT::VecOps::RVec<int> ind) {
+    ROOT::VecOps::RVec<edm4hep::MCParticleData> result;
+
+    ROOT::VecOps::RVec<int> Hbb_indices = get_indices(25, {5, -5}, false, false, false, false)(in, ind);
+
+    int H_idx = Hbb_indices.at(0);
+
+    std::vector<int> H_decay_idx = get_list_of_stable_particles_from_decay(H_idx, Particle, Particle1);
+      
+    std::set<int> H_decay_idx_set(H_decay_idx.begin(), H_decay_idx.end());
+    for (int idx : H_idxstable_set) {
+      result.push_back(in.at(idx));
+    }
+
+
   return result;
 }
+
+
+
 
 
 
