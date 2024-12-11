@@ -116,8 +116,8 @@ class InclusiveJetClusteringHelper:
     # Radius(float)for distance measure 
     #alg -- inclusive clustering algorithm 
         #0 - anti-kt
-        #1 - cambridge
-        #2 - inclusive kt
+        #1 - inclusive kt
+        #2 - cambridge
     def __init__(self, coll, rad, alg, sort, ecut, tag=""):
 
         #input collection of particles
