@@ -479,6 +479,7 @@ edm4hep::MCParticleData sel_byIndex( int idx, ROOT::VecOps::RVec<edm4hep::MCPart
 }
 
 // get_truth_H_decay(ROOT::VecOps::RVec<edm4hep::MCParticleData> in, ROOT::VecOps::RVec<int> ind)
+
 ROOT::VecOps::RVec<edm4hep::MCParticleData> get_truth_H_decay(ROOT::VecOps::RVec<edm4hep::MCParticleData> in, ROOT::VecOps::RVec<int> ind) {
     ROOT::VecOps::RVec<edm4hep::MCParticleData> result;
 
@@ -486,14 +487,30 @@ ROOT::VecOps::RVec<edm4hep::MCParticleData> get_truth_H_decay(ROOT::VecOps::RVec
 
     int H_idx = Hbb_indices.at(0);
 
-    std::vector<int> H_decay_idx = get_list_of_stable_particles_from_decay(H_idx, in, ind);
-      
+    std::cout << "H_idx: " << H_idx << std::endl;
+
+    std::vector<int> H_decay_idx = get_list_of_particles_from_decay(H_idx, in, ind);
+  
+
     std::set<int> H_decay_idx_set(H_decay_idx.begin(), H_decay_idx.end());
-    for (int idx : H_decay_idx_set) {
-      result.push_back(in.at(idx));
+  
+    // 
+    // for (int idx : H_decay_idx) {
+    //   const auto& particle = in.at(idx);
+
+      for (int idx : H_decay_idx_set) {
+        const auto& particle = in.at(idx);
+
+        // If the daughter is a b-quark or anti-b-quark, add it to the result
+        if (std::abs(particle.PDG) == 5) {
+            result.push_back(particle);
+        }
     }
+
   return result;
 }
+
+
 
 
 

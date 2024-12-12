@@ -54,7 +54,7 @@ ecut = 10
 vars = [njets, rad, alg, sort, ecut]
 
 # outputDir  = f"/usatlas/atlas01/atlasdisk/users/aconnelly/IzaFCCAnalysis/{JobName}/Stage1/"
-outputDir  = "/usatlas/atlas01/atlasdisk/users/aconnelly/IzaFCCAnalysis/zhanalysis/root/"
+outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/root/"
 
 processList = {
  # # Hadronic ZH
@@ -281,13 +281,11 @@ def jet_sequence(df,rad, alg, sort, ecut):
     #MC Higgs data
 
 
-     df = df.Alias("Particle1", "Particle#1.index")
+    df = df.Alias("Particle1", "Particle#1.index")
 
     df = df.Define("truth_H","FCCAnalyses::MCParticle::sel_pdgID(25,true)(Particle)")
 
-    df = df.Define("H_idx", "FCCAnalyses::MCParticle::get_indices(25, {5,-5}, false, false, false, false)")
-    df = df.Define("H_decay_idx", "FCCAnalyses::MCParticle::get_list_of_stable_particles_from_decay(H_idx, Particle, Particle1)")
-    df = df.Define("H_decay", "FCCAnalyses::MCParticle::sel_byIndices(H_decay_indices, Particle)")
+    df = df.Define("H_decay", "FCCAnalyses::MCParticle::get_truth_H_decay(Particle, Particle1)")
 
     #Truth C quark collection 
     df = df.Define("truth_C","FCCAnalyses::MCParticle::sel_pdgID(4,true)(Particle)")
@@ -295,7 +293,7 @@ def jet_sequence(df,rad, alg, sort, ecut):
     #Truth B quark collection
     df = df.Define("truth_B","FCCAnalyses::MCParticle::sel_pdgID(5,true)(Particle)")
 
-    df = df.Define("truth_Z","FCCAnalyses::MCParticle::sel_pdgID(5,true)(Particle)")
+    df = df.Define("truth_Z","FCCAnalyses::MCParticle::sel_pdgID(23,true)(Particle)")
 
 
     # higgs_vars = ["e","pt","px","py","pz","phi","mass","eta"]
@@ -389,10 +387,7 @@ class RDFanalysis:
             branchList += [f"H_decay_{truth_var}"]
         
         #H truth Info
-
-        branchList += ["H_idx"]
      
-
         branchList += ["truth_H_e_tlv"]
 
         branchList += ["truth_C_tlv"]

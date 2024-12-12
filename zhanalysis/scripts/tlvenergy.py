@@ -2,7 +2,7 @@ import uproot
 import ROOT
 import numpy as np
 
-files = ["1ecorrquark.root"]
+files = ["1ecorrhdecay3.root"]
 
 caption = "Higgs truth energy from TLorentzVector"
 label = "higgs_e_pepm_tlv"
@@ -37,23 +37,28 @@ def assign_branches(particle):
         t_vars.append(branches["truth_"+particle+"_"+var])
     return t_vars
 
+h_decay = branches["H_decay_e"]
+print_array(h_decay)
+
 for particle in particles:
     assign_branches(particle)
 
-print("C phi")
-print(branches["truth_C_phi"])
-print("C eta")
-print(branches["truth_C_eta"])
-print("B eta")
-print(branches["truth_B_eta"])
-print("B phi")
-print(branches["truth_B_phi"])
-print("C energy")
-print(branches["truth_C_e"])
-print("B energy")
-print(branches["truth_B_e"])
-print("H phi")
-print(branches["truth_H_phi"])
+# print("B phi")
+# print(branches["truth_B_phi"])
+
+
+# print("C eta")
+# print(branches["truth_C_eta"])
+# print("B eta")
+# print(branches["truth_B_eta"])
+# print("B phi")
+# print(branches["truth_B_phi"])
+# print("C energy")
+# print(branches["truth_C_e"])
+# print("B energy")
+# print(branches["truth_B_e"])
+# print("H phi")
+# print(branches["truth_H_phi"])
 
 # print("t_vars 0 0 0:", t_vars[0][0][0])
 # print("t_vars 0 1 0:", t_vars[0][1][0])
