@@ -14,7 +14,7 @@ import awkward as ak
 #files = ["chunk_1.root","04corr30000.root","1ecorr.root"]
 #files = ["chunk_1.root","04corr30000.root"]
 # files = ["chunk_1.root","06corr.root","1ecorr.root"]
-files = ["1ecorr.root"]
+files = ["hdecay.root"]
 
 
 
@@ -162,7 +162,7 @@ def main(fi):
         mask = np.array(ak.count_nonzero(np.abs(branches["jets_truth"][jets_mask])==4, axis=1)==2)
         mask &= np.array(ak.count_nonzero(np.abs(branches["jets_truth"][jets_mask])==5, axis=1)==2)
         mask_c = np.abs(branches["jets_truth"][jets_mask][mask])==4
-        #mask_b = np.abs(branches["jets_truth"][jets_mask][mask])==5 
+        mask_b = np.abs(branches["jets_truth"][jets_mask][mask])==5 
 
         #add Zed masses to hists
         zmasses.append(get_vars_p(branches,jets_mask,mask,mask_c))

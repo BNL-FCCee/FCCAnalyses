@@ -305,7 +305,7 @@ def main():
         p["mathtext.fontset"] = "stixsans"
         #p["font.weight"] = "light"
 
-        fig = plt.figure(figsize=(8,5), tight_layout=True, dpi=200)
+        fig = plt.figure(figsize=(10,6), tight_layout=True, dpi=200)
         ax = plt.subplot(1,1,1, aspect=1, xlim = [-np.pi, np.pi], ylim = [0, 3.8])
 
         ax.set_xticks([-np.pi, -np.pi/2, 0, np.pi/2, np.pi])

@@ -28,6 +28,7 @@ class ExclusiveJetClusteringHelper:
         _jetc = "_jetc{}".format(self.tag)
         jetc = "jetc{}".format(self.tag)
 
+
         # compute jet observables
 
         #array of jet observables
@@ -84,12 +85,14 @@ class ExclusiveJetClusteringHelper:
             self.input_coll, _jetc
         )
 
+
         # compute jet observables
         self.definition[self.jet_obs["p"]] = "JetClusteringUtils::get_p({})".format(self.jets)
         self.definition[self.jet_obs["e"]] = "JetClusteringUtils::get_e({})".format(self.jets)
         self.definition[self.jet_obs["mass"]] = "JetClusteringUtils::get_m({})".format(self.jets)
         self.definition[self.jet_obs["phi"]] = "JetClusteringUtils::get_phi({})".format(self.jets)
         self.definition[self.jet_obs["theta"]] = "JetClusteringUtils::get_theta({})".format(self.jets)
+
         self.definition[self.jet_obs["nconst"]] = "JetConstituentsUtils::count_consts({})".format(self.constituents)
         self.definition[event_njet] = "JetConstituentsUtils::count_jets({})".format(self.constituents)
 
@@ -149,16 +152,23 @@ class InclusiveJetClusteringHelper:
         # compute jet observables
 
         #array of jet observables
-        observables = ["p", "e", "mass", "phi", "theta", "nconst"]
+        observables = ["p", "e", "mass", "phi", "theta", "eta", "nconst"]
 
         # create dictionary storing jet observables
         self.jet_obs = dict()
         #assign values to the dictionary in the form obs:jet_obs_tag
         for obs in observables:
             self.jet_obs[obs] = "jet_{}{}".format(obs, self.tag)
-            
+
+        jc_observables = ["theta", "phi", "e"]
+        self.jc_obs = dict()
+        #assign values to the dictionary in the form obs:jet_obs_tag
+        for obs in jc_observables:
+            self.jc_obs[obs] = "jc_{}{}".format(obs, self.tag)
+    
         event_njet = "event_njet{}".format(self.tag)
 
+        
         #reassigns names to jets and constituents attributes
         self.jets = jet
         self.constituents = jetc
@@ -217,12 +227,19 @@ class InclusiveJetClusteringHelper:
             self.input_coll, _jetc
         )
 
+
         # compute jet observables
         self.definition[self.jet_obs["p"]] = "JetClusteringUtils::get_p({})".format(self.jets)
         self.definition[self.jet_obs["e"]] = "JetClusteringUtils::get_e({})".format(self.jets)
         self.definition[self.jet_obs["mass"]] = "JetClusteringUtils::get_m({})".format(self.jets)
         self.definition[self.jet_obs["phi"]] = "JetClusteringUtils::get_phi({})".format(self.jets)
         self.definition[self.jet_obs["theta"]] = "JetClusteringUtils::get_theta({})".format(self.jets)
+        self.definition[self.jet_obs["eta"]] = "JetClusteringUtils::get_eta({})".format(self.jets)
+        print("jet constituent eta done")
+        self.definition[self.jc_obs["theta"]] = "JetConstituentsUtils::get_theta({})".format(self.constituents)
+        print("jet constituent theta done")
+        self.definition[self.jc_obs["phi"]] = "JetConstituentsUtils::get_phi({})".format(self.constituents)
+        self.definition[self.jc_obs["e"]] = "JetConstituentsUtils::get_e({})".format(self.constituents)
         self.definition[self.jet_obs["nconst"]] = "JetConstituentsUtils::count_consts({})".format(self.constituents)
         self.definition[event_njet] = "JetConstituentsUtils::count_jets({})".format(self.constituents)
 
@@ -239,5 +256,6 @@ class InclusiveJetClusteringHelper:
     def outputBranches(self):
 
         out = list(self.jet_obs.values())
+        out += list(self.jc_obs.values())
         out += [obs for obs in self.definition.keys() if "event_" in obs]
         return out

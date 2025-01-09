@@ -274,12 +274,27 @@ def jet_sequence(df,rad, alg, sort, ecut):
     df = df.Define("recojetpair_isC", "SumFlavorScores(recojet_isC)") 
     df = df.Define("recojetpair_isB", "SumFlavorScores(recojet_isB)") 
 
+
+
+
     df = df.Define("jetconstituents", "FCCAnalyses::JetClusteringUtils::get_constituents(_jet)")
+   
+    # df = df.Define("jc_cluster", "JetConstituentsUtils::build_constituents_cluster(ReconstructedParticles, jetconstituents)")
+
+    # #Jet Constituent Properties
+    # #theta
+    # df = df.Define("reco_jc_theta", "JetConstituentsUtils::get_theta(jc_cluster)")
+    # #phi
+    # df = df.Define("reco_jc_phi", "JetConstituentsUtils::get_phi(jc_cluster)")
+ 
+    # #energy
+    # df = df.Define("reco_jc_e", "JetConstituentsUtils::get_e(jc_cluster)")
+
     df = df.Define("jets_truth", "FCCAnalyses::jetTruthFinder(jetconstituents, ReconstructedParticles, Particle)")
     df = df.Define("jets_truthv2", "FCCAnalyses::jetTruthFinderV2(jet_p4, Particle)")
 
-    #MC Higgs data
 
+    #MC Higgs data
 
     df = df.Alias("Particle1", "Particle#1.index")
 
@@ -296,10 +311,6 @@ def jet_sequence(df,rad, alg, sort, ecut):
     df = df.Define("truth_Z","FCCAnalyses::MCParticle::sel_pdgID(23,true)(Particle)")
 
 
-    # higgs_vars = ["e","pt","px","py","pz","phi","mass","eta"]
-    # for higgs_var in higgs_vars:
-    #     df = df.Define("truth_H_{}".format(higgs_var), "FCCAnalyses::MCParticle::get_{}(truth_H)".format(higgs_var))
-
     p_vars = ["e","p","pt","px","py","pz","phi","mass","eta","tlv"]
     
     for p_var in p_vars:
@@ -314,13 +325,8 @@ def jet_sequence(df,rad, alg, sort, ecut):
         df = df.Define("H_decay_{}".format(p_var), "FCCAnalyses::MCParticle::get_{}(H_decay)".format(p_var))
 
 
-    #Retrieve H energy from tlv
-    df = df.Define("truth_H_e_tlv", "FCCAnalyses::TLVHelpers::get_e(truth_H_tlv)")
-
     #compute deltaR for each quark combination
 
-
-   
 
 
     return df
@@ -348,6 +354,8 @@ class RDFanalysis:
         branches_jet = list(variables_jet.keys())
         branchList = branches_jet 
 
+        branchList += antiktClustering.outputBranches()
+
         branchList += antiktFlavourHelper.outputBranches()
 
         branchList += ["event_njet"]
@@ -366,15 +374,18 @@ class RDFanalysis:
         branchList += ["jet_py_corr"]
         branchList += ["jet_pz_corr"]
         
-        
         # not corrected pt, e
         branchList += ["recojet_e"]
         branchList += ["recojet_px"]
         branchList += ["recojet_py"]
         branchList += ["recojet_pz"]
         
-    
-         # truth info
+        # #jet constituent theta, phi, e
+        # branchList += ["reco_jc_theta"]
+        # branchList += ["reco_jc_phi"]
+        # branchList += ["reco_jc_e"]
+
+        #truth info
         branchList += ["jets_truth"]
         branchList += ["jets_truthv2"]
 
@@ -386,18 +397,11 @@ class RDFanalysis:
             branchList += [f"truth_Z_{truth_var}"]
             branchList += [f"H_decay_{truth_var}"]
         
-        #H truth Info
-     
-        branchList += ["truth_H_e_tlv"]
-
-        branchList += ["truth_C_tlv"]
-        branchList += ["truth_B_tlv"]
         # vis kinematics
         branchList += ["vis_theta"]
         branchList += ["vis_M"]
         branchList += ["vis_E"]
 
-      
         # leptons
         branchList += ["event_nel"]
         branchList += ["event_nmu"]

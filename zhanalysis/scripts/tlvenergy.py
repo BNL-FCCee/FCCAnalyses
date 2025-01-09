@@ -2,7 +2,7 @@ import uproot
 import ROOT
 import numpy as np
 
-files = ["1ecorrhdecay3.root"]
+files = ["hdecay.root"]
 
 caption = "Higgs truth energy from TLorentzVector"
 label = "higgs_e_pepm_tlv"
@@ -15,50 +15,51 @@ tree = file['events']
 branches = tree.arrays()
 colors= [ROOT.kRed-5,ROOT.kAzure+6, ROOT.kGreen+2]
 
-
 def print_array(array):
     i=0
+    print(str(array))
     for arr in array:
         if i==100:
             print(arr)
-            print(i)
+            # print(i)
             print("done")
         if i<100:
             print(arr)
-            print(i)
+            # print(i)
         i = i+1
 
 tvars = ["pt","eta","phi","mass","e","phi","eta"]
-t_vars=[]
+truth_vars= []
+jet_vars = []
+jc_vars = []
 
 def assign_branches(particle):
-    t_vars=[]
-    for var in tvars:
-        t_vars.append(branches["truth_"+particle+"_"+var])
-    return t_vars
+    for t in tvars:
+        truth_vars.append(branches["truth_"+particle+"_"+t])
 
-h_decay = branches["H_decay_e"]
-print_array(h_decay)
+
+jet_phi = branches["jet_phi"] 
+jet_theta = branches["jet_theta"] 
+jet_eta = branches["jet_eta"] 
+jet_e = branches["jet_e"] 
+
+jc_phi = branches["reco_jc_phi"] 
+jc_theta = branches["reco_jc_theta"] 
+jc_e = branches["reco_jc_e"] 
+
+h_decay_phi = branches["h_decay_phi"]
+h_decay_theta = branches["h_decay_theta"]
+h_decay_eta = branches["h_decay_eta"]
+
+
+print_array(jet_phi)
+print_array(h_decay_phi)
 
 for particle in particles:
     assign_branches(particle)
 
 # print("B phi")
 # print(branches["truth_B_phi"])
-
-
-# print("C eta")
-# print(branches["truth_C_eta"])
-# print("B eta")
-# print(branches["truth_B_eta"])
-# print("B phi")
-# print(branches["truth_B_phi"])
-# print("C energy")
-# print(branches["truth_C_e"])
-# print("B energy")
-# print(branches["truth_B_e"])
-# print("H phi")
-# print(branches["truth_H_phi"])
 
 # print("t_vars 0 0 0:", t_vars[0][0][0])
 # print("t_vars 0 1 0:", t_vars[0][1][0])

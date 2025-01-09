@@ -13,7 +13,7 @@ histogramStorage.Close()
 
 #files = ["chunk_1.root","1ecorr.root"]
 
-file = "04corr.root"
+file = "hdecay.root"
 
 
 colors= [ROOT.kBlack, ROOT.kViolet+2]
