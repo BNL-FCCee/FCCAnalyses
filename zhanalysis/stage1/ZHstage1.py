@@ -47,11 +47,15 @@ alg = 0
 
 #set sorted -- for inclusive-- 0-sorted by pt, 1-sorted by E
 sort = 1
+
+#apply energy recovery -- for inclusive-- 0-apply energy reco, 1-do not apply reco 
+reco = 1
+
 #energy cut to PseudoJets
 ecut = 10
 
 #variables used for reference in other files
-vars = [njets, rad, alg, sort, ecut]
+vars = [njets, rad, alg, sort, reco, ecut]
 
 # outputDir  = f"/usatlas/atlas01/atlasdisk/users/aconnelly/IzaFCCAnalysis/{JobName}/Stage1/"
 outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/root/"
@@ -227,7 +231,7 @@ def jet_sequence(df,rad, alg, sort, ecut):
     tag = ""
 
     ## define jet clustering parameters
-    antiktClustering = InclusiveJetClusteringHelper(collections["PFParticles"],rad, alg, sort, ecut, tag)
+    antiktClustering = InclusiveJetClusteringHelper(collections["PFParticles"],rad, alg, sort, reco, ecut, tag)
   
     ## runs inclusive antikt jet clustering 
     #extract all jet observables from pseudojets
@@ -273,8 +277,6 @@ def jet_sequence(df,rad, alg, sort, ecut):
     ## define variables using tagger inference outputs
     df = df.Define("recojetpair_isC", "SumFlavorScores(recojet_isC)") 
     df = df.Define("recojetpair_isB", "SumFlavorScores(recojet_isB)") 
-
-
 
 
     df = df.Define("jetconstituents", "FCCAnalyses::JetClusteringUtils::get_constituents(_jet)")

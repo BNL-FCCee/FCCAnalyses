@@ -54,12 +54,13 @@ namespace JetClustering {
 
   clustering_antikt::clustering_antikt(
       //float arg_radius, int arg_exclusive, float arg_cut, int arg_sorted, int arg_recombination) {
-      float arg_radius, int arg_exclusive, float arg_cut, int arg_sorted, int arg_recombination, float Emin) {
+      float arg_radius, int arg_exclusive, float arg_cut, int arg_sorted, int arg_recombination, int arg_energyreco, float Emin) {
     _radius = arg_radius;
     _exclusive = arg_exclusive;
     _cut = arg_cut;
     _sorted = arg_sorted;
     _recombination = arg_recombination;
+    _energyreco = arg_energyreco; 
     _Emin = Emin; //minimum energy for pseudojets
 
     // initialize jet algorithm
@@ -87,10 +88,25 @@ namespace JetClustering {
     std::vector<fastjet::PseudoJet> pjets = FCCAnalyses::JetClusteringUtils::build_jets(_cs, _exclusive, _cut, _sorted);
 
     //energy recovery on jets
-    std::vector<fastjet::PseudoJet> pjets_corr = FCCAnalyses::JetClusteringUtils::get_antikt_jets(pjets);
+    //energy recovery--0 
+    //no energy recovery--1
+
+    std::vector<fastjet::PseudoJet> pjets_cut;
+
+    if (_energyreco == 0) {
+        // Apply energy recovery and then apply the energy cut
+        std::vector<fastjet::PseudoJet> pjets_corr = FCCAnalyses::JetClusteringUtils::get_antikt_jets(pjets);
+        pjets_cut = fastjet::SelectorEMin(_Emin)(pjets_corr);
+    } else if (_energyreco == 1) {
+        // Skip energy recovery and directly apply the energy cut
+        pjets_cut = fastjet::SelectorEMin(_Emin)(pjets);
+    } 
 
     //apply energy cut
-    std::vector<fastjet::PseudoJet> pjets_cut = fastjet::SelectorEMin(_Emin)(pjets_corr);
+
+    // std::vector<fastjet::PseudoJet> pjets_corr = FCCAnalyses::JetClusteringUtils::get_antikt_jets(pjets);
+    // std::vector<fastjet::PseudoJet> pjets_cut = fastjet::SelectorEMin(_Emin)(pjets_corr);
+
 
     //get dmerged elements
     std::vector<float> dmerge = FCCAnalyses::JetClusteringUtils::exclusive_dmerge(_cs, 0);

@@ -64,6 +64,7 @@ namespace JetClustering {
                       float arg_cut = 5.,
                       int arg_sorted = 0,
                       int arg_recombination = 0,
+                      int arg_energyreco = 0,
                       float Emin = 10);
     FCCAnalysesJet operator()(const std::vector<fastjet::PseudoJet>& jets);
 
@@ -73,6 +74,7 @@ namespace JetClustering {
     float _cut;  ///< pT cut for m_exclusive=0, dcut for m_exclusive=1, N jets for m_exlusive=2, N jets for m_exclusive=3, ycut for m_exclusive=4
     int _sorted;         ///< pT ordering=0, E ordering=1
     int _recombination;  ///< E_scheme=0, pt_scheme=1, pt2_scheme=2, Et_scheme=3, Et2_scheme=4, BIpt_scheme=5, BIpt2_scheme=6
+    int _energyreco; ///< energy recovery applied = 0, energy recovery not applied = 1 
     float _Emin;  //E cut for m_exclusive=0 (inclusive algorithm)
     fastjet::JetAlgorithm _jetAlgorithm{fastjet::JetAlgorithm::undefined_jet_algorithm};  ///<internal jet algorithm
     fastjet::RecombinationScheme _recombScheme;  ///<internal recombination scheme

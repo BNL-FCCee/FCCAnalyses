@@ -11,7 +11,7 @@ tree = file['events']
 branches = tree.arrays()
 colors = ['red', 'magenta', 'blue', 'green']  
 # colors= [ROOT.kRed-5,ROOT.kAzure+6, ROOT.kGreen+2,ROOT.kMagenta+2]
-
+nevents = 10
 event_njet = branches["event_njet"]
 print("length of event_njet prior to 4jet mask:", len(event_njet))
 
@@ -146,47 +146,45 @@ ax.spines.right.set_visible(False)
 ax.spines.top.set_visible(False)
 ax.spines.left.set_position(("data", -np.pi - 0.2))
 ax.spines.left.set_bounds(0, np.pi)
-# ax.spines.bottom.set_position(("data", -0.2))
-
-# get_scatter(jc_phi_data[1][0],jc_theta_data[1][0], marker_sizes[1][0], colors[0], transp, ax)
-# get_scatter(jc_phi_data[1][1],jc_theta_data[1][1], marker_sizes[1][1], colors[1], transp, ax)
-# get_scatter(jc_phi_data[1][2],jc_theta_data[1][2], marker_sizes[1][2], colors[2], transp, ax)
-# get_scatter(jc_phi_data[1][3],jc_theta_data[1][3], marker_sizes[1][3], colors[3], transp, ax)
+ax.spines.bottom.set_position(("data", -0.2))
 
 
-# get_scatter(jc_phi_data[0][0],jc_theta_data[0][0], marker_sizes[0][0], colors[0], transp, ax)
-# get_scatter(jc_phi_data[0][1],jc_theta_data[0][1], marker_sizes[0][1], colors[1], transp, ax)
-# get_scatter(jc_phi_data[0][2],jc_theta_data[0][2], marker_sizes[0][2], colors[2], transp, ax)
-# get_scatter(jc_phi_data[0][3],jc_theta_data[0][3], marker_sizes[0][3], colors[3], transp, ax)
+
+for i in range(nevents):
+    get_scatter(jc_phi_data[i][0],jc_theta_data[i][0], marker_sizes[i][0], colors[0], transp, ax)
+    
+    get_scatter(jc_phi_data[i][1],jc_theta_data[i][1], marker_sizes[i][1], colors[1], transp, ax)
+
+    get_scatter(jc_phi_data[i][2],jc_theta_data[i][2], marker_sizes[i][2], colors[2], transp, ax)
+
+    get_scatter(jc_phi_data[i][3],jc_theta_data[i][3], marker_sizes[i][3], colors[3], transp, ax)
+
+    event_number = str(i)
+    plt.show()
+    plt.savefig("/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/plots/antikt/noreco/1event"+event_number+
+    ".png")
+    plt.close()
 
 
-get_scatter(jc_phi_data[2][0],jc_theta_data[2][0], marker_sizes[2][0], colors[0], transp, ax)
-get_scatter(jc_phi_data[2][1],jc_theta_data[2][1], marker_sizes[2][1], colors[1], transp, ax)
-get_scatter(jc_phi_data[2][2],jc_theta_data[2][2], marker_sizes[2][2], colors[2], transp, ax)
-get_scatter(jc_phi_data[2][3],jc_theta_data[2][3], marker_sizes[2][3], colors[3], transp, ax)
 
 
-plt.show()
-plt.savefig("/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/plots/test3.png")
-plt.close()
 
+# def print_array_length(array):
+    # i=0
+    # # print(str(array))
+    # for arr in array:
+    #     if i==leng:
+    #         for a in arr:
+    #             print("length of a array:", len(a))
+    #             print("a:",a)
+    #         print("arr:", arr)
+    #         print(i)
+    #         print("done")
+    #     if i<leng:
+    #         for a in arr:
+    #             print("length of a array:", len(a))
+    #             print("a:",a)
+    #         print("arr:", arr)
+    #         print(i)
 
-def print_array_length(array):
-    i=0
-    # print(str(array))
-    for arr in array:
-        if i==leng:
-            for a in arr:
-                print("length of a array:", len(a))
-                print("a:",a)
-            print("arr:", arr)
-            print(i)
-            print("done")
-        if i<leng:
-            for a in arr:
-                print("length of a array:", len(a))
-                print("a:",a)
-            print("arr:", arr)
-            print(i)
-
-        i = i+1
+    #     i = i+1

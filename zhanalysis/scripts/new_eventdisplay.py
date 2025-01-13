@@ -138,33 +138,14 @@ ax.spines.left.set_bounds(0, np.pi)
 ax.spines.bottom.set_position(("data", -0.2))
 
 
-# get_scatter(jc_phi_data[1][0],jc_theta_data[1][0], marker_sizes[1][0], colors[0], transp, ax)
-# get_scatter(jc_phi_data[1][1],jc_theta_data[1][1], marker_sizes[1][1], colors[1], transp, ax)
-# get_scatter(jc_phi_data[1][2],jc_theta_data[1][2], marker_sizes[1][2], colors[2], transp, ax)
-# get_scatter(jc_phi_data[1][3],jc_theta_data[1][3], marker_sizes[1][3], colors[3], transp, ax)
-
-
 get_scatter(jc_phi_data[0][2],jc_theta_data[0][2], marker_sizes[0][2], colors[0], transp, ax)
-
 get_scatter(jc_phi_data[1][2],jc_theta_data[1][2], marker_sizes[1][2], colors[1], transp, ax)
-
 get_scatter(jc_phi_data[2][2],jc_theta_data[2][2], marker_sizes[2][2], colors[2], transp, ax)
-
 get_scatter(jc_phi_data[3][2],jc_theta_data[3][2], marker_sizes[3][2], colors[3], transp, ax)
-
-
-# get_scatter(jc_phi_data[4][0],jc_theta_data[4][0], marker_sizes[4][0], colors[0], transp, ax)
-# get_scatter(jc_phi_data[4][1],jc_theta_data[4][1], marker_sizes[4][1], colors[1], transp, ax)
-# get_scatter(jc_phi_data[4][2],jc_theta_data[4][2], marker_sizes[4][2], colors[2], transp, ax)
-# get_scatter(jc_phi_data[4][3],jc_theta_data[4][3], marker_sizes[4][3], colors[3], transp, ax)
-
 
 plt.show()
 plt.savefig("/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/plots/test8.png")
 plt.close()
-
-print("phi data lenngth",len(jc_phi_data[1]))
-print("marker size data lenngth",len(marker_sizes[1]))
 
 
 
