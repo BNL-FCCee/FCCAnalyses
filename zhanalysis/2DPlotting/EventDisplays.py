@@ -343,8 +343,7 @@ def main():
                 c=colors['green'][8], alpha=1, marker='P',
                 label="Truth particles from Z(cc)")
 
-     #   ax.legend(handles=[H_truth, js[0], js[1], Z_truth, js[2], js[3]], loc='upper left', ncol=2)
-#         ax.text(0, 1.0, fr"Reconstructed masses: $m(Z_1
+X#         ax.text(0, 1.0, fr"Reconstructed masses: $m(Z_1
 #  = {mZ1:.1f}$ GeV, $m(Z_2) = {mZ2:.1f}$ GeV, $m(H) = {higgsrecomass:.1f}$ GeV",
         ax.text(0, 1.0, fr"",
             transform=ax.transAxes)

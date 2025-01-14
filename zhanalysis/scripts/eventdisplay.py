@@ -5,33 +5,60 @@ import awkward as ak
 from matplotlib import pyplot as plt
 
 
-file0 = "1jconst.root"
-file = uproot.open(file0)
+files = ["1jconst.root", "1noreco.root","07ereco.root", "04reco.root"]
+file_n=2
+file = uproot.open(files[file_n])
 tree = file['events']
 branches = tree.arrays()
+
 colors = ['red', 'magenta', 'blue', 'green']  
-# colors= [ROOT.kRed-5,ROOT.kAzure+6, ROOT.kGreen+2,ROOT.kMagenta+2]
-nevents = 10
+algs = ["anti-kt R=", "Durham-kt 4-jets mode"]
+rads = ["0.4 ", "0.7 ", "1.0 "," "]
+erecos = ["with energy recovery", "without energy recovery"," "]
+
+alg = 0
+rad = 1
+ereco = 0
+
 event_njet = branches["event_njet"]
+print(event_njet)
 print("length of event_njet prior to 4jet mask:", len(event_njet))
 
 jets_mask = event_njet==4
-mask = np.array(ak.count_nonzero(np.abs(branches["jets_truth"][jets_mask])==4, axis=1)==2)
-mask &= np.array(ak.count_nonzero(np.abs(branches["jets_truth"][jets_mask])==5, axis=1)==2)
-mask_c = np.abs(branches["jets_truth"][jets_mask][mask])==4
-mask_b = np.abs(branches["jets_truth"][jets_mask][mask])==5
+print("jets mask:", jets_mask)
+print("length jets mask:", len(jets_mask))
+def get_event_indices(array):
+    #initial index
+    arr = np.array(array)
+    event_idx=[]
+    for i,ar in enumerate(arr):
+        print(str(ar))
+        if ar == True:
+            event_idx.append(i)
+    return event_idx
 
-#all jet consituents from events with 4 jets 
-jc_phi = branches["jc_phi"][jets_mask][0]
-jc_theta = branches["jc_theta"][jets_mask][0]
-jc_e = branches["jc_e"][jets_mask][0]
+jet4events = branches["jets_truth"][jets_mask]
+mask = np.array(ak.count_nonzero(np.abs(jet4events)==4, axis=1)==2)
+mask &= np.array(ak.count_nonzero(np.abs(jet4events)==5, axis=1)==2)
+
+events_index = get_event_indices(mask)
+print("length of event index", len(events_index))
+print("events index mask:", events_index)
+
+print("mask length:", len(mask))
+print("mask: ",mask)
+
+
+b2c2events = jet4events[mask]
+# print(len(get_event_indices(b2c2events)))
+mask_c = np.abs(b2c2events)==4
+mask_b = np.abs(b2c2events)==5
 
 #jet constituents for jets from H
 jc_phi_H = branches["jc_phi"][jets_mask][mask][mask_b]
 jc_theta_H = branches["jc_theta"][jets_mask][mask][mask_b]
 jc_e_H = branches["jc_e"][jets_mask][mask][mask_b]
 
-maskc=[jets_mask][mask][mask_c]
 #jet constituents for jets from Z
 jc_phi_Z = branches["jc_phi"][jets_mask][mask][mask_c]
 jc_theta_Z = branches["jc_theta"][jets_mask][mask][mask_c]
@@ -43,14 +70,12 @@ jc_theta_data = []
 jc_phi_data = []
 jc_e_data = []
 
-
 #each list in jc_data contains 4 arrays of jet constituents
 jc_data = [jc_phi_data,jc_theta_data,jc_e_data]
 
 #each H and Z lsit contain 2 arrays of jet constituents 
 H_data = [jc_phi_H,jc_theta_H,jc_e_H]
 Z_data = [jc_phi_Z,jc_theta_Z,jc_e_Z]
-
 
 def get_particle_data(array, data_array):
     data1=[]
@@ -73,8 +98,8 @@ for i,data in enumerate(jc_data):
 
 marker_sizes = []
 scale = 13
-max_size=700
-min_size=10
+max_size=1000
+min_size=0.0001
 
 def get_marker_sizes(jc_energy):
     sizes = []
@@ -92,99 +117,73 @@ for jc_e in jc_e_data:
     marker_sizes.append(get_marker_sizes(jc_e))
     
 leng = 20
-def print_array(array):
-    i=0
-    # print(str(array))
-    for arr in array:
-        if i==leng:
-            print(arr)
-            # print(i)
-            # print("length of arr array:", len(arr))
-            print("done")
-        if i<leng:
-            print(arr)
-            # print(i)
-            # print("length of arr array:", len(arr))
 
-        i = i+1
+#define figure
+fig = plt.figure(figsize=(10, 6), tight_layout=True, dpi=200)
+ax = plt.subplot(1, 1, 1, aspect=1, xlim=[-np.pi, np.pi], ylim=[0, 3.8])
 
-# for i in range(len(jc_e_data[0])):
-#     # print(jc_e_data[0][i])
-#     print(jc_e_data[0][i])
+def reset_parameters(figure, axs):
+    # Set custom ticks and labels
+    axs.set_xticks([-np.pi, -np.pi / 2, 0, np.pi / 2, np.pi])
+    axs.set_xticklabels([r"$-\pi$", r"$-\pi/2$", "$0$", r"$+\pi/2$", r"$+\pi$"])
+    axs.set_yticks([0, np.pi / 2, np.pi])
+    axs.set_yticklabels(["$0$", r"$+\pi/2$", r"$+\pi$"])
+    axs.set_xlabel(r"$\mathbf{\phi}$")
+    axs.set_ylabel(r"$\mathbf{\theta}$")
 
-# print_array(marker_sizes[0])
-# print("lenght of marker sizes 0:", len(marker_sizes[0]))
+    # Customize spines
+    axs.spines.right.set_visible(False)
+    axs.spines.top.set_visible(False)
+    axs.spines.left.set_position(("data", -np.pi - 0.2))
+    axs.spines.left.set_bounds(0, np.pi)
+    axs.spines.bottom.set_position(("data", -0.2))
 
+reset_parameters(fig, ax)
 
 #define scatter function
-def get_scatter(phi, theta, markersize, color, transp, axs):
+def get_scatter(phi, theta, markersize, color, transp, label):
     phi = np.array(phi)
     theta = np.array(theta)
     markersize = np.array(markersize)
     colors1= []
     for i in range(len(phi)):
         colors1.append(color)
-    return axs.scatter(phi,theta,s=markersize, c=colors1, alpha=transp)
+    return ax.scatter(phi,theta,s=markersize, c=colors1, alpha=transp,label=label)
 
-#define figure
-fig = plt.figure(figsize=(10, 6), tight_layout=True, dpi=200)
-ax = plt.subplot(1, 1, 1, aspect=1, xlim=[-np.pi, np.pi], ylim=[0, 3.8])
+#define scatters function -- adds scatter plots to an array with their labels
+def get_scatters(ind,labels):
+    scatters = []
+    for j in range(4):
+        scatters.append(get_scatter(jc_phi_data[j][ind],jc_theta_data[j][ind], marker_sizes[j][ind], colors[j], transp,labels[j]))
+        # print("scatters array made: event"+str(ind))
+    return scatters
+
+#define legend function
+def get_legend(scatters): 
+    return ax.legend(handles=scatters[:4], loc="upper right", title="Jet flavor", ncol=1, markerscale=0.4)
+
+
+quarks = ["b","b","c","c"]
 
 #point transparency
 transp = 0.3
 
-# Set custom ticks and labels
-ax.set_xticks([-np.pi, -np.pi / 2, 0, np.pi / 2, np.pi])
-ax.set_xticklabels([r"$-\pi$", r"$-\pi/2$", "$0$", r"$+\pi/2$", r"$+\pi$"])
-ax.set_yticks([0, np.pi / 2, np.pi])
-ax.set_yticklabels(["$0$", r"$+\pi/2$", r"$+\pi$"])
-ax.set_xlabel(r"$\mathbf{\phi}$")
-ax.set_ylabel(r"$\mathbf{\theta}$")
 
-# Customize spines
-ax.spines.right.set_visible(False)
-ax.spines.top.set_visible(False)
-ax.spines.left.set_position(("data", -np.pi - 0.2))
-ax.spines.left.set_bounds(0, np.pi)
-ax.spines.bottom.set_position(("data", -0.2))
-
-
-
-for i in range(nevents):
-    get_scatter(jc_phi_data[i][0],jc_theta_data[i][0], marker_sizes[i][0], colors[0], transp, ax)
-    
-    get_scatter(jc_phi_data[i][1],jc_theta_data[i][1], marker_sizes[i][1], colors[1], transp, ax)
-
-    get_scatter(jc_phi_data[i][2],jc_theta_data[i][2], marker_sizes[i][2], colors[2], transp, ax)
-
-    get_scatter(jc_phi_data[i][3],jc_theta_data[i][3], marker_sizes[i][3], colors[3], transp, ax)
-
-    event_number = str(i)
+for i in range(dlength):
+    get_legend(get_scatters(i,quarks))
+    algo = algs[alg]
+    radi = rads[rad]
+    wreco = erecos[ereco]
+    eventn = str(events_index[i]+1)
+    event_number = str(i+1)
+    ax.set_title("H(bb)Z(cc) event "+eventn+", "+algo+radi+wreco, loc='left',
+                fontdict={'fontweight':'bold'})
+                # , y=1.03)
     plt.show()
-    plt.savefig("/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/plots/antikt/noreco/1event"+event_number+
+    plt.savefig("/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/plots/eventdisplays/antikt/ereco/07event"+event_number+
     ".png")
-    plt.close()
-
-
-
-
-
-# def print_array_length(array):
-    # i=0
-    # # print(str(array))
-    # for arr in array:
-    #     if i==leng:
-    #         for a in arr:
-    #             print("length of a array:", len(a))
-    #             print("a:",a)
-    #         print("arr:", arr)
-    #         print(i)
-    #         print("done")
-    #     if i<leng:
-    #         for a in arr:
-    #             print("length of a array:", len(a))
-    #             print("a:",a)
-    #         print("arr:", arr)
-    #         print(i)
-
-    #     i = i+1
+    print("plot"+event_number+
+    ".png made")
+    fig = plt.figure(figsize=(10, 6), tight_layout=True, dpi=200)
+    ax = plt.subplot(1, 1, 1, aspect=1, xlim=[-np.pi, np.pi], ylim=[0, 3.8])
+    reset_parameters(fig, ax)

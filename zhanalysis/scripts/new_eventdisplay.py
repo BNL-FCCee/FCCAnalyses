@@ -143,6 +143,12 @@ get_scatter(jc_phi_data[1][2],jc_theta_data[1][2], marker_sizes[1][2], colors[1]
 get_scatter(jc_phi_data[2][2],jc_theta_data[2][2], marker_sizes[2][2], colors[2], transp, ax)
 get_scatter(jc_phi_data[3][2],jc_theta_data[3][2], marker_sizes[3][2], colors[3], transp, ax)
 
+
+get_scatter(jc_phi_data[0][2],jc_theta_data[0][2], marker_sizes[0][2], colors[0], transp, ax)
+get_scatter(jc_phi_data[1][2],jc_theta_data[1][2], marker_sizes[1][2], colors[1], transp, ax)
+get_scatter(jc_phi_data[2][2],jc_theta_data[2][2], marker_sizes[2][2], colors[2], transp, ax)
+get_scatter(jc_phi_data[3][2],jc_theta_data[3][2], marker_sizes[3][2], colors[3], transp, ax)
+
 plt.show()
 plt.savefig("/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/plots/test8.png")
 plt.close()

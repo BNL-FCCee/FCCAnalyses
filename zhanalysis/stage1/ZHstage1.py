@@ -49,16 +49,16 @@ alg = 0
 sort = 1
 
 #apply energy recovery -- for inclusive-- 0-apply energy reco, 1-do not apply reco 
-reco = 1
+reco = 0
 
 #energy cut to PseudoJets
-ecut = 10
+ecut = 20
 
 #variables used for reference in other files
 vars = [njets, rad, alg, sort, reco, ecut]
 
 # outputDir  = f"/usatlas/atlas01/atlasdisk/users/aconnelly/IzaFCCAnalysis/{JobName}/Stage1/"
-outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/root/"
+outputDir  = "/usatlas/u/aconnelly/IzaFCCAnalysis/zhanalysis/root/jcfiles"
 
 processList = {
  # # Hadronic ZH
